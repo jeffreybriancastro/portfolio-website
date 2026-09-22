@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Review screenshots: regenerated on every design pass, ~1MB each
+.impeccable/review/
+
+# Per-machine Impeccable settings
+.impeccable/config.local.json
+
+# Vercel CLI link state
+.vercel/
+
+node_modules/

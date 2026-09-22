@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Automation workflow case study | Jeffrey Brian Castro</title>
+<meta name="description" content="How a custom n8n automation workflow is built — triggers, validation, routing, retries — and wired into GoHighLevel, Sheets, and Slack." />
+<link rel="canonical" href="https://YOUR-DOMAIN.com/work/automation-workflow.html" />
+<meta name="theme-color" content="#F6F4FB" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#100D1A" media="(prefers-color-scheme: dark)" />
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Jeffrey Brian Castro" />
+<meta property="og:url" content="https://YOUR-DOMAIN.com/work/automation-workflow.html" />
+<meta property="og:title" content="Automation workflow build — case study" />
+<meta property="og:description" content="How a manual morning job becomes an n8n workflow that runs on a trigger, validates its own input, and reports when it fails." />
+<meta property="og:image" content="https://YOUR-DOMAIN.com/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Jeffrey Brian Castro — websites, funnels, CRM and automation." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Automation workflow build — case study" />
+<meta name="twitter:description" content="How a manual morning job becomes an n8n workflow that runs on a trigger, validates its own input, and reports when it fails." />
+<meta name="twitter:image" content="https://YOUR-DOMAIN.com/og.png" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FF6B2C'/%3E%3Ctext x='32' y='43' font-family='Arial, sans-serif' font-weight='800' font-size='30' fill='%2314121F' text-anchor='middle'%3EJC%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<link rel="stylesheet" href="../css/case-study.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<svg class="icon-sprite" aria-hidden="true" style="display:none">
+  <symbol id="i-website" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r=".6" fill="currentColor" stroke="none"/><circle cx="9" cy="6.5" r=".6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-funnel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16l-6 8v6l-4 2v-8L4 4z"/></symbol>
+  <symbol id="i-crm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="8" r="2.4"/><path d="M3 20c0-3 2.5-5.5 5.5-5.5S14 17 14 20"/><path d="M14.5 20c.3-2.2 1.9-4 3.9-4 2.2 0 4.1 1.8 4.1 4"/></symbol>
+  <symbol id="i-automation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="4.5" cy="17.5" r="2"/><circle cx="12" cy="6.5" r="2"/><circle cx="19.5" cy="17.5" r="2"/><path d="M6 16.2 10.5 8.3M13.5 8.3 18 16.2"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 5v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3M4 19v-4h4"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 6.5 8 6.5 8-6.5"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8.5" r="1.2" fill="currentColor" stroke="none"/><path d="M8 11v6M12 17v-4c0-1.7 1.2-2.5 2.5-2.5S17 11.3 17 13v4"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-form" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16.9v2.2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.4 2 2 0 0 1 3.1 1.2h2.2a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L6.6 8.9a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 0 0-12 0c0 6-2.5 7-2.5 7h17S18 15 18 9"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.5h18M3 15h18M9 9.5V20M15 9.5V20"/></symbol>
+  <symbol id="i-split" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h5l4-6h5M8 12l4 6h5"/><path d="M17 3l3 3-3 3M17 15l3 3-3 3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2a2 2 0 0 1-.6-1.4V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.4 7.4a2 2 0 0 1 0 2.8z"/><circle cx="7.6" cy="7.6" r="1.2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><path d="M8 16v-4M12.5 16V7.5M17 16v-6"/></symbol>
+</svg>
+
+<div class="app">
+
+  <!-- Mobile top bar -->
+  <div class="topbar">
+    <div class="topbar-id">
+      <span class="mark">JC</span>
+      <span class="topbar-name">Jeffrey Castro</span>
+    </div>
+    <button class="icon-btn" id="menuToggle" aria-expanded="false" aria-controls="sidebar" aria-label="Open menu">
+      <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+    </button>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" data-open="false">
+    <div class="sidebar-top">
+      <button class="icon-btn sidebar-close" id="menuClose" aria-label="Close menu">
+        <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+
+      <div class="profile">
+        <div class="mark mark-lg" aria-hidden="true">JC</div>
+        <p class="profile-name">Jeffrey Brian Castro</p>
+        <p class="profile-role">Websites · Funnels · CRM · Automation</p>
+        <p class="status"><span class="status-dot"></span>Open for new projects</p>
+      </div>
+
+      <div class="social-row">
+        <a class="social-btn" href="mailto:you@yourdomain.com" aria-label="Email">
+          <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+        </a>
+        <a class="social-btn" href="#" aria-label="LinkedIn">
+          <svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html#hero" class="nav-link">Home</a>
+      <a href="../index.html#services" class="nav-link">Services</a>
+      <a href="../index.html#projects" class="nav-link is-active">Projects</a>
+      <a href="../index.html#about" class="nav-link">About</a>
+      <a href="../index.html#testimonials" class="nav-link">Testimonials</a>
+      <a href="../index.html#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
+      </button>
+      <p class="sidebar-copyright">© 2026 Jeffrey Brian Castro</p>
+    </div>
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <!-- Main -->
+  <main id="main">
+
+    <div class="cs-head">
+      <a class="cs-back cs-rise" href="../index.html#projects" style="--d: 0.02s">
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+        All work
+      </a>
+      <h1 class="cs-title cs-rise" style="--d: 0.08s">Automation workflow build for [client name]</h1>
+      <p class="cs-outcome cs-rise" style="--d: 0.16s">A job that used to be somebody’s morning now runs on a trigger, validates its own input, and reports when it fails.</p>
+      <p class="cs-frame cs-rise" style="--d: 0.22s">A walkthrough of how this build is put together. Client names and numbers drop in as clients sign off on them.</p>
+      <dl class="cs-facts cs-rise" style="--d: 0.28s">
+        <div>
+          <dt class="cs-fact-label">Service</dt>
+          <dd class="cs-fact-value">Automation workflow build</dd>
+        </div>
+        <div>
+          <dt class="cs-fact-label">What it covers</dt>
+          <dd class="cs-fact-value">Triggers, validation, routing, retries</dd>
+        </div>
+        <div>
+          <dt class="cs-fact-label">Runs on</dt>
+          <dd class="cs-fact-value">n8n</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- The system that got built -->
+    <section class="sysmap-block" aria-labelledby="system-heading">
+      <h2 class="card-heading cs-rise" id="system-heading" style="--d: 0.34s">The system that got built</h2>
+
+      <div class="sysmap" data-sysmap style="--cols: 3"
+           data-edges='[{"from":"webhook","to":"validate"},{"from":"schedule","to":"validate"},{"from":"ghlnew","to":"validate"},{"from":"validate","to":"router"},{"from":"router","to":"ghl"},{"from":"router","to":"sheet"},{"from":"router","to":"slack"},{"from":"router","to":"retry"},{"from":"retry","to":"validate","feedback":true}]'
+           data-route='["webhook","validate","router","ghl"]'>
+        <svg class="sysmap-edges" aria-hidden="true"></svg>
+        <div class="sysnode sysnode-live" data-node="webhook" style="--col: 1; --row: 1">
+          <svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg>
+          <div>
+            <p class="sysnode-name">Webhook</p>
+            <p class="sysnode-meta">Called by the upstream system</p>
+          </div>
+        </div>
+        <div class="sysnode" data-node="schedule" style="--col: 1; --row: 2">
+          <svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>
+          <div>
+            <p class="sysnode-name">Scheduled run</p>
+            <p class="sysnode-meta">Fires on its own interval</p>
+          </div>
+        </div>
+        <div class="sysnode" data-node="ghlnew" style="--col: 1; --row: 3">
+          <svg class="icon" aria-hidden="true"><use href="#i-crm"/></svg>
+          <div>
+            <p class="sysnode-name">New GoHighLevel contact</p>
+            <p class="sysnode-meta">Triggers on contact create</p>
+          </div>
+        </div>
+        <div class="sysnode sysnode-live" data-node="validate" style="--col: 2; --row: 2">
+          <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+          <div>
+            <p class="sysnode-name">Validate and enrich</p>
+            <p class="sysnode-meta">Bad input stops here, loudly</p>
+          </div>
+        </div>
+        <div class="sysnode" data-node="retry" style="--col: 2; --row: 4">
+          <svg class="icon" aria-hidden="true"><use href="#i-loop"/></svg>
+          <div>
+            <p class="sysnode-name">Retry on failure</p>
+            <p class="sysnode-meta">Backoff, then hand it to a human</p>
+          </div>
+        </div>
+        <div class="sysnode sysnode-live" data-node="router" style="--col: 3; --row: 2">
+          <svg class="icon" aria-hidden="true"><use href="#i-split"/></svg>
+          <div>
+            <p class="sysnode-name">Route by condition</p>
+            <p class="sysnode-meta">One branch per case</p>
+          </div>
+        </div>
+        <div class="sysnode sysnode-live" data-node="ghl" style="--col: 3; --row: 3">
+          <svg class="icon" aria-hidden="true"><use href="#i-crm"/></svg>
+          <div>
+            <p class="sysnode-name">GoHighLevel</p>
+            <p class="sysnode-meta">Contact, tag, or pipeline update</p>
+          </div>
+        </div>
+        <div class="sysnode" data-node="sheet" style="--col: 3; --row: 4">
+          <svg class="icon" aria-hidden="true"><use href="#i-sheet"/></svg>
+          <div>
+            <p class="sysnode-name">Google Sheets</p>
+            <p class="sysnode-meta">Appends the run’s row</p>
+          </div>
+        </div>
+        <div class="sysnode" data-node="slack" style="--col: 3; --row: 5">
+          <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>
+          <div>
+            <p class="sysnode-name">Slack alert</p>
+            <p class="sysnode-meta">Only when a human is needed</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The detail -->
+    <section class="cs-grid" aria-label="Project detail">
+
+      <article class="card cs-card-problem">
+        <h2 class="card-heading">The problem</h2>
+        <p class="cs-copy">Someone opens a laptop every morning and moves the same data between the same three tools. It takes an hour, it gets skipped whenever they are away, and when it goes wrong nobody finds out until a customer does.</p>
+      </article>
+
+      <article class="card cs-card-build">
+        <h2 class="card-heading">What I built</h2>
+        <ul class="cs-list">
+          <li class="cs-list-item">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span>An n8n workflow with one branch per real case</span>
+          </li>
+          <li class="cs-list-item">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span>A webhook, a schedule, or a new contact as the entry point</span>
+          </li>
+          <li class="cs-list-item">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span>Input validation that fails loudly, not silently</span>
+          </li>
+          <li class="cs-list-item">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span>Enrichment before anything downstream runs</span>
+          </li>
+          <li class="cs-list-item">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span>Conditional routing, so each case does only what it needs</span>
+          </li>
+          <li class="cs-list-item">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span>Retry with backoff, then a Slack alert to a human</span>
+          </li>
+          <li class="cs-list-item">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span>Writes back to GoHighLevel, Sheets, and Slack</span>
+          </li>
+          <li class="cs-list-item">
+            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span>Run logging, so a failed run can be traced</span>
+          </li>
+        </ul>
+      </article>
+
+      <article class="card cs-card-wiring">
+        <h2 class="card-heading">How it’s wired</h2>
+        <ol class="process-list">
+          <li class="process-step">
+            <span class="process-index" aria-hidden="true">1</span>
+            <div>
+              <p class="process-name">Trigger</p>
+              <p class="process-desc">The run starts from a webhook, a schedule, or a new contact rather than from someone remembering — that is the whole point of the build.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-index" aria-hidden="true">2</span>
+            <div>
+              <p class="process-name">Validate</p>
+              <p class="process-desc">Input is checked before anything downstream runs, so bad data fails in one place instead of corrupting three systems.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-index" aria-hidden="true">3</span>
+            <div>
+              <p class="process-name">Route</p>
+              <p class="process-desc">Conditions split the run into one branch per case, each doing only what that case needs.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-index" aria-hidden="true">4</span>
+            <div>
+              <p class="process-name">Recover</p>
+              <p class="process-desc">Failures loop back through validation with backoff; if they still fail, a Slack alert names the run so a human can pick it up. Silent failure is the thing being designed out.</p>
+            </div>
+          </li>
+        </ol>
+      </article>
+
+      <article class="card cs-card-result">
+        <h2 class="card-heading">The result</h2>
+        <div class="stat-row">
+          <div class="stat">
+            <p class="stat-value">[X] hrs</p>
+            <p class="stat-label">manual work removed per week</p>
+          </div>
+        </div>
+        <dl class="cs-engagement">
+          <div>
+            <dt>Timeline</dt>
+            <dd>[X weeks]</dd>
+          </div>
+          <div>
+            <dt>Hosted on</dt>
+            <dd>[self-hosted or n8n cloud]</dd>
+          </div>
+        </dl>
+      </article>
+
+    </section>
+
+    <div class="cs-stack stack-strip" aria-label="Tools used on this build">
+      <ul class="stack-pills">
+            <li class="pill"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg>n8n</li>
+            <li class="pill"><svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg>Zapier</li>
+            <li class="pill"><svg class="icon" aria-hidden="true"><use href="#i-loop"/></svg>Make</li>
+            <li class="pill"><svg class="icon" aria-hidden="true"><use href="#i-crm"/></svg>GoHighLevel</li>
+      </ul>
+    </div>
+
+    <!-- Close -->
+    <section class="cs-close" aria-label="Keep going">
+
+      <article class="card cs-more">
+        <h2 class="card-heading">Other work</h2>
+        <div class="cs-more-list">
+          <a class="cs-more-link" href="website-build.html">
+            <svg class="icon" aria-hidden="true"><use href="#i-website"/></svg>
+            <span>
+              <span class="cs-more-name">Websites</span>
+              <span class="cs-more-desc">Site built and wired into the CRM</span>
+            </span>
+            <svg class="icon cs-more-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="cs-more-link" href="sales-funnel.html">
+            <svg class="icon" aria-hidden="true"><use href="#i-funnel"/></svg>
+            <span>
+              <span class="cs-more-name">Sales funnels</span>
+              <span class="cs-more-desc">Opt-in to booked call, automated</span>
+            </span>
+            <svg class="icon cs-more-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="cs-more-link" href="ghl-crm-setup.html">
+            <svg class="icon" aria-hidden="true"><use href="#i-crm"/></svg>
+            <span>
+              <span class="cs-more-name">CRM setup</span>
+              <span class="cs-more-desc">Every lead source on one record</span>
+            </span>
+            <svg class="icon cs-more-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card card-contact">
+        <h2 class="card-heading">Want this build?</h2>
+        <p class="card-copy">Tell me what you're trying to build, and I'll tell you how to get there.</p>
+        <a class="btn btn-primary" href="../index.html#contact">Get in touch <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+
+    </section>
+
+    <footer class="site-footer">
+      <p>© 2026 Jeffrey Brian Castro. All rights reserved.</p>
+    </footer>
+
+  </main>
+</div>
+
+<script src="../js/main.js"></script>
+<script src="../js/sysmap.js"></script>
+</body>
+</html>

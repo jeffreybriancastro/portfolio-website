@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-19T00:00:00Z",
+  "title": "Design System: Jeffrey Brian Castro — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "neutral-bg": { "role": "neutral", "displayName": "Lavender Paper", "canonical": "#F6F4FB", "tonalRamp": ["#100D1A", "#181425", "#201A30", "#2C2640", "#EDEAF7", "#F6F4FB", "#FAF9FD", "#FFFFFF"] },
+      "surface": { "role": "neutral", "displayName": "Card White", "canonical": "#FFFFFF", "tonalRamp": ["#181425", "#201A30", "#2C2640", "#8C84A8", "#C2BBD9", "#E2DEF0", "#F6F4FB", "#FFFFFF"] },
+      "surface-alt": { "role": "neutral", "displayName": "Lavender Tint", "canonical": "#EDEAF7", "tonalRamp": ["#201A30", "#2C2640", "#3A3350", "#8C84A8", "#C2BBD9", "#DCD6EC", "#EDEAF7", "#F6F4FB"] },
+      "ink": { "role": "neutral", "displayName": "Ink Navy", "canonical": "#14121F", "tonalRamp": ["#0A0910", "#14121F", "#201D30", "#3A3550", "#514B69", "#8C84A8", "#C2BBD9", "#F4F2FA"] },
+      "ink-soft": { "role": "neutral", "displayName": "Soft Navy", "canonical": "#514B69", "tonalRamp": ["#14121F", "#201D30", "#332E4A", "#514B69", "#6B6480", "#8C84A8", "#C2BBD9", "#EDEAF7"] },
+      "ink-faint": { "role": "neutral", "displayName": "Faint Navy", "canonical": "#6B6480", "tonalRamp": ["#201D30", "#332E4A", "#514B69", "#6B6480", "#8C84A8", "#A6A0BC", "#C2BBD9", "#EDEAF7"] },
+      "accent": { "role": "primary", "displayName": "Signal Amber", "canonical": "#FF6B2C", "tonalRamp": ["#5C2408", "#8A360C", "#B84810", "#E85A1F", "#FF6B2C", "#FF9257", "#FFC099", "#FFE7D6"] },
+      "accent-strong": { "role": "primary", "displayName": "Signal Amber, Deep", "canonical": "#E85A1F", "tonalRamp": ["#4A1D07", "#742D0B", "#A03E0F", "#C54E17", "#E85A1F", "#FF7A3D", "#FFA671", "#FFD6BA"] },
+      "accent-soft": { "role": "primary", "displayName": "Signal Amber, Soft", "canonical": "#FFE7D6", "tonalRamp": ["#3A2113", "#5C331D", "#8A4C2A", "#C57641", "#FF6B2C", "#FFB98C", "#FFD6BA", "#FFE7D6"] },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#E2DEF0", "tonalRamp": ["#181425", "#2C2640", "#403A5C", "#8C84A8", "#C2BBD9", "#DCD6EC", "#E2DEF0", "#F6F4FB"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The single hero headline (h1) only." },
+      "title": { "displayName": "Card Title", "purpose": "Every bento card heading (h2)." },
+      "body": { "displayName": "Body", "purpose": "Hero subhead and card copy." },
+      "label": { "displayName": "Label", "purpose": "Nav links, pill labels, item names, fact values, system-map node names." },
+      "micro": { "displayName": "Micro", "purpose": "The step below Label (0.78-0.85rem): stat and fact labels, card notes, project/process/service descriptions, node meta. Always on --ink-soft or --ink-faint." },
+      "mono-accent": { "displayName": "Mono Accent", "purpose": "About-card stat values only." }
+    },
+    "shadows": [
+      { "name": "ambient-rest-button", "value": "0 1px 2px hsl(var(--shadow-color) / 0.15)", "purpose": "Default near-invisible shadow under primary buttons." },
+      { "name": "ambient-rest-card", "value": "0 1px 2px hsl(var(--shadow-color) / 0.04)", "purpose": "Default near-invisible shadow under bento cards." },
+      { "name": "hover-lift-button", "value": "0 10px 24px -8px hsl(var(--shadow-color) / 0.35)", "purpose": "Structural shadow on button hover, paired with translateY(-2px)." },
+      { "name": "hover-lift-card", "value": "0 20px 40px -20px hsl(var(--shadow-color) / 0.25)", "purpose": "Structural shadow on card hover, paired with translateY(-3px)." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing for every hover/state transition and the sidebar drawer slide." },
+      { "name": "rise-in", "value": "@keyframes rise-in { from { opacity:0; transform: translateY(16px);} to { opacity:1; transform: translateY(0);} }", "purpose": "One-time staggered hero entrance (headline, subhead, actions, tool-strip); nothing below the fold animates." },
+      { "name": "cs-head-stagger", "value": "animation: rise-in 0.6s var(--ease-out-expo) both; animation-delay: var(--d)", "purpose": "Case-study head entrance: back-link, title, outcome, framing line, fact strip at 0.02/0.08/0.16/0.22/0.28s, map heading at 0.34s." },
+      { "name": "sysmap-route-draw", "value": "path.animate([{strokeDashoffset: len},{strokeDashoffset: 0}], { duration: 1150, delay: 260, easing: \"cubic-bezier(0.16, 1, 0.3, 1)\", fill: \"forwards\" })", "purpose": "The one authored gesture on a case-study surface: the amber live path draws itself once through the system map. Skipped (drawn complete) under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "lists-to-single-column", "value": "1040px" },
+      { "name": "sidebar-to-drawer", "value": "900px" },
+      { "name": "hero-actions-stack", "value": "480px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA, amber fill, used for 'Get in touch' in the hero and the Contact card.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#contact\">Get in touch <svg class=\"ds-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font-weight: 600; font-size: 0.95rem; background: #FF6B2C; color: #14121F; box-shadow: 0 1px 2px rgba(20,18,31,0.15); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s cubic-bezier(0.16,1,0.3,1), background 0.2s; } .ds-btn-primary .ds-icon { width: 16px; height: 16px; transition: transform 0.25s cubic-bezier(0.16,1,0.3,1); } .ds-btn-primary:hover { background: #E85A1F; transform: translateY(-2px); box-shadow: 0 10px 24px -8px rgba(20,18,31,0.35); } .ds-btn-primary:hover .ds-icon { transform: translateX(3px); } .ds-btn-primary:focus-visible { outline: 2.5px solid #FF6B2C; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary hero action, transparent with hairline border.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#projects\">See the work</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; padding: 13px 22px; border-radius: 999px; font-weight: 600; font-size: 0.95rem; background: transparent; color: #14121F; border: 1px solid #E2DEF0; transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), background 0.2s; } .ds-btn-ghost:hover { background: #EDEAF7; transform: translateY(-2px); } .ds-btn-ghost:focus-visible { outline: 2.5px solid #FF6B2C; outline-offset: 3px; }"
+    },
+    {
+      "name": "Tool Pill",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Tool-stack proof chip; one distinct icon per tool (no shared/repeated glyph).",
+      "html": "<span class=\"ds-pill\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"4.5\" cy=\"17.5\" r=\"2\"/><circle cx=\"12\" cy=\"6.5\" r=\"2\"/><circle cx=\"19.5\" cy=\"17.5\" r=\"2\"/><path d=\"M6 16.2 10.5 8.3M13.5 8.3 18 16.2\"/></svg>n8n</span>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px 9px 12px; background: #FFFFFF; border: 1px solid #E2DEF0; border-radius: 999px; font-size: 0.86rem; font-weight: 500; color: #514B69; } .ds-pill .ds-icon { width: 16px; height: 16px; color: #E85A1F; }"
+    },
+    {
+      "name": "Bento Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Standard bento-grid card; column span varies (1 or 2) to keep the grid asymmetric.",
+      "html": "<article class=\"ds-card\"><h2 class=\"ds-card-heading\">What I build</h2><p class=\"ds-card-copy\">Fast, on-brand sites that turn visitors into leads.</p></article>",
+      "css": ".ds-card { background: #FFFFFF; border: 1px solid #E2DEF0; border-radius: 24px; padding: 30px; box-shadow: 0 1px 2px rgba(20,18,31,0.04); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.35s; } .ds-card:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -20px rgba(20,18,31,0.25); border-color: #FFC099; } .ds-card-heading { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; } .ds-card-copy { color: #514B69; margin-top: 10px; font-size: 0.95rem; line-height: 1.55; }"
+    },
+    {
+      "name": "System Map Node",
+      "kind": "custom",
+      "refersTo": "sysnode",
+      "description": "A box in the case-study system map. Flat at rest and flat on hover: it is a diagram element, not a control. The -live variant marks nodes the amber route runs through.",
+      "html": "<div class=\"ds-sysnode ds-sysnode-live\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"8\" cy=\"8\" r=\"3\"/><circle cx=\"17\" cy=\"8\" r=\"2.4\"/><path d=\"M3 20c0-3 2.5-5.5 5.5-5.5S14 17 14 20\"/><path d=\"M14.5 20c.3-2.2 1.9-4 3.9-4 2.2 0 4.1 1.8 4.1 4\"/></svg><div><p class=\"ds-sysnode-name\">Contact created and tagged</p><p class=\"ds-sysnode-meta\">Tagged with the page it came from</p></div></div>",
+      "css": ".ds-sysnode { display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E2DEF0; border-radius: 16px; padding: 15px 16px; box-shadow: 0 1px 2px rgba(20,18,31,0.04); } .ds-sysnode .ds-icon { width: 20px; height: 20px; color: #514B69; flex-shrink: 0; } .ds-sysnode-name { font-size: 0.9rem; font-weight: 600; line-height: 1.35; margin: 0; } .ds-sysnode-meta { margin: 3px 0 0; font-size: 0.8rem; color: #514B69; line-height: 1.45; } .ds-sysnode-live { border-color: color-mix(in srgb, #FF6B2C 50%, #E2DEF0); } .ds-sysnode-live .ds-icon { color: #E85A1F; }"
+    },
+    {
+      "name": "System Map",
+      "kind": "custom",
+      "refersTo": "sysnode",
+      "description": "The case-study signature: nodes on the page ground (never inside a card) with measured SVG edges between them and one continuous amber route along the path a record actually travels. Dashed edges run back upstream.",
+      "html": "<div class=\"ds-sysmap\" style=\"--cols:3\"><svg class=\"ds-sysmap-edges\" viewBox=\"0 0 620 190\" aria-hidden=\"true\"><path class=\"ds-sysmap-edge\" d=\"M212 140C250 140 250 95 288 95\"/><path class=\"ds-sysmap-edge ds-sysmap-edge-feedback\" d=\"M470 95C440 150 250 165 212 140\"/><path class=\"ds-sysmap-route\" d=\"M212 45C250 45 250 95 288 95C330 95 350 95 392 95\"/></svg><div class=\"ds-sysnode ds-sysnode-live\" style=\"grid-column:1;grid-row:1\"><div><p class=\"ds-sysnode-name\">Form submitted</p><p class=\"ds-sysnode-meta\">Posts straight to the CRM</p></div></div><div class=\"ds-sysnode\" style=\"grid-column:1;grid-row:2\"><div><p class=\"ds-sysnode-name\">Booking request</p><p class=\"ds-sysnode-meta\">Calendar on the site</p></div></div><div class=\"ds-sysnode ds-sysnode-live\" style=\"grid-column:2;grid-row:2\"><div><p class=\"ds-sysnode-name\">Contact tagged</p><p class=\"ds-sysnode-meta\">Owner assigned on entry</p></div></div><div class=\"ds-sysnode ds-sysnode-live\" style=\"grid-column:3;grid-row:2\"><div><p class=\"ds-sysnode-name\">Auto-reply sent</p><p class=\"ds-sysnode-meta\">Fires on submit</p></div></div></div>",
+      "css": ".ds-sysmap { position: relative; display: grid; grid-template-columns: repeat(var(--cols,3), minmax(0,1fr)); column-gap: 62px; row-gap: 16px; align-items: center; } .ds-sysmap-edges { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; } .ds-sysmap-edge { fill: none; stroke: #E2DEF0; stroke-width: 1.5; stroke-linecap: round; } .ds-sysmap-edge-feedback { stroke-dasharray: 3 5; } .ds-sysmap-route { fill: none; stroke: #FF6B2C; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .ds-sysmap .ds-sysnode { position: relative; z-index: 1; display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E2DEF0; border-radius: 16px; padding: 15px 16px; box-shadow: 0 1px 2px rgba(20,18,31,0.04); } .ds-sysmap .ds-sysnode-name { font-size: 0.9rem; font-weight: 600; line-height: 1.35; margin: 0; } .ds-sysmap .ds-sysnode-meta { margin: 3px 0 0; font-size: 0.8rem; color: #514B69; line-height: 1.45; } .ds-sysmap .ds-sysnode-live { border-color: color-mix(in srgb, #FF6B2C 50%, #E2DEF0); }"
+    },
+    {
+      "name": "Sidebar Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Vertical rail nav link; active state syncs to scroll position.",
+      "html": "<a class=\"ds-nav-link ds-nav-link-active\" href=\"#hero\">Home</a>",
+      "css": ".ds-nav-link { display: block; padding: 11px 14px; border-radius: 10px; font-size: 0.92rem; font-weight: 500; color: #514B69; transition: background 0.2s cubic-bezier(0.16,1,0.3,1), color 0.2s; } .ds-nav-link:hover { background: #EDEAF7; color: #14121F; } .ds-nav-link-active { background: #EDEAF7; color: #14121F; font-weight: 600; } .ds-nav-link:focus-visible { outline: 2.5px solid #FF6B2C; outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Operator's Dashboard",
+    "overview": "The site reads like a single operator's own client-ops console, not a marketing brochure: a fixed identity-and-nav rail on the left, a free-flowing proof surface on the right. The ground is a warm, lavender-tinted off-white (never stark white-on-white), ink is a near-black navy rather than true black, and exactly one warm amber accent carries every call-to-action and live-state signal. Depth stays ambient — flat at rest, lifting only on hover — so the interface feels calm until touched. The bento grid beneath the hero is deliberately uneven: services and projects run two columns wide, process and about run one, testimonials run two again. This is a corrected system: the shipped build replaced an earlier uniform icon-card layout and a five-times-repeated gear glyph with a differentiated composition and a distinct drawn icon per tool. Nothing in the visual language uses kicker/eyebrow labels, decorative numbering, glyph icon fonts, or nested card-in-card chrome — all four are explicit refusals carried from the direction contract and confirmed absent in the shipped markup.",
+    "keyCharacteristics": [
+      "Lavender-warm neutral ground with near-black navy ink, never pure white/black",
+      "One committed amber accent (#FF6B2C), reserved for action and live-state",
+      "Fixed sidebar rail + fluid content column, collapsing to a slide-in drawer under 900px",
+      "Asymmetric bento card grid (2/2/2/1/1/1 column spans), not uniform tiles",
+      "Drawn stroke-based line icons only, one distinct glyph per concept, sprite-sheeted",
+      "Case-study surfaces state their proof as a drawn system map with one amber live path"
+    ],
+    "rules": [
+      { "name": "The Single Accent Rule", "body": "Amber (#FF6B2C/#E85A1F) is the only saturated color on the page. It appears only on calls-to-action, active/live-state indicators, icon accents on the tool pills, and focus rings. Its soft tint (#FFE7D6) is the sole exception, used once as a card wash, not repeated as a background pattern.", "section": "colors" },
+      { "name": "The Two-Weight, Two-Family Rule", "body": "Outfit carries every word on the page. Space Mono appears in exactly two places — stat values and process-step indices — as a numeric, technical counterpoint. It never carries prose or headings.", "section": "typography" },
+      { "name": "The Hover-Only Lift Rule", "body": "Nothing casts a meaningful shadow at rest. Structural shadow and vertical lift appear together, only on hover/focus, on buttons, cards, and social icons alike.", "section": "elevation" },
+      { "name": "The Six-Step Ramp Rule", "body": "The type ramp is Display, Title, Body, Prose (0.9-0.92rem), Label (0.86-0.95rem), Micro (0.78-0.85rem), plus the two Space Mono numerals. Micro is a real, long-standing step, not drift: it carries every supporting label on the site. New surfaces pick a step from this list; they do not invent a seventh size.", "section": "typography" },
+      { "name": "The Italic-Means-Pending Rule", "body": "Italic prose (.placeholder-text, 0.9rem) means the content is bracketed and still waiting on a client. Finished, written prose is roman (.cs-copy). A paragraph that is done must not be dressed as pending, and bracketed copy must not be dressed as done. Quotations are the one unrelated italic use.", "section": "typography" },
+      { "name": "The Measured Edge Rule", "body": "Edges are measured, never implied. js/sysmap.js reads the real node boxes and emits an SVG path between the specific nodes that connect; a column gutter with no path in it is not an edge, and a grid of nodes without drawn connections is a card grid mislabelled as a diagram.", "section": "components" },
+      { "name": "The Single-Column Lane Rule", "body": "When the map collapses to one column (900px), every edge bows out into a lane beside the stack rather than running straight down it. A straight line between two stacked nodes crosses whatever sits between them, which on a fan-in makes the amber route appear to pass through parallel sources it never visits. The lane costs a bend and keeps the graph true.", "section": "components" }
+    ],
+    "dos": [
+      "Do reserve amber (#FF6B2C/#E85A1F) for CTAs, active/live-state marks, focus rings, and icon accents; keep it off large surface fills except the one Contact-card soft-tint exception.",
+      "Do keep the hero headline as the page's single <h1>; every bento card heading is an <h2>.",
+      "Do give every distinct tool, service, or capability its own distinct line icon from the sprite; never reuse one glyph to stand in for multiple items.",
+      "Do vary bento card column-span to keep the grid asymmetric (2/2/2/1/1/1); never let it settle into uniform same-size tiles.",
+      "Do stagger only the hero's first-viewport elements on load (headline → subhead → actions → tool-strip); render below-the-fold content already settled, with no repeated scroll-triggered fades.",
+      "Do keep shadows near-invisible at rest and structural only on hover, on the shared --ease-out-expo easing.",
+      "Do draw a system map on the page ground with measured SVG edges, one amber route, and flat non-lifting nodes; give each map its own --cols/--gap rather than a new stylesheet.",
+      "Do pick a type size from the six-step ramp, Micro (0.78-0.85rem) included, and keep Micro on --ink-soft/--ink-faint.",
+      "Do set finished prose roman and reserve italic (.placeholder-text) for genuinely bracketed, client-pending content."
+    ],
+    "donts": [
+      "Don't add kicker/eyebrow labels above headings or sections anywhere in the system.",
+      "Don't add decorative section numbering (e.g. 01–05 style markers); the process list's numbers are functional sequence indicators, not decoration, and that distinction should hold.",
+      "Don't nest a card inside another card's chrome; each bento cell is a single flat bordered surface.",
+      "Don't introduce a second type family for prose or headings; Space Mono is reserved for the two numeric proof-of-work moments only.",
+      "Don't give system-map nodes a hover lift, hover border shift, or link affordance; they are diagram elements, and nothing in the map is clickable.",
+      "Don't imply a connection with a gap, a divider, or an aligned column; if two nodes connect, a measured path is drawn between them.",
+      "Don't wrap a system map inside a card - the nodes are the surfaces, and the card-in-card refusal still holds."
+    ]
+  }
+}

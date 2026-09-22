@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #F6F4FB;
+    color: #14121F;
+    font-family: "Outfit", sans-serif;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 56px;
+    padding: 72px 76px;
+    overflow: hidden;
+    position: relative;
+  }
+  /* The one amber gesture, echoing the case studies' live path. */
+  .route {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 8px;
+    background: #FF6B2C;
+  }
+  .id {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .mark {
+    width: 60px;
+    height: 60px;
+    border-radius: 17px;
+    background: #FF6B2C;
+    color: #14121F;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+  .name { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
+  .role { font-size: 1rem; color: #514B69; margin-top: 2px; }
+
+  h1 {
+    margin: 40px 0 0;
+    font-size: 4.05rem;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+    max-width: 16ch;
+  }
+  .sub {
+    margin-top: 26px;
+    font-size: 1.32rem;
+    color: #514B69;
+    line-height: 1.45;
+    max-width: 40ch;
+  }
+  .pills {
+    margin-top: 38px;
+    display: flex;
+    gap: 11px;
+    list-style: none;
+    padding: 0;
+  }
+  .pill {
+    background: #FFFFFF;
+    border: 1px solid #E2DEF0;
+    border-radius: 999px;
+    padding: 10px 19px;
+    font-size: 1.02rem;
+    font-weight: 500;
+    color: #514B69;
+  }
+
+  /* A miniature of the case studies' system map: the thing the site is about. */
+  .map { position: relative; width: 310px; }
+  .map svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .nodes { position: relative; display: flex; flex-direction: column; gap: 26px; }
+  .node {
+    background: #FFFFFF;
+    border: 1px solid #E2DEF0;
+    border-radius: 15px;
+    padding: 15px 17px;
+    font-size: 1.02rem;
+    font-weight: 600;
+  }
+  .node span { display: block; font-size: 0.86rem; font-weight: 400; color: #514B69; margin-top: 3px; }
+  .node.live { border-color: #FFB28A; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="id">
+      <div class="mark">JC</div>
+      <div>
+        <div class="name">Jeffrey Brian Castro</div>
+        <div class="role">Websites · Funnels · CRM · Automation</div>
+      </div>
+    </div>
+
+    <h1>Everything that runs your business.</h1>
+    <p class="sub">Built, wired and automated by one person.</p>
+
+    <ul class="pills">
+      <li class="pill">GoHighLevel</li>
+      <li class="pill">n8n</li>
+      <li class="pill">Zapier</li>
+      <li class="pill">Make</li>
+    </ul>
+  </div>
+
+  <div class="map">
+    <svg viewBox="0 0 310 300" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M26 46C-8 46 -8 150 26 150" fill="none" stroke="#FF6B2C" stroke-width="2.4"/>
+      <path d="M26 150C-8 150 -8 254 26 254" fill="none" stroke="#FF6B2C" stroke-width="2.4"/>
+    </svg>
+    <div class="nodes">
+      <div class="node live">Your site or funnel<span>Captures the lead</span></div>
+      <div class="node live">GoHighLevel<span>Tagged, owned, answered</span></div>
+      <div class="node live">Automation<span>Runs without you</span></div>
+    </div>
+  </div>
+
+  <div class="route"></div>
+</body>
+</html>
