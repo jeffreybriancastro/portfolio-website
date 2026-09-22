@@ -15,31 +15,31 @@ colors:
   line: "#E2DEF0"
 typography:
   display:
-    fontFamily: "Outfit, 'Segoe UI', sans-serif"
+    fontFamily: "Figtree, 'Segoe UI', sans-serif"
     fontSize: "clamp(2.1rem, 3.6vw, 3.2rem)"
     fontWeight: 800
     lineHeight: 1.1
     letterSpacing: "-0.03em"
   title:
-    fontFamily: "Outfit, 'Segoe UI', sans-serif"
+    fontFamily: "Figtree, 'Segoe UI', sans-serif"
     fontSize: "1.05rem"
     fontWeight: 700
     lineHeight: 1.3
     letterSpacing: "-0.01em"
   body:
-    fontFamily: "Outfit, 'Segoe UI', sans-serif"
+    fontFamily: "Figtree, 'Segoe UI', sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: "normal"
   label:
-    fontFamily: "Outfit, 'Segoe UI', sans-serif"
+    fontFamily: "Figtree, 'Segoe UI', sans-serif"
     fontSize: "0.86rem"
     fontWeight: 500
     lineHeight: 1.4
     letterSpacing: "normal"
   micro:
-    fontFamily: "Outfit, 'Segoe UI', sans-serif"
+    fontFamily: "Figtree, 'Segoe UI', sans-serif"
     fontSize: "0.8rem"
     fontWeight: 400
     lineHeight: 1.45
@@ -140,10 +140,10 @@ A parallel dark theme exists (`:root[data-theme="dark"]` and `prefers-color-sche
 
 ## Typography
 
-**Display Font:** Outfit (with Segoe UI, sans-serif fallback)
+**Display Font:** Figtree (with Segoe UI, sans-serif fallback)
 **Label/Mono Font:** Space Mono (ui-monospace fallback)
 
-**Character:** A single geometric sans (Outfit) carries the entire page at weights 400–800; Space Mono is a deliberate, narrow counterpoint reserved for two proof-of-work moments, not a general label font.
+**Character:** A single geometric sans (Figtree) carries the entire page at weights 400–800; Space Mono is a deliberate, narrow counterpoint reserved for two proof-of-work moments, not a general label font.
 
 ### Hierarchy
 - **Display** (800, `clamp(2.1rem, 3.6vw, 3.2rem)`, line-height 1.1, letter-spacing -0.03em): the hero headline only, the page's single `<h1>`, capped at 26ch so its authored two-line break holds.
@@ -161,7 +161,7 @@ Written prose sits between Micro and Body at 0.9–0.92rem (`.cs-copy` 0.92rem/1
 
 **The Italic-Means-Pending Rule.** Italic prose (`.placeholder-text`, 0.9rem) means the content is bracketed and still waiting on a client. Finished, written prose is roman (`.cs-copy`). A paragraph that is done must not be dressed as pending, and bracketed copy must not be dressed as done — the case-study problem paragraphs were deliberately moved off `.placeholder-text` for exactly this reason. `.quote p` italic is the one unrelated use: quotation, not pendency.
 
-**The Two-Weight, Two-Family Rule.** Outfit carries every word on the page. Space Mono appears in exactly two places — stat values and process-step indices — as a numeric, technical counterpoint that reads as evidence rather than as a competing type voice. It never carries prose or headings.
+**The Two-Weight, Two-Family Rule.** Figtree carries every word on the page. Space Mono appears in exactly two places — stat values and process-step indices — as a numeric, technical counterpoint that reads as evidence rather than as a competing type voice. It never carries prose or headings.
 
 ## Layout
 
