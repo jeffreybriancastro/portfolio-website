@@ -851,7 +851,63 @@ main {
   color: var(--ink-soft);
   font-style: italic;
 }
-.about-text .placeholder-text { max-width: 58ch; }
+/* The bio runs long, so the column caps at a readable measure and the lead
+   line sits above it rather than beside the portrait's midpoint. */
+.about-copy {
+  margin-top: 16px;
+  max-width: 62ch;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* Skills. The numbers are the ones Jeffrey gave the list, so they stay, set
+   in the same mono the workflow identifiers use. */
+.about-skills { margin-top: 64px; }
+.skill-list {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 48px;
+}
+.skill {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+/* Five items over two columns leaves the last one alone on its row. */
+.skill:last-child { grid-column: span 2; border-bottom: 0; }
+.skill:nth-last-child(2) { border-bottom: 0; }
+.skill-id {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+.skill-body { min-width: 0; }
+.skill-name { font-size: 0.98rem; font-weight: 600; letter-spacing: -0.01em; }
+.skill-tags {
+  margin-top: 7px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: 0.83rem;
+  color: var(--ink-soft);
+}
+/* The separator leads rather than trails: a trailing one strands a dot at the
+   end of a wrapped line, where a leading one just continues the list. */
+.skill-tags li { display: flex; align-items: center; gap: 10px; }
+.skill-tags li:not(:first-child)::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ink-faint);
+}
+
 .about-portrait {
   width: 100%;
   height: auto;
@@ -1059,6 +1115,9 @@ img.icon { object-fit: contain; }
   .tile-shot { border-right: 1px solid var(--line); border-radius: var(--radius-sm); }
   .tile-shot-2 { border-right: 0; border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
     .about-lead { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .skill-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .skill:last-child { grid-column: span 1; }
+  .skill:nth-last-child(2) { border-bottom: 1px solid var(--line); }
   .about-portrait { max-width: 340px; }
   .about-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .about-band { margin-top: 48px; }
