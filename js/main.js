@@ -86,4 +86,32 @@
   }
 
   spy(["hero", "services", "projects", "about", "contact", "book"], ".nav-link");
+
+  /* The GoHighLevel form and calendar render on a transparent body, so the
+     "if this does not load, email me" note behind each one reads straight
+     through a widget that loaded perfectly well. Take the note away once the
+     widget reports in, and leave it alone if it never does.
+
+     Two signals, because either can come first: the iframe's own load event,
+     and the ready message the widget posts. The message is matched against
+     the frame's contentWindow so one widget loading does not clear the other
+     one's note. */
+  const embeds = [
+    [".contact-form iframe", ".contact-pending"],
+    [".booking-frame iframe", ".booking-pending"],
+  ]
+    .map(([frame, note]) => [document.querySelector(frame), document.querySelector(note)])
+    .filter(([frame, note]) => frame && note);
+
+  embeds.forEach(([frame, note]) => {
+    frame.addEventListener("load", () => { note.hidden = true; });
+  });
+
+  if (embeds.length) {
+    window.addEventListener("message", (event) => {
+      embeds.forEach(([frame, note]) => {
+        if (event.source === frame.contentWindow) note.hidden = true;
+      });
+    });
+  }
 })();

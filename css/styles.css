@@ -1011,15 +1011,12 @@ main {
 }
 .contact-fallback a:hover { border-bottom-color: var(--accent); }
 
-/* The embedded form is third-party and cannot inherit these tokens, so the
-   surface around it does the work of seating it in the system. */
+/* No panel, for the same reason as the calendar below: ghl/form-theme.css
+   already gives the form its own surface, border and 24px radius inside the
+   iframe, so a card here would wrap a card. This holds the space and stacks
+   the fallback underneath. */
 .contact-form {
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  padding: 10px;
-  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.04);
   min-height: 540px;
   display: grid;
 }
@@ -1102,6 +1099,28 @@ main {
    visitor's colour scheme, so on a dark page it reads as a light card on a
    dark ground. That is the intent, not a leak. */
 .booking-pending { justify-self: start; }
+
+/* ---------- Keeping GoHighLevel's embeds on screen ----------
+   form_embed.js measures both iframes correctly and then hides them:
+   opacity 0, visibility hidden, pointer-events none, position absolute,
+   left -9999px, written inline. It only puts back the ones it recognises
+   as an activated inline form, and a booking widget never qualifies, so
+   the calendar stays parked off screen forever and the form goes with it
+   whenever its own check fails.
+
+   Dropping the script is not the answer: it is also what resizes these to
+   their content, and without it the calendar sits at the iframe default of
+   150px. So the measurement stays and the hiding goes. !important beats an
+   inline style, and height is deliberately not listed here because height
+   is the part the script gets right. */
+.contact-form iframe,
+.booking-frame iframe {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  left: auto !important;
+}
 
 .site-footer {
   margin-top: 56px;
