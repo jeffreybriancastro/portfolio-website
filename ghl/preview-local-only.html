@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GHL form theme preview</title>
+
+<!-- ===========================================================================
+     LOCAL PREVIEW. DO NOT PASTE THIS FILE INTO GOHIGHLEVEL.
+     Open it in a browser on this machine. The only file that goes into GHL is
+     form-theme.css, and it goes in Styles -> Custom CSS.
+
+     The markup below is copied from the rendered DOM of the real form at
+     go.jeffreybrianbuilds.com/widget/form/JR1k6svoHw7m89w5ktwL: the same ids,
+     the same classes, the same inline styles GHL writes on #_builder-form and
+     on the submit button.
+
+     The <style> block that follows is GHL's OWN form CSS, also copied from
+     that page, scoped to #_builder-form and marked !important exactly as GHL
+     ships it. It is here so the preview loses the same specificity fights the
+     real form does. An earlier preview used markup I had invented, which meant
+     the theme was being tested against nothing.
+     ======================================================================= -->
+
+<style>
+  /* ---- GHL's own form CSS, verbatim from the live widget ---- */
+  #_builder-form .form-builder--item input[type=text][class=form-control],
+  #_builder-form .form-builder--item .date-picker-custom-style {
+    background-color: #FFFFFFFF !important;
+    color: #101828FF !important;
+    border: 1px solid #D0D5DDFF !important;
+    border-radius: 6px !important;
+  }
+  #_builder-form textarea {
+    background-color: #FFFFFFFF !important;
+    color: #101828FF !important;
+    border: 1px solid #D0D5DDFF !important;
+    border-radius: 6px !important;
+  }
+  #_builder-form input[type=tel],
+  #_builder-form input[type=email] {
+    background-color: #FFFFFFFF !important;
+    color: #101828FF !important;
+    border: 1px solid #D0D5DDFF !important;
+  }
+  #_builder-form ::-webkit-input-placeholder {
+    color: #667085FF;
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 1;
+  }
+  #_builder-form label {
+    color: #344054FF;
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 500;
+  }
+  #_builder-form label * { color: #344054FF; font-family: 'Inter'; }
+  #_builder-form .short-label {
+    color: #464D5FFF; font-family: 'Inter'; font-size: 12px; font-weight: 300;
+  }
+  #_builder-form .form-builder--item input[type=text][class=form-control]:hover,
+  #_builder-form .form-builder--item input[type=email]:hover,
+  #_builder-form .form-builder--item textarea:hover {
+    border: 1px solid #155EEFFF !important;
+  }
+  #_builder-form .form-builder--item input[type=text][class=form-control]:focus,
+  #_builder-form .form-builder--item input[type=email]:focus,
+  #_builder-form .form-builder--item textarea:focus {
+    border: 1px solid #155EEFFF !important;
+    outline: none;
+  }
+
+  /* ---- Layout only. No colour lives here. ---- */
+  body { margin: 0; padding: 48px 20px; }
+  .ghl-form-wrap { max-width: 800px; margin: 0 auto; }
+  .form-field-wrapper { margin-bottom: 16px; }
+  .fields-container { display: block; }
+</style>
+
+<!-- The theme loads last, exactly as GHL injects Custom CSS last. -->
+<link rel="stylesheet" href="form-theme.css" />
+</head>
+<body>
+  <div class="ghl-form-wrap" style="max-width:800px;width:100%;margin-left:auto;margin-right:auto;">
+    <div id="_builder-form" name="builder-form" class="form-builder--wrap form-builder--wrap-full"
+         style="background-color:#FFFFFFFF;color:;border:1px solid #FFFFFFFF;border-radius:8px;max-width:800px;width:100%;border-color:#FFFFFFFF;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px;box-shadow:0px 4px 4px 0px #57647e36;">
+      <div class="form-side" style="width:100%;">
+        <div class="builder-inline apply-gutter row fields-container remove-extra-padding">
+
+          <div class="col-12 menu-field-wrap form-field-wrapper" style="margin-bottom:16px;">
+            <div class="f-even form-field-container">
+              <div class="form-builder--item">
+                <label for="fn">First Name</label>
+                <input id="fn" type="text" class="form-control" placeholder="Enter your first name" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 menu-field-wrap form-field-wrapper" style="margin-bottom:16px;">
+            <div class="f-odd form-field-container">
+              <div class="form-builder--item">
+                <label for="em">Email <span class="text-danger">*</span></label>
+                <input id="em" type="email" class="form-control" placeholder="you@company.com" required />
+                <div class="short-label">I reply from this address, usually same day.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 menu-field-wrap form-field-wrapper" style="margin-bottom:16px;">
+            <div class="f-even form-field-container">
+              <div class="form-builder--item">
+                <label for="ph">Phone</label>
+                <input id="ph" type="tel" class="form-control" placeholder="+63" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 menu-field-wrap form-field-wrapper" style="margin-bottom:16px;">
+            <div class="f-odd form-field-container">
+              <div class="form-builder--item">
+                <label for="msg">What are you trying to build?</label>
+                <textarea id="msg" class="form-control" placeholder="What you are running now, what is still manual, and where it is leaking."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 menu-field-wrap form-field-wrapper" style="margin-bottom:16px;">
+            <div class="f-even form-field-container">
+              <div class="form-builder--item form-builder--btn-submit" style="margin-top:15px;">
+                <div style="display:inline-block;position:relative;">
+                  <button type="submit" class="btn btn-dark button-element"
+                          style="background-color:#2A3135;color:#FFFFFF;border:0px solid #000000;border-radius:0px;padding:11px;width:auto;white-space:normal;">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

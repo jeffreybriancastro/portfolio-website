@@ -1,226 +1,311 @@
 /* ==========================================================================
    GoHighLevel form theme, matched to jeffreybrianbuilds.com
 
-   WHERE THIS GOES
-   Form builder, right-hand panel, Advanced tab, Custom CSS. Paste the whole
-   file, Save, then hard-reload the page the form is embedded on: GHL caches
-   the widget and a soft reload will show you the old one.
+   THIS FILE, AND ONLY THIS FILE, GOES INTO GHL.
+   Form builder -> right-hand panel -> Styles -> Custom CSS. Paste the whole
+   thing, Save, then hard-reload: GHL caches the widget.
 
-   NO CUSTOM PROPERTIES ON PURPOSE
-   The first version of this file kept its palette in variables on :root.
-   GHL scopes the CSS it injects, so :root never matched, every var() came
-   back invalid, and every declaration using one was thrown away — which is
-   why the form came back unstyled. Every colour below is written out.
+   Nothing else in this folder belongs in GHL. preview-local-only.html is for
+   opening in a browser on this machine. Pasting it into the Custom CSS box
+   produces "<style><!doctype html>...", which is not CSS, so the browser
+   throws the entire block away and the form comes back unstyled.
+
+   WRITTEN AGAINST THE REAL FORM
+   Every selector below was read off the rendered DOM of
+   go.jeffreybrianbuilds.com/widget/form/JR1k6svoHw7m89w5ktwL, not guessed.
+   Two things that DOM makes clear, and that a generic theme gets wrong:
+
+   1. GHL scopes all of its own form CSS to #_builder-form, and marks the
+      colours !important. A rule written as plain `input { ... !important }`
+      ties on !important and then loses on specificity. So every rule here
+      is scoped to #_builder-form too, and carries one class more than the
+      GHL rule it replaces.
+   2. The white card, its border, its radius and its shadow are INLINE on
+      #_builder-form, and so is the submit button's dark fill. Only
+      !important beats an inline style, which is why it is on every colour.
 
    LIGHT AND DARK
    The form follows the visitor's system setting, which is what the site does
    before anyone touches its theme toggle. It cannot follow the toggle:
-   nothing inside the iframe can see it. To pin the form to one mode, delete
-   the whole "LIGHT" block at the bottom (keeps it dark), or move that
-   block's declarations up over the dark ones (keeps it light).
+   nothing inside the widget can see it. To pin the form to one mode, delete
+   the LIGHT block at the bottom (stays dark), or move that block's
+   declarations up over the dark ones (stays light).
 
-   SELECTORS
-   GHL renames its form classes between releases, so each rule names the
-   plain element as well as the classes GHL has shipped, and marks the
-   properties GHL sets inline as !important. The repetition is the point.
+   NO CUSTOM PROPERTIES, ON PURPOSE
+   An earlier version kept the palette in variables on :root. GHL scopes what
+   it injects, :root never matched, every var() came back invalid, and every
+   declaration using one was discarded. Every colour below is written out.
    ========================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap");
 
-/* ---------- Ground ---------- */
+/* ---------- The page the widget sits on ---------- */
 html,
-body,
-.form-builder--wrapper,
-#form-builder,
-.hl_form-builder,
-.form-wrapper {
-  background-color: #100e11 !important;
-  color: #f2eae6 !important;
-  font-family: "Figtree", "Segoe UI", sans-serif !important;
-}
-
 body {
-  font-size: 16px;
-  line-height: 1.5;
+  background-color: #100E11 !important;
   -webkit-font-smoothing: antialiased;
 }
 
-input,
-textarea,
-select,
-button,
-.form-control {
+/* ---------- The card ----------
+   GHL sets background, border, radius, shadow and four zero paddings inline
+   on this element. All of it is overridden here. */
+#_builder-form,
+#_builder-form.form-builder--wrap {
+  /* GHL's card is content-box, so the padding added below would push it past
+     its own 800px wrapper and the submit would hang off the right edge. */
   box-sizing: border-box !important;
+  background-color: #100E11 !important;
+  color: #F2EAE6 !important;
+  border: 1px solid #272329 !important;
+  border-radius: 24px !important;
+  box-shadow: 0 18px 40px -24px rgba(6, 4, 3, 0.75) !important;
+  padding: 36px 32px !important;
   font-family: "Figtree", "Segoe UI", sans-serif !important;
 }
 
-/* ---------- Labels ---------- */
-label,
-.form-label,
-.field-label,
-.hl-field-label,
-.form-builder--wrapper label {
+@media (max-width: 560px) {
+  #_builder-form,
+  #_builder-form.form-builder--wrap {
+    padding: 26px 20px !important;
+    border-radius: 18px !important;
+  }
+}
+
+/* ---------- Labels ----------
+   GHL ships `#_builder-form label` and `#_builder-form label *` in Inter.
+   One extra class takes both. */
+#_builder-form .form-builder--item label,
+#_builder-form .form-builder--item label * {
+  color: #F2EAE6 !important;
+  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.4 !important;
+}
+
+#_builder-form .form-builder--item label {
   display: block !important;
   margin-bottom: 8px !important;
-  font-size: 0.86rem !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.01em;
-  color: #f2eae6 !important;
 }
 
 /* The required mark rides the accent instead of shouting in red. */
-.required,
-span.text-danger,
-label .text-danger,
-label span[style*="red"] {
-  color: #cbaa9c !important;
+#_builder-form .form-builder--item label .text-danger,
+#_builder-form .form-builder--item label .required,
+#_builder-form .form-builder--item label span[style*="red"] {
+  color: #CBAA9C !important;
 }
 
-/* ---------- Fields ---------- */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-input[type="url"],
-input[type="date"],
-input[type="time"],
-input[type="password"],
-textarea,
-select,
-.form-control,
-.hl-field-input,
-.form-builder--wrapper input,
-.form-builder--wrapper textarea,
-.form-builder--wrapper select {
+/* The small description under a field. */
+#_builder-form .short-label,
+#_builder-form .form-builder--item .short-label {
+  color: #8E817B !important;
+  font-family: "Figtree", "Segoe UI", sans-serif !important;
+}
+
+/* ---------- Fields ----------
+   GHL's own rule is
+     #_builder-form .form-builder--item input[type=text][class=form-control]
+   which is one id, three classes, one element. Adding .form-field-container
+   (its real parent in the DOM) makes these four classes, so they win on
+   specificity rather than on load order. */
+#_builder-form .form-field-container .form-builder--item input[type="text"][class="form-control"],
+#_builder-form .form-field-container .form-builder--item input[type="email"],
+#_builder-form .form-field-container .form-builder--item input[type="tel"],
+#_builder-form .form-field-container .form-builder--item input[type="number"],
+#_builder-form .form-field-container .form-builder--item input[type="url"],
+#_builder-form .form-field-container .form-builder--item input[type="date"],
+#_builder-form .form-field-container .form-builder--item input[type="time"],
+#_builder-form .form-field-container .form-builder--item input[type="password"],
+#_builder-form .form-field-container .form-builder--item input.form-control,
+#_builder-form .form-field-container .form-builder--item textarea,
+#_builder-form .form-field-container .form-builder--item select,
+#_builder-form .form-field-container .form-builder--item .form-control,
+#_builder-form .form-field-container .form-builder--item .date-picker-custom-style,
+#_builder-form .form-field-container .form-builder--item .multiselect .multiselect__tags {
   width: 100% !important;
+  box-sizing: border-box !important;
   padding: 13px 14px !important;
   background-color: #171519 !important;
-  color: #f2eae6 !important;
+  color: #F2EAE6 !important;
   border: 1px solid #272329 !important;
   border-radius: 10px !important;
   box-shadow: 0 1px 2px rgba(6, 4, 3, 0.4) !important;
+  font-family: "Figtree", "Segoe UI", sans-serif !important;
   font-size: 0.95rem !important;
   line-height: 1.5 !important;
-  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-textarea,
-.form-builder--wrapper textarea {
-  min-height: 120px !important;
-  resize: vertical;
+#_builder-form .form-field-container .form-builder--item textarea {
+  min-height: 132px !important;
+  resize: vertical !important;
 }
 
-input::placeholder,
-textarea::placeholder,
-.form-control::placeholder {
-  color: #8e817b !important;
+/* The phone field's country dropdown keeps its own left inset. */
+#_builder-form .iti--allow-dropdown input,
+#_builder-form .iti--allow-dropdown input[type="tel"] {
+  padding-left: 52px !important;
+}
+
+#_builder-form .iti__country-list {
+  background-color: #171519 !important;
+  color: #F2EAE6 !important;
+  border: 1px solid #272329 !important;
+}
+
+/* ---------- Placeholders ----------
+   GHL themes ::-webkit-input-placeholder scoped to #_builder-form and pins it
+   to Inter, so both spellings are restated here. */
+#_builder-form .form-builder--item input::placeholder,
+#_builder-form .form-builder--item textarea::placeholder,
+#_builder-form .form-builder--item input::-webkit-input-placeholder,
+#_builder-form .form-builder--item textarea::-webkit-input-placeholder,
+#_builder-form .form-builder--item .multiselect__placeholder,
+#_builder-form .form-builder--item .multiselect .multiselect__placeholder {
+  color: #8E817B !important;
+  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  font-size: 0.95rem !important;
   opacity: 1 !important;
 }
 
-input:hover,
-textarea:hover,
-select:hover,
-.form-control:hover {
-  border-color: #b89484 !important;
+/* ---------- Hover and focus ----------
+   GHL's hover and focus rules sit at one id and four classes, so these carry
+   five: the state pseudo-class is the fifth. */
+#_builder-form .form-field-container .form-builder--item input[type="text"][class="form-control"]:hover,
+#_builder-form .form-field-container .form-builder--item input[type="email"]:hover,
+#_builder-form .form-field-container .form-builder--item input[type="tel"]:hover,
+#_builder-form .form-field-container .form-builder--item input.form-control:hover,
+#_builder-form .form-field-container .form-builder--item textarea:hover,
+#_builder-form .form-field-container .form-builder--item select:hover,
+#_builder-form .form-field-container .form-builder--item .form-control:hover {
+  border-color: #B89484 !important;
 }
 
-/* The site's focus ring: a real outline, offset, never removed. */
-input:focus,
-input:focus-visible,
-textarea:focus,
-textarea:focus-visible,
-select:focus,
-select:focus-visible,
-.form-control:focus,
-button:focus-visible {
-  outline: 2.5px solid #b89484 !important;
+/* The site's focus ring: a real outline, offset, never removed. GHL sets
+   outline: none on focus, which is the one thing not to inherit. */
+#_builder-form .form-field-container .form-builder--item input[type="text"][class="form-control"]:focus,
+#_builder-form .form-field-container .form-builder--item input[type="email"]:focus,
+#_builder-form .form-field-container .form-builder--item input[type="tel"]:focus,
+#_builder-form .form-field-container .form-builder--item input.form-control:focus,
+#_builder-form .form-field-container .form-builder--item textarea:focus,
+#_builder-form .form-field-container .form-builder--item select:focus,
+#_builder-form .form-field-container .form-builder--item .form-control:focus,
+#_builder-form .form-field-container .form-builder--item .multiselect .multiselect__tags:focus-within {
+  border-color: #B89484 !important;
+  outline: 2.5px solid #B89484 !important;
   outline-offset: 3px !important;
-  border-color: #b89484 !important;
-}
-
-/* ---------- Checkboxes and radios ---------- */
-input[type="checkbox"],
-input[type="radio"] {
-  width: auto !important;
-  padding: 0 !important;
-  accent-color: #b89484 !important;
   box-shadow: none !important;
 }
 
-/* ---------- Submit ---------- */
-button[type="submit"],
-.submit-btn,
-#submit-btn,
-.btn-submit,
-.form-btn,
-.form-builder--wrapper button {
+/* ---------- Checkboxes, radios, dropdown list ---------- */
+#_builder-form input[type="checkbox"],
+#_builder-form input[type="radio"] {
+  width: auto !important;
+  padding: 0 !important;
+  accent-color: #B89484 !important;
+  box-shadow: none !important;
+}
+
+#_builder-form .multiselect__option--highlight,
+#_builder-form .multiselect__option:hover,
+#_builder-form select option:hover {
+  background-color: #B89484 !important;
+  color: #100E11 !important;
+}
+
+#_builder-form .multiselect__content-wrapper {
+  background-color: #171519 !important;
+  border: 1px solid #272329 !important;
+}
+
+#_builder-form .multiselect__tag {
+  background-color: #2A211D !important;
+  border: 1px solid #B89484 !important;
+  color: #F2EAE6 !important;
+}
+
+/* ---------- Submit ----------
+   The button carries its fill, radius, padding and width inline, and sits in
+   an inline-block wrapper. The two rules below are what make it span the
+   card; delete them to go back to GHL's own width setting. */
+#_builder-form .form-builder--item.form-builder--btn-submit,
+#_builder-form .form-builder--item.form-builder--btn-submit > div {
+  display: block !important;
+  width: 100% !important;
+}
+
+#_builder-form .form-builder--btn-submit button,
+#_builder-form .form-builder--btn-submit .btn,
+#_builder-form button.button-element,
+#_builder-form .form-builder--item button[type="submit"] {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   width: 100% !important;
-  padding: 14px 22px !important;
-  background-color: #b89484 !important;
+  padding: 15px 26px !important;
+  background-color: #B89484 !important;
   background-image: none !important;
-  color: #100e11 !important;
+  color: #100E11 !important;
   border: 0 !important;
   border-radius: 999px !important;
+  font-family: "Figtree", "Segoe UI", sans-serif !important;
   font-size: 0.95rem !important;
   font-weight: 600 !important;
-  letter-spacing: -0.01em;
-  cursor: pointer;
+  letter-spacing: -0.01em !important;
+  white-space: normal !important;
+  cursor: pointer !important;
   box-shadow: 0 1px 2px rgba(6, 4, 3, 0.4) !important;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s;
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 /* Hover only where there is a real pointer: on a phone it sticks after a tap. */
 @media (hover: hover) and (pointer: fine) {
-  button[type="submit"]:hover,
-  .submit-btn:hover,
-  #submit-btn:hover,
-  .btn-submit:hover {
-    background-color: #cbaa9c !important;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px -8px rgba(6, 4, 3, 0.55) !important;
+  #_builder-form .form-builder--btn-submit button:hover,
+  #_builder-form button.button-element:hover,
+  #_builder-form .form-builder--item button[type="submit"]:hover {
+    background-color: #CBAA9C !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 24px -8px rgba(6, 4, 3, 0.6) !important;
   }
 }
 
-button[type="submit"]:active,
-.submit-btn:active,
-#submit-btn:active,
-.btn-submit:active {
-  transform: scale(0.97);
+#_builder-form .form-builder--btn-submit button:active,
+#_builder-form button.button-element:active,
+#_builder-form .form-builder--item button[type="submit"]:active {
+  transform: scale(0.97) !important;
 }
 
-button[type="submit"]:disabled,
-.submit-btn:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  transform: none;
+#_builder-form .form-builder--btn-submit button:disabled,
+#_builder-form button.button-element:disabled {
+  opacity: 0.55 !important;
+  transform: none !important;
+  cursor: not-allowed !important;
 }
 
-/* ---------- Messages and small print ---------- */
-.error,
-.field-error,
-.invalid-feedback,
-.text-danger {
+#_builder-form button:focus-visible {
+  outline: 2.5px solid #B89484 !important;
+  outline-offset: 3px !important;
+}
+
+/* ---------- Errors and small print ---------- */
+#_builder-form .text-danger,
+#_builder-form .invalid-feedback,
+#_builder-form .error,
+#_builder-form .field-error {
   margin-top: 6px !important;
+  color: #CBAA9C !important;
+  font-family: "Figtree", "Segoe UI", sans-serif !important;
   font-size: 0.8rem !important;
-  color: #cbaa9c !important;
 }
 
-input.error,
-input.is-invalid,
-textarea.is-invalid {
-  border-color: #cbaa9c !important;
-}
-
-.help-text,
-.form-text,
-.hl-field-description,
-small {
-  font-size: 0.8rem !important;
-  color: #8e817b !important;
+#_builder-form .form-field-container .form-builder--item input.is-invalid,
+#_builder-form .form-field-container .form-builder--item input.error,
+#_builder-form .form-field-container .form-builder--item textarea.is-invalid {
+  border-color: #CBAA9C !important;
 }
 
 /* ==========================================================================
@@ -229,97 +314,107 @@ small {
    ========================================================================== */
 @media (prefers-color-scheme: light) {
   html,
-  body,
-  .form-builder--wrapper,
-  #form-builder,
-  .hl_form-builder,
-  .form-wrapper {
-    background-color: #f7ede8 !important;
-    color: #100e11 !important;
+  body {
+    background-color: #F7EDE8 !important;
   }
 
-  label,
-  .form-label,
-  .field-label,
-  .hl-field-label,
-  .form-builder--wrapper label {
-    color: #100e11 !important;
+  #_builder-form,
+  #_builder-form.form-builder--wrap {
+    background-color: #F7EDE8 !important;
+    color: #100E11 !important;
+    border-color: #E8D5CB !important;
+    box-shadow: 0 18px 40px -24px rgba(92, 64, 48, 0.35) !important;
   }
 
-  .required,
-  span.text-danger,
-  label .text-danger {
-    color: #7c5a4b !important;
+  #_builder-form .form-builder--item label,
+  #_builder-form .form-builder--item label * {
+    color: #100E11 !important;
   }
 
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="number"],
-  input[type="url"],
-  input[type="date"],
-  input[type="time"],
-  input[type="password"],
-  textarea,
-  select,
-  .form-control,
-  .hl-field-input,
-  .form-builder--wrapper input,
-  .form-builder--wrapper textarea,
-  .form-builder--wrapper select {
-    background-color: #fffaf7 !important;
-    color: #100e11 !important;
-    border-color: #e8d5cb !important;
+  #_builder-form .form-builder--item label .text-danger,
+  #_builder-form .form-builder--item label .required {
+    color: #7C5A4B !important;
+  }
+
+  #_builder-form .short-label,
+  #_builder-form .form-builder--item .short-label {
+    color: #7B6257 !important;
+  }
+
+  #_builder-form .form-field-container .form-builder--item input[type="text"][class="form-control"],
+  #_builder-form .form-field-container .form-builder--item input[type="email"],
+  #_builder-form .form-field-container .form-builder--item input[type="tel"],
+  #_builder-form .form-field-container .form-builder--item input[type="number"],
+  #_builder-form .form-field-container .form-builder--item input[type="url"],
+  #_builder-form .form-field-container .form-builder--item input[type="date"],
+  #_builder-form .form-field-container .form-builder--item input[type="time"],
+  #_builder-form .form-field-container .form-builder--item input[type="password"],
+  #_builder-form .form-field-container .form-builder--item input.form-control,
+  #_builder-form .form-field-container .form-builder--item textarea,
+  #_builder-form .form-field-container .form-builder--item select,
+  #_builder-form .form-field-container .form-builder--item .form-control,
+  #_builder-form .form-field-container .form-builder--item .date-picker-custom-style,
+  #_builder-form .form-field-container .form-builder--item .multiselect .multiselect__tags {
+    background-color: #FFFAF7 !important;
+    color: #100E11 !important;
+    border-color: #E8D5CB !important;
     box-shadow: 0 1px 2px rgba(92, 64, 48, 0.08) !important;
   }
 
-  input::placeholder,
-  textarea::placeholder,
-  .form-control::placeholder {
-    color: #7b6257 !important;
+  #_builder-form .form-builder--item input::placeholder,
+  #_builder-form .form-builder--item textarea::placeholder,
+  #_builder-form .form-builder--item input::-webkit-input-placeholder,
+  #_builder-form .form-builder--item textarea::-webkit-input-placeholder,
+  #_builder-form .form-builder--item .multiselect__placeholder {
+    color: #7B6257 !important;
   }
 
-  button[type="submit"],
-  .submit-btn,
-  #submit-btn,
-  .btn-submit,
-  .form-btn,
-  .form-builder--wrapper button {
-    box-shadow: 0 1px 2px rgba(92, 64, 48, 0.08) !important;
+  #_builder-form .multiselect__content-wrapper,
+  #_builder-form .iti__country-list {
+    background-color: #FFFAF7 !important;
+    color: #100E11 !important;
+    border-color: #E8D5CB !important;
   }
 
-  .error,
-  .field-error,
-  .invalid-feedback,
-  .text-danger,
-  input.error,
-  input.is-invalid {
-    color: #7c5a4b !important;
+  #_builder-form .multiselect__tag {
+    background-color: #F0DDD4 !important;
+    color: #100E11 !important;
   }
 
-  .help-text,
-  .form-text,
-  .hl-field-description,
-  small {
-    color: #7b6257 !important;
+  #_builder-form .form-builder--btn-submit button,
+  #_builder-form .form-builder--btn-submit .btn,
+  #_builder-form button.button-element,
+  #_builder-form .form-builder--item button[type="submit"] {
+    box-shadow: 0 1px 2px rgba(92, 64, 48, 0.1) !important;
+  }
+
+  #_builder-form .text-danger,
+  #_builder-form .invalid-feedback,
+  #_builder-form .error,
+  #_builder-form .field-error {
+    color: #7C5A4B !important;
+  }
+
+  #_builder-form .form-field-container .form-builder--item input.is-invalid,
+  #_builder-form .form-field-container .form-builder--item input.error {
+    border-color: #7C5A4B !important;
   }
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-color-scheme: light) {
-  button[type="submit"]:hover,
-  .submit-btn:hover,
-  #submit-btn:hover,
-  .btn-submit:hover {
-    background-color: #a67f6e !important;
-    box-shadow: 0 10px 24px -8px rgba(92, 64, 48, 0.25) !important;
+  #_builder-form .form-builder--btn-submit button:hover,
+  #_builder-form button.button-element:hover,
+  #_builder-form .form-builder--item button[type="submit"]:hover {
+    background-color: #A67F6E !important;
+    box-shadow: 0 10px 24px -8px rgba(92, 64, 48, 0.3) !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  button[type="submit"],
-  .submit-btn,
-  #submit-btn,
-  .btn-submit {
+  #_builder-form .form-builder--btn-submit button,
+  #_builder-form button.button-element,
+  #_builder-form .form-builder--item button[type="submit"] {
+    transition: background-color 0.2s !important;
     transform: none !important;
   }
 }
