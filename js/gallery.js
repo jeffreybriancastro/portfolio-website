@@ -27,6 +27,9 @@
   const frame = lb.querySelector(".lb-frame");
   const img = document.createElement("img");
   img.className = "lb-img";
+  /* Without this the browser's own image drag starts on pointerdown and eats
+     the gesture before any of the panning below ever runs. */
+  img.draggable = false;
   frame.appendChild(img);
   const dialog = lb.querySelector(".lb-dialog");
   const prevBtn = lb.querySelector(".lb-prev");
@@ -47,10 +50,22 @@
     zoom = z;
     img.style.setProperty("--zoom", z);
     zoomLevel.textContent = Math.round(z * 100) + "%";
+    /* Reading scrollWidth here flushes the new layout, so the cursor is right
+       immediately rather than a frame later. */
+    markPannable();
     requestAnimationFrame(() => {
       frame.scrollLeft = cx * frame.scrollWidth - frame.clientWidth / 2;
       frame.scrollTop = cy * frame.scrollHeight - frame.clientHeight / 2;
+      markPannable();
     });
+  }
+
+  /* The grab cursor is a promise that something will move. Only make it when
+     there is somewhere to go. */
+  function markPannable() {
+    const can = frame.scrollWidth > frame.clientWidth + 1 ||
+                frame.scrollHeight > frame.clientHeight + 1;
+    frame.dataset.pannable = String(can);
   }
 
   let index = 0;
@@ -70,6 +85,7 @@
     zoomLevel.textContent = "100%";
     frame.scrollTop = 0;
     frame.scrollLeft = 0;
+    img.decode ? img.decode().then(markPannable, markPannable) : markPannable();
   }
 
   /* `hidden` stays on for semantics; `data-open` drives the transition, set a
@@ -125,15 +141,19 @@
      follows the hand. */
   let dragging = null;
   frame.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0) return;
+    /* Touch already pans this scroller natively and does it better. */
+    if (event.button !== 0 || event.pointerType === "touch") return;
+    event.preventDefault();
     dragging = {
       x: event.clientX,
       y: event.clientY,
       left: frame.scrollLeft,
       top: frame.scrollTop,
     };
-    frame.setPointerCapture(event.pointerId);
     frame.dataset.dragging = "true";
+    /* Capture is the nicety, not the mechanism: if it fails the drag still
+       has to work, so it never sits above the state it guards. */
+    try { frame.setPointerCapture(event.pointerId); } catch (e) { /* no capture */ }
   });
   frame.addEventListener("pointermove", (event) => {
     if (!dragging) return;
@@ -145,10 +165,19 @@
     if (!dragging) return;
     dragging = null;
     delete frame.dataset.dragging;
-    if (frame.hasPointerCapture(event.pointerId)) frame.releasePointerCapture(event.pointerId);
+    try {
+      if (event && frame.hasPointerCapture(event.pointerId)) {
+        frame.releasePointerCapture(event.pointerId);
+      }
+    } catch (e) { /* nothing to release */ }
   }
   frame.addEventListener("pointerup", endDrag);
   frame.addEventListener("pointercancel", endDrag);
+  frame.addEventListener("pointerleave", endDrag);
+  frame.addEventListener("dragstart", (event) => event.preventDefault());
+
+  /* Double-click is how every image viewer toggles between fit and close up. */
+  frame.addEventListener("dblclick", () => setZoom(zoom > 1.4 ? 1 : 2.5));
   lb.querySelectorAll("[data-lb-close]").forEach((el) =>
     el.addEventListener("click", close)
   );

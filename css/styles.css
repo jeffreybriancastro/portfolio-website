@@ -1554,13 +1554,15 @@ img.icon { object-fit: contain; }
   min-height: 0;
   overflow: auto;
   background: var(--surface-alt);
-  cursor: grab;
   overscroll-behavior: contain;
 }
+.lb-frame[data-pannable="true"] { cursor: grab; }
 .lb-frame[data-dragging="true"] { cursor: grabbing; user-select: none; }
 /* Zoom is the image's own width, so panning is the frame's native scroll —
    no transform maths, no clamping, and scrollbars for free. */
 .lb-img {
+  -webkit-user-drag: none;
+  user-select: none;
   width: calc(100% * var(--zoom, 1));
   max-width: none;
   height: auto;
