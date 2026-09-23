@@ -1382,6 +1382,19 @@ img.icon { object-fit: contain; }
 .proj-name a::after { content: ""; position: absolute; inset: 0; }
 .proj:hover .proj-name a { border-bottom-color: var(--accent); }
 
+/* The pipeline's own stage names, carrying the numbers the build gives them. */
+.proj-stages { margin-top: auto; padding-top: 22px; display: grid; gap: 2px; }
+.proj-stages li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.proj-desc strong { color: var(--ink); font-weight: 700; }
+
 /* The two still being documented use the site's dashed-placeholder convention
    and carry their glyph in the heading rather than in a chip above it: an empty
    slot should not wear the same mark as a card with a build behind it. */
