@@ -85,5 +85,5 @@
     targets.forEach((target) => observer.observe(target));
   }
 
-  spy(["hero", "services", "projects", "about", "contact"], ".nav-link");
+  spy(["hero", "services", "projects", "about", "contact", "book"], ".nav-link");
 })();

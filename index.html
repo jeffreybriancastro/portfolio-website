@@ -115,6 +115,7 @@
       <a href="#projects" class="nav-link">Projects</a>
       <a href="#about" class="nav-link">About</a>
       <a href="#contact" class="nav-link">Contact</a>
+      <a href="#book" class="nav-link">Book a call</a>
     </nav>
 
     <div class="sidebar-bottom">
@@ -833,6 +834,43 @@
           <p class="contact-noscript">
             The enquiry form needs JavaScript. Email
             <a href="mailto:jeffreybriancastro@gmail.com">jeffreybriancastro@gmail.com</a> instead. It reaches me just as fast.
+          </p>
+        </noscript>
+      </div>
+
+    </section>
+
+    <!-- Booking -->
+    <section class="booking-block" aria-labelledby="booking-heading" id="book" tabindex="-1">
+
+      <div class="booking-intro">
+        <h2 class="booking-heading" id="booking-heading">Or just pick a time</h2>
+        <p class="booking-copy">Same answer, faster. Bring what you're running now and what keeps breaking, and I'll tell you on the call whether I'm the right fit.</p>
+      </div>
+
+      <div class="booking-frame">
+        <p class="booking-pending">
+          <strong>If the calendar does not load, email me.</strong>
+          <a href="mailto:jeffreybriancastro@gmail.com">jeffreybriancastro@gmail.com</a> reaches me just as fast.
+        </p>
+
+        <!-- GoHighLevel calendar, same white-labelled domain as the form. The
+             id is calendar id + timestamp because that is the handle
+             form_embed.js resizes against; renaming it leaves the iframe
+             stuck at its initial height. That script is already loaded once
+             at the end of the page and serves the form and this both. -->
+        <iframe
+          src="https://go.jeffreybrianbuilds.com/widget/booking/BM4TEwBq3SHULwPurILW"
+          id="BM4TEwBq3SHULwPurILW_1790172790406"
+          title="Booking calendar"
+          allow="payment"
+          scrolling="no"
+          loading="lazy"
+        ></iframe>
+        <noscript>
+          <p class="booking-noscript">
+            The calendar needs JavaScript. Email
+            <a href="mailto:jeffreybriancastro@gmail.com">jeffreybriancastro@gmail.com</a> instead and we will find a time.
           </p>
         </noscript>
       </div>

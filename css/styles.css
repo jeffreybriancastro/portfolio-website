@@ -1024,7 +1024,8 @@ main {
   display: grid;
 }
 /* Sits underneath; a loaded form paints over it. */
-.contact-pending {
+.contact-pending,
+.booking-pending {
   grid-area: 1 / 1;
   align-self: center;
   padding: 28px;
@@ -1032,8 +1033,10 @@ main {
   line-height: 1.6;
   color: var(--ink-soft);
 }
-.contact-pending strong { display: block; color: var(--ink); margin-bottom: 4px; }
-.contact-pending a { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.contact-pending strong,
+.booking-pending strong { display: block; color: var(--ink); margin-bottom: 4px; }
+.contact-pending a,
+.booking-pending a { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
 .contact-form iframe {
   grid-area: 1 / 1;
@@ -1043,13 +1046,62 @@ main {
   border-radius: var(--radius-md);
   display: block;
 }
-.contact-noscript {
+.contact-noscript,
+.booking-noscript {
   padding: 24px;
   font-size: 0.9rem;
   color: var(--ink-soft);
   line-height: 1.6;
 }
-.contact-noscript a { font-weight: 600; color: var(--ink); }
+.contact-noscript a,
+.booking-noscript a { font-weight: 600; color: var(--ink); }
+
+/* ---------- Booking ----------
+   The calendar needs width: split into the contact block's two columns it
+   folds the time slots under the month and doubles in height. So the copy
+   sits above it and the widget gets the whole measure. */
+.booking-block {
+  margin-top: 72px;
+  padding-top: 44px;
+  border-top: 1px solid var(--line);
+}
+.booking-heading {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  max-width: 18ch;
+}
+.booking-copy {
+  margin-top: 16px;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 56ch;
+}
+/* No panel around it. The GoHighLevel calendar already paints its own
+   ground and its own card, so a surface here would be a card inside a card
+   inside a card. The widget is the card; this only holds the space and
+   clips the corners. */
+.booking-frame {
+  position: relative;
+  margin-top: 28px;
+  min-height: 640px;
+  display: grid;
+}
+.booking-frame iframe {
+  grid-area: 1 / 1;
+  width: 100%;
+  min-height: 640px;
+  border: none;
+  border-radius: var(--radius-lg);
+  display: block;
+  overflow: hidden;
+}
+/* The calendar's own palette is fixed in GoHighLevel and does not follow the
+   visitor's colour scheme, so on a dark page it reads as a light card on a
+   dark ground. That is the intent, not a leak. */
+.booking-pending { justify-self: start; }
 
 .site-footer {
   margin-top: 56px;
@@ -1153,6 +1205,11 @@ img.icon { object-fit: contain; }
   .contact-block {
     grid-template-columns: minmax(0, 1fr);
     gap: 32px;
+    margin-top: 48px;
+    padding-top: 36px;
+  }
+
+  .booking-block {
     margin-top: 48px;
     padding-top: 36px;
   }
