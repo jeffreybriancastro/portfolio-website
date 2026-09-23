@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GHL form theme preview</title>
+<!-- A stand-in for the GoHighLevel form, marked up the way GHL marks its own
+     up, so form-theme.css can be checked before it is pasted into GHL.
+     This file is a preview only. Nothing links to it. -->
+<link rel="stylesheet" href="form-theme.css" />
+<style>
+  body { margin: 0; padding: 48px 20px; }
+  .form-builder--wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 34px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .field-container { margin-bottom: 22px; }
+  .note { max-width: 640px; margin: 0 auto 20px; font-size: 0.8rem; color: var(--ink-faint); }
+  @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <p class="note">Preview only. Follows your system light/dark setting, exactly as the real form will.</p>
+  <div class="form-builder--wrapper">
+    <form onsubmit="event.preventDefault()">
+      <div class="field-row">
+        <div class="field-container">
+          <label for="fn">First Name</label>
+          <input id="fn" type="text" class="form-control" placeholder="Enter your first name" />
+        </div>
+        <div class="field-container">
+          <label for="ln">Last Name</label>
+          <input id="ln" type="text" class="form-control" placeholder="Enter your last name" />
+        </div>
+      </div>
+      <div class="field-container">
+        <label for="em">Email <span class="required">*</span></label>
+        <input id="em" type="email" class="form-control" placeholder="your@email.com" required />
+      </div>
+      <div class="field-container">
+        <label for="msg">What are you trying to build?</label>
+        <textarea id="msg" class="form-control" placeholder="What you are running now, what is still manual, and where it is leaking."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
