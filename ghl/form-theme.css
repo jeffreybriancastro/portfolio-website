@@ -2,76 +2,41 @@
    GoHighLevel form theme, matched to jeffreybrianbuilds.com
 
    WHERE THIS GOES
-   In the form builder, open the right-hand panel and find Styles, then the
-   Custom CSS box, and paste the whole file. GHL moves this control between
-   versions; if Styles has no CSS box, look under the form's Settings tab.
-   Save, then reload the page the form is embedded on: GHL caches the widget.
+   Form builder, right-hand panel, Advanced tab, Custom CSS. Paste the whole
+   file, Save, then hard-reload the page the form is embedded on: GHL caches
+   the widget and a soft reload will show you the old one.
 
-   WHAT IT MATCHES
-   Deep Charcoal / Dusty Rose, the same palette, radii, type and focus ring
-   the site uses. The values are written out as hex rather than referenced,
-   because the form renders inside an iframe and cannot read the parent
-   page's custom properties.
+   NO CUSTOM PROPERTIES ON PURPOSE
+   The first version of this file kept its palette in variables on :root.
+   GHL scopes the CSS it injects, so :root never matched, every var() came
+   back invalid, and every declaration using one was thrown away — which is
+   why the form came back unstyled. Every colour below is written out.
 
    LIGHT AND DARK
-   The form follows the visitor's system setting, which is also what the site
-   does before anyone touches its theme toggle. It cannot follow the toggle
-   itself: nothing inside the iframe can see it. If you would rather the form
-   were always one or the other, delete the block you do not want and move
-   the other one's values into :root.
+   The form follows the visitor's system setting, which is what the site does
+   before anyone touches its theme toggle. It cannot follow the toggle:
+   nothing inside the iframe can see it. To pin the form to one mode, delete
+   the whole "LIGHT" block at the bottom (keeps it dark), or move that
+   block's declarations up over the dark ones (keeps it light).
 
    SELECTORS
-   GHL renames its form classes between releases, so every rule targets the
-   plain element as well as the class names it has shipped. That is why some
-   selectors look redundant. Leave them in.
+   GHL renames its form classes between releases, so each rule names the
+   plain element as well as the classes GHL has shipped, and marks the
+   properties GHL sets inline as !important. The repetition is the point.
    ========================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap");
-
-:root {
-  --bg: #100e11;
-  --surface: #171519;
-  --surface-alt: #231f26;
-  --ink: #f2eae6;
-  --ink-soft: #b3a49d;
-  --ink-faint: #8e817b;
-  --accent: #b89484;
-  --accent-hover: #cbaa9c;
-  --accent-on: #100e11;
-  --line: #272329;
-  --danger: #cbaa9c;
-  --shadow: 0 1px 2px rgba(6, 4, 3, 0.4);
-  --shadow-lift: 0 10px 24px -8px rgba(6, 4, 3, 0.55);
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f7ede8;
-    --surface: #fffaf7;
-    --surface-alt: #efe0d8;
-    --ink: #100e11;
-    --ink-soft: #6b534a;
-    --ink-faint: #7b6257;
-    --accent: #b89484;
-    --accent-hover: #a67f6e;
-    --accent-on: #100e11;
-    --line: #e8d5cb;
-    --danger: #7c5a4b;
-    --shadow: 0 1px 2px rgba(92, 64, 48, 0.08);
-    --shadow-lift: 0 10px 24px -8px rgba(92, 64, 48, 0.25);
-  }
-}
 
 /* ---------- Ground ---------- */
 html,
 body,
 .form-builder--wrapper,
 #form-builder,
-.hl_form-builder {
-  background: var(--bg) !important;
-  color: var(--ink);
-  font-family: "Figtree", "Segoe UI", sans-serif;
+.hl_form-builder,
+.form-wrapper {
+  background-color: #100e11 !important;
+  color: #f2eae6 !important;
+  font-family: "Figtree", "Segoe UI", sans-serif !important;
 }
 
 body {
@@ -80,40 +45,38 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* The card the fields sit on. Radius 24 is the site's card corner. */
-.form-builder--wrapper,
-#form-builder,
-.hl_form-builder,
-form {
-  border-radius: 24px;
+input,
+textarea,
+select,
+button,
+.form-control {
+  box-sizing: border-box !important;
+  font-family: "Figtree", "Segoe UI", sans-serif !important;
 }
 
 /* ---------- Labels ---------- */
 label,
 .form-label,
 .field-label,
-.hl-field-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 0.86rem;
-  font-weight: 600;
+.hl-field-label,
+.form-builder--wrapper label {
+  display: block !important;
+  margin-bottom: 8px !important;
+  font-size: 0.86rem !important;
+  font-weight: 600 !important;
   letter-spacing: -0.01em;
-  color: var(--ink) !important;
+  color: #f2eae6 !important;
 }
 
 /* The required mark rides the accent instead of shouting in red. */
 .required,
 span.text-danger,
-label .text-danger {
-  color: var(--danger) !important;
+label .text-danger,
+label span[style*="red"] {
+  color: #cbaa9c !important;
 }
 
 /* ---------- Fields ---------- */
-input,
-textarea,
-select,
-button { box-sizing: border-box; }
-
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -125,36 +88,40 @@ input[type="password"],
 textarea,
 select,
 .form-control,
-.hl-field-input {
-  width: 100%;
-  padding: 13px 14px;
-  background: var(--surface) !important;
-  color: var(--ink) !important;
-  border: 1px solid var(--line) !important;
+.hl-field-input,
+.form-builder--wrapper input,
+.form-builder--wrapper textarea,
+.form-builder--wrapper select {
+  width: 100% !important;
+  padding: 13px 14px !important;
+  background-color: #171519 !important;
+  color: #f2eae6 !important;
+  border: 1px solid #272329 !important;
   border-radius: 10px !important;
-  box-shadow: var(--shadow);
-  font-family: inherit;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  box-shadow: 0 1px 2px rgba(6, 4, 3, 0.4) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-textarea {
-  min-height: 120px;
+textarea,
+.form-builder--wrapper textarea {
+  min-height: 120px !important;
   resize: vertical;
 }
 
 input::placeholder,
-textarea::placeholder {
-  color: var(--ink-faint) !important;
-  opacity: 1;
+textarea::placeholder,
+.form-control::placeholder {
+  color: #8e817b !important;
+  opacity: 1 !important;
 }
 
 input:hover,
 textarea:hover,
 select:hover,
 .form-control:hover {
-  border-color: var(--accent) !important;
+  border-color: #b89484 !important;
 }
 
 /* The site's focus ring: a real outline, offset, never removed. */
@@ -166,26 +133,18 @@ select:focus,
 select:focus-visible,
 .form-control:focus,
 button:focus-visible {
-  outline: 2.5px solid var(--accent) !important;
-  outline-offset: 3px;
-  border-color: var(--accent) !important;
-  box-shadow: none;
+  outline: 2.5px solid #b89484 !important;
+  outline-offset: 3px !important;
+  border-color: #b89484 !important;
 }
 
-/* An icon sitting inside a field, as on the Email row. */
-.field-icon svg,
-.input-icon svg,
-.form-control + svg,
-.hl-field-icon {
-  color: var(--ink-faint);
-}
-
-/* ---------- Checkboxes, radios, consent ---------- */
+/* ---------- Checkboxes and radios ---------- */
 input[type="checkbox"],
 input[type="radio"] {
-  width: auto;
-  accent-color: var(--accent);
-  box-shadow: none;
+  width: auto !important;
+  padding: 0 !important;
+  accent-color: #b89484 !important;
+  box-shadow: none !important;
 }
 
 /* ---------- Submit ---------- */
@@ -193,25 +152,25 @@ button[type="submit"],
 .submit-btn,
 #submit-btn,
 .btn-submit,
-.form-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
+.form-btn,
+.form-builder--wrapper button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
   padding: 14px 22px !important;
-  background: var(--accent) !important;
-  color: var(--accent-on) !important;
+  background-color: #b89484 !important;
+  background-image: none !important;
+  color: #100e11 !important;
   border: 0 !important;
   border-radius: 999px !important;
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
   letter-spacing: -0.01em;
   cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
-    background 0.2s;
+  box-shadow: 0 1px 2px rgba(6, 4, 3, 0.4) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s;
 }
 
 /* Hover only where there is a real pointer: on a phone it sticks after a tap. */
@@ -220,9 +179,9 @@ button[type="submit"],
   .submit-btn:hover,
   #submit-btn:hover,
   .btn-submit:hover {
-    background: var(--accent-hover) !important;
+    background-color: #cbaa9c !important;
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lift);
+    box-shadow: 0 10px 24px -8px rgba(6, 4, 3, 0.55) !important;
   }
 }
 
@@ -240,39 +199,122 @@ button[type="submit"]:disabled,
   transform: none;
 }
 
-/* ---------- Messages ---------- */
+/* ---------- Messages and small print ---------- */
 .error,
 .field-error,
 .invalid-feedback,
 .text-danger {
-  margin-top: 6px;
-  font-size: 0.8rem;
-  color: var(--danger) !important;
+  margin-top: 6px !important;
+  font-size: 0.8rem !important;
+  color: #cbaa9c !important;
 }
 
 input.error,
 input.is-invalid,
 textarea.is-invalid {
-  border-color: var(--danger) !important;
+  border-color: #cbaa9c !important;
 }
 
-.success-message,
-.form-success {
-  color: var(--ink) !important;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* ---------- Help text and the small print ---------- */
 .help-text,
 .form-text,
 .hl-field-description,
 small {
-  font-size: 0.8rem;
-  color: var(--ink-faint) !important;
+  font-size: 0.8rem !important;
+  color: #8e817b !important;
 }
 
-/* ---------- Motion ---------- */
+/* ==========================================================================
+   LIGHT
+   Delete this whole block to pin the form to the dark theme.
+   ========================================================================== */
+@media (prefers-color-scheme: light) {
+  html,
+  body,
+  .form-builder--wrapper,
+  #form-builder,
+  .hl_form-builder,
+  .form-wrapper {
+    background-color: #f7ede8 !important;
+    color: #100e11 !important;
+  }
+
+  label,
+  .form-label,
+  .field-label,
+  .hl-field-label,
+  .form-builder--wrapper label {
+    color: #100e11 !important;
+  }
+
+  .required,
+  span.text-danger,
+  label .text-danger {
+    color: #7c5a4b !important;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="url"],
+  input[type="date"],
+  input[type="time"],
+  input[type="password"],
+  textarea,
+  select,
+  .form-control,
+  .hl-field-input,
+  .form-builder--wrapper input,
+  .form-builder--wrapper textarea,
+  .form-builder--wrapper select {
+    background-color: #fffaf7 !important;
+    color: #100e11 !important;
+    border-color: #e8d5cb !important;
+    box-shadow: 0 1px 2px rgba(92, 64, 48, 0.08) !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder,
+  .form-control::placeholder {
+    color: #7b6257 !important;
+  }
+
+  button[type="submit"],
+  .submit-btn,
+  #submit-btn,
+  .btn-submit,
+  .form-btn,
+  .form-builder--wrapper button {
+    box-shadow: 0 1px 2px rgba(92, 64, 48, 0.08) !important;
+  }
+
+  .error,
+  .field-error,
+  .invalid-feedback,
+  .text-danger,
+  input.error,
+  input.is-invalid {
+    color: #7c5a4b !important;
+  }
+
+  .help-text,
+  .form-text,
+  .hl-field-description,
+  small {
+    color: #7b6257 !important;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-color-scheme: light) {
+  button[type="submit"]:hover,
+  .submit-btn:hover,
+  #submit-btn:hover,
+  .btn-submit:hover {
+    background-color: #a67f6e !important;
+    box-shadow: 0 10px 24px -8px rgba(92, 64, 48, 0.25) !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   button[type="submit"],
   .submit-btn,
