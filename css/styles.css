@@ -934,18 +934,13 @@ main {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 16px;
 }
-/* Dashed, like the project tiles: these are scaffolding until real shots land. */
-.about-shot {
-  aspect-ratio: 4 / 3;
-  display: grid;
-  place-items: center;
-  padding: 14px;
-  border: 1px dashed var(--line);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-  color: var(--ink-faint);
-  font-size: 0.78rem;
-}
+/* Real shots now, opening in the same viewer as the workflow screenshots, so
+   the frame comes from .wf-frame and this only has to keep the grid honest. */
+.about-shot { min-width: 0; }
+.about-strip .wf-frame { border-radius: var(--radius-md); }
+/* Screenshots are read from the top left; photographs are composed from the
+   middle, so they get the centre of the frame. */
+.about-strip .wf-frame img { object-position: center; }
 
 /* Process */
 .process-list { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
