@@ -161,17 +161,16 @@ Both themes measured across every pair. Dark: body 16.2:1, secondary 8.0:1, tert
 - **Body** (400, 1rem–1.1rem, line-height 1.5–1.6): hero subhead (max 58ch) and card body copy.
 - **Label** (500–600, 0.86–0.95rem): nav links, pill labels, service/process item names, fact values (`.cs-fact-value` 0.95rem/600), node names (`.sysnode-name` 0.9rem/600).
 - **Micro** (400–600, 0.78–0.85rem): the step below Label, used throughout the site since the first build for supporting metadata — stat labels and fact labels (0.78rem), card notes (0.78rem), project and process descriptions (0.82rem), service descriptions and sidebar timestamps (0.85rem), node meta and lateral-link descriptions (0.8rem). Always `--ink-soft` or `--ink-faint`, never `--ink`.
-- **Mono Accent** (700, 1.3rem, Space Mono): the "About" stat values only.
 - **Mono Micro** (700, 0.75rem, Space Mono): the process step index numbers only.
 
-Written prose sits between Micro and Body at 0.9–0.92rem (`.cs-copy` 0.92rem/1.6, `.quote p` 0.92rem): long-form paragraph copy inside a card, roman.
+Written prose sits between Micro and Body at 0.9–0.92rem (`.cs-copy` 0.92rem/1.6): long-form paragraph copy inside a card, roman.
 
 ### Named Rules
 **The Six-Step Ramp Rule.** The type ramp is Display → Title → Subtitle → Body → Prose (0.9–0.92rem) → Label (0.86–0.95rem) → Micro (0.78–0.85rem), plus the two Space Mono numerals. Micro is a real, long-standing step, not drift: it carries every supporting label on the site. New surfaces pick a step from this list; they do not invent a seventh size.
 
-**The Italic-Means-Pending Rule.** Italic prose (`.placeholder-text`, 0.9rem) means the content is bracketed and still waiting on a client. Finished, written prose is roman (`.cs-copy`). A paragraph that is done must not be dressed as pending, and bracketed copy must not be dressed as done — the case-study problem paragraphs were deliberately moved off `.placeholder-text` for exactly this reason. `.quote p` italic is the one unrelated use: quotation, not pendency.
+**The Italic-Means-Pending Rule.** Italic prose (`.placeholder-text`, 0.9rem) means the content is bracketed and still waiting on a client. Finished, written prose is roman (`.cs-copy`). A paragraph that is done must not be dressed as pending, and bracketed copy must not be dressed as done — the case-study problem paragraphs were deliberately moved off `.placeholder-text` for exactly this reason.
 
-**The Two-Weight, Two-Family Rule.** Figtree carries every word on the page. Space Mono appears in exactly two places — stat values and process-step indices — as a numeric, technical counterpoint that reads as evidence rather than as a competing type voice. It never carries prose or headings.
+**The Two-Weight, Two-Family Rule.** Figtree carries every word on the page. Space Mono appears only on numerals — process-step indices, workflow identifiers, the viewer's counter — as a technical counterpoint that reads as evidence rather than as a competing type voice. It never carries prose or headings.
 
 ## Layout
 
@@ -183,7 +182,7 @@ Below the hero sit two full-width bands on the page ground, then the projects in
 
 Below the hero sit two full-width bands on the page ground, then the bento. The services band is a four-column grid (`repeat(4, minmax(0,1fr))`, `gap: 16px`) stepping to a 2x2 at 1040px and one column at 480px — three columns would orphan the fourth card; the automation band is a centred statement, copy capped at 54ch, and three tool pills. Neither is wrapped in a card — the service cards are themselves the surfaces, so wrapping would nest card-in-card.
 
-The bento grid (`grid-template-columns: repeat(3, minmax(0,1fr))`, `gap: 20px`) then holds five cards whose spans total exactly 9, so no row is left with a hole: Projects 2 + About 1, Process 2 + Testimonials 1, Contact 3. This is the load-bearing layout decision, and the pairing is chosen rather than incidental: cards stretch to their row's tallest sibling, so the photo-bearing About card sits beside Projects, the only other card tall enough to absorb it. Process runs its four steps as a 2x2 grid at its 2-column width; Testimonials stacks its quotes at 1 column; Contact runs the full width as a horizontal CTA with the button trailing right. Card order is Projects, About, Process, Testimonials, Contact, which also matches the sidebar nav's own sequence that the scroll-spy observer reads.
+The closing bento (`grid-template-columns: repeat(3, minmax(0,1fr))`, `gap: 20px`) holds two full-width cards: Process, whose four steps run across the row as a four-column grid, and Contact, a horizontal CTA with the button trailing right. It held a testimonials card until there were real quotes to put in it; the card and its styles came out rather than ship bracketed ones, and the git history has them for when quotes arrive.
 
 Case-study surfaces (`work/*.html`) reuse the same shell, then run three stacked blocks down the content column at a `64px` rhythm (`44px` under 900px): the head (back-link, `<h1>`, outcome, hairline-topped auto-fit fact strip at `minmax(150px, 1fr)`), the system map, and a detail grid. The detail grid is the bento asymmetry applied to a new surface — three columns with spans 1/2/2/1 (problem, what I built, how it's wired, result) plus a 2/1 close row (other work, contact) — and collapses to one column at the same 900px step.
 
@@ -241,7 +240,7 @@ About is the one section that leaves the bento entirely and runs full width, bec
 - **Lead** (`.about-lead`): a two-column grid, copy against a portrait capped at 400px. The portrait is a 3:4 crop of the same rooftop frame, cut vertically because the landscape crop cannot hold a column at this height. Collapses to one column at 900px with the portrait capped at 340px.
 - **Strip** (`.about-strip`): six 4:3 tiles, `1px dashed var(--line)`, stepping 6 -> 3 -> 2 columns. Dashed because they are scaffolding, exactly as the project tiles mark themselves — the site's one convention for "real content lands here later".
 
-Lifting About out leaves the bento at four cards across two clean rows of three: Projects 2 + Process 1, then Testimonials 2 + Contact 1. The band sits between them, which also keeps the scroll order matching the sidebar nav.
+Lifting About out leaves the closing bento at two full-width cards, Process then Contact, with the band sitting above them — which also keeps the scroll order matching the sidebar nav.
 
 ### Photography
 

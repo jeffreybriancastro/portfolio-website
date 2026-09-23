@@ -659,9 +659,6 @@ main {
   line-height: 1.6;
   font-style: italic;
 }
-.stat-row { display: flex; gap: 28px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
-.stat-value { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent-strong); }
-.stat-label { font-size: 0.78rem; color: var(--ink-faint); margin-top: 2px; }
 
 
 
@@ -674,8 +671,8 @@ main {
 
 .card-projects { grid-column: span 3; }
 .card-about { grid-column: span 1; }
-.card-process { grid-column: span 1; }
-.card-testimonials { grid-column: span 2; }
+/* Process carries the row alone now, so its four steps run across it. */
+.card-process { grid-column: span 3; }
 .card-contact {
   grid-column: span 3;
   background: var(--accent-soft);
@@ -885,7 +882,7 @@ main {
 }
 
 /* Process */
-.process-list { margin-top: 20px; display: flex; flex-direction: column; gap: 18px; }
+.process-list { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
 .process-step { display: flex; gap: 14px; align-items: flex-start; }
 .process-index {
   flex-shrink: 0;
@@ -902,16 +899,6 @@ main {
 }
 .process-name { font-weight: 600; font-size: 0.9rem; }
 .process-desc { color: var(--ink-soft); font-size: 0.82rem; margin-top: 2px; line-height: 1.45; }
-
-/* Testimonials */
-.quote-list { margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
-.quote p {
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--ink);
-  font-style: italic;
-}
-.quote footer { margin-top: 10px; font-size: 0.8rem; color: var(--ink-faint); font-style: normal; }
 
 /* ---------- Footer ---------- */
 /* ---------- Contact ----------
@@ -1101,7 +1088,7 @@ img.icon { object-fit: contain; }
   main { grid-column: 1; padding: 32px 20px 40px; }
 
   .grid { grid-template-columns: minmax(0, 1fr); }
-  .card-about, .card-projects, .card-process, .card-testimonials, .card-contact {
+  .card-about, .card-projects, .card-process, .card-contact {
     grid-column: span 1;
   }
   .card-contact { flex-direction: column; align-items: stretch; justify-content: center; }

@@ -138,11 +138,6 @@
   color: var(--accent-strong);
 }
 
-.cs-card-result .stat-row {
-  flex-direction: column;
-  gap: 18px;
-}
-
 /* Engagement facts live down here, not in the first viewport: they are the
    bracketed ones, and the first screen leads with what is already true. */
 .cs-engagement {
@@ -245,9 +240,4 @@
     grid-column: span 1;
   }
   .sysmap-block, .cs-grid, .cs-close { margin-top: 44px; }
-  .cs-card-result .stat-row { flex-direction: row; gap: 28px; flex-wrap: wrap; }
-}
-
-@media (max-width: 480px) {
-  .cs-card-result .stat-row { flex-direction: column; gap: 18px; }
 }
