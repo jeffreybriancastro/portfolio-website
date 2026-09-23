@@ -6,7 +6,7 @@
    carries the full image, its intrinsic size, a caption, and the alt text the
    overlay should announce, so this file holds no copy of its own.
 
-   The screenshots are tall — a GoHighLevel flow runs to two thousand pixels —
+   The screenshots are tall. A GoHighLevel flow runs to two thousand pixels,
    so the frame scrolls rather than shrinking the image to fit a viewport
    height. Reading the flow is the point; seeing all of it at once is not.
    ========================================================================== */

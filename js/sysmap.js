@@ -1,5 +1,5 @@
 /* ==========================================================================
-   System map — draws the real edges between nodes.
+   System map. Draws the real edges between nodes.
 
    The nodes are HTML (so the labels stay selectable, translatable and
    reflowable); the edges are SVG paths measured from where those nodes
@@ -26,7 +26,7 @@
    - When the layout collapses to a single column, every edge is routed out
      into a lane beside the stack. A straight line between two stacked nodes
      would cross whatever sits between them, and on a fan-in that means the
-     route appears to pass through parallel sources it never visits — a
+     route appears to pass through parallel sources it never visits: a
      different system, drawn confidently. The lane costs a bend and keeps the
      graph true.
    ========================================================================== */

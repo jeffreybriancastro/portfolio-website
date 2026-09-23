@@ -555,7 +555,7 @@ main {
 }
 
 /* Projects: two shipped sites stacked and stepped, running off the right edge,
-   the lower one cut by the tile — the work continues past what the tile shows. */
+   the lower one cut by the tile, so the work continues past what it shows. */
 .tile-shots {
   margin: 22px -22px -22px 0;
   display: grid;
@@ -1205,7 +1205,7 @@ img.icon { object-fit: contain; }
 /* ---------- The system map ----------
    Sits on the page ground, never inside a card: the nodes are the only chrome,
    so nothing here nests a card inside another card. Edges are drawn by
-   js/sysmap.js from measured node positions — the graph is real geometry, not
+   js/sysmap.js from measured node positions, so the graph is real geometry, not
    a column gutter standing in for one. */
 .sysmap-block { margin-top: 64px; }
 
@@ -1285,7 +1285,7 @@ img.icon { object-fit: contain; }
 
 @media (max-width: 900px) {
   /* The map turns the corner: one column, edges redrawn down the stack from
-     the same declaration — sysmap.js measures whatever the layout produced. */
+     the same declaration, because sysmap.js measures whatever the layout made. */
   .sysmap {
     grid-template-columns: minmax(0, 1fr);
     column-gap: 0;
@@ -1400,7 +1400,7 @@ img.icon { object-fit: contain; }
    slot should not wear the same mark as a card with a build behind it. */
 .proj-pending { border-style: dashed; }
 /* The spine every workflow is built on. The last step carries the accent the
-   way the outcome does everywhere else on the page — it is the one that pays. */
+   way the outcome does everywhere else on the page. It is the one that pays. */
 .proj-spine { margin-top: auto; padding-top: 24px; display: flex; flex-wrap: wrap; gap: 8px; }
 .proj-spine li {
   padding: 7px 14px;
@@ -1558,7 +1558,7 @@ img.icon { object-fit: contain; }
 }
 .lb-frame[data-pannable="true"] { cursor: grab; }
 .lb-frame[data-dragging="true"] { cursor: grabbing; user-select: none; }
-/* Zoom is the image's own width, so panning is the frame's native scroll —
+/* Zoom is the image's own width, so panning is the frame's native scroll:
    no transform maths, no clamping, and scrollbars for free. */
 .lb-img {
   -webkit-user-drag: none;
@@ -1706,7 +1706,7 @@ img.icon { object-fit: contain; }
 
    1. Hover lifts are gated behind a fine pointer. A touch device fires :hover
       on tap and leaves it there, so on a phone every card you touched stayed
-      raised until you touched another one. Colour-only hovers are not gated —
+      raised until you touched another one. Colour-only hovers are not gated,
       a colour that lingers after a tap reads as feedback, a stuck lift reads
       as a bug.
 
@@ -1715,8 +1715,8 @@ img.icon { object-fit: contain; }
       at card size) and fast, because it is confirming the interface heard you,
       not performing.
 
-   3. The viewer fades and scales in from 0.96, never from 0 — nothing arrives
-      from nothing — and leaves faster than it enters.
+   3. The viewer fades and scales in from 0.96, never from 0, because nothing
+      arrives from nothing, and it leaves faster than it enters.
    ========================================================================== */
 
 @media (hover: hover) and (pointer: fine) {

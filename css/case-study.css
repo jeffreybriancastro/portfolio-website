@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Case study surface — extends css/styles.css.
+   Case study surface. Extends css/styles.css.
    No new tokens: every value below resolves to a variable declared there.
    Load order on a case page: styles.css, then this file.
    ========================================================================== */
@@ -108,7 +108,7 @@
 .cs-card-result { grid-column: span 1; }
 
 /* Written prose, set roman. `.placeholder-text` stays the site's convention
-   for bracketed content still waiting on the client — dressing a finished
+   for bracketed content still waiting on the client. Dressing a finished
    paragraph in it reads as unfinished. */
 .cs-copy {
   margin-top: 18px;
