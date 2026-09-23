@@ -24,7 +24,7 @@ Combines hands-on delivery across the full client-ops stack (site/funnel build +
 
 ## Operating Context
 
-Primary tools used in delivery: GoHighLevel (GHL), n8n, Zapier, Make, and Claude Code.
+Primary tools used in delivery: GoHighLevel (GHL), n8n, Zapier, and Claude Code.
 
 Service areas: Websites, Sales Funnels, CRM Setup (GHL), Automation Workflows.
 
@@ -34,7 +34,7 @@ Static site, no backend/CMS. Content (projects, testimonials, credentials, conta
 
 ## Evidence on Hand
 
-None confirmed yet. User explicitly requested a skeleton now with placeholder content for projects, testimonials, credentials, and contact links, to be swapped in later. All such content must be clearly structured as placeholder, not fabricated as real claims (no invented client names, quotes, or stats).
+Two real assets confirmed: the jeffreybrianbuilds.com brand lockup (JB hexagon, blue #0055FE, now also the site accent; Deep Navy #011222 is the ground), and a rooftop portrait of Jeffrey supplied by the user, now the sidebar identity mark on all pages and the About card's lead image. A third real asset is now on the page: a six-workflow booking pipeline built and published in GoHighLevel (001 New Enquiry Intake through 006 Closed Lost, on a single booking pipeline), shown as a system map plus a workflow-by-workflow breakdown rather than as platform screenshots. The client behind it is not named, consistent with the anonymised project rows. The projects index names four kinds of work; two are written up (automations, funnels and sites) and two are confirmed by the user as real but undocumented (a GoHighLevel CRM build, and an AI agent / RAG chatbot), shipped as dashed placeholder cards asking for the specifics. Seven real GoHighLevel screenshots now ship as assets (`img/wf-00-list` through `img/wf-06-lost`, each with a thumbnail), openable full-size in a viewer. The workflows list is cropped to exclude the browser URL bar and link-status strip, both of which carry the sub-account id. The client's business name appeared in two of the diagrams — the 001 form filter and the 002 calendar filter — and is blurred in both; the user asked for the screenshots to be public but has not said the client agreed to be named. Everything else is still pending. User explicitly requested a skeleton now with placeholder content for projects, testimonials, credentials, and contact links, to be swapped in later. All such content must be clearly structured as placeholder, not fabricated as real claims (no invented client names, quotes, or stats).
 
 ## Product Principles
 

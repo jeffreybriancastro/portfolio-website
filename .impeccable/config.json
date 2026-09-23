@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "**/*.html"
+        ],
+        "createdAt": "2026-09-22T14:18:15.294Z",
+        "reason": "Light ground #F7EDE8 is the user-pinned Dusty Rose Beige #B89484 reduced to page-ground value, not a reflex warm off-white. The brief wins."
+      }
+    ]
+  }
+}

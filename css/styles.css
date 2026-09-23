@@ -8,22 +8,41 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- Tokens ---------- */
 :root {
-  --bg: #F6F4FB;
-  --surface: #FFFFFF;
-  --surface-alt: #EDEAF7;
-  --ink: #14121F;
-  --ink-soft: #514B69;
-  --ink-faint: #6B6480;
-  --accent: #FF6B2C;
-  --accent-strong: #E85A1F;
-  --accent-soft: #FFE7D6;
-  --accent-on: #14121F;
-  --line: #E2DEF0;
-  --shadow-color: 250 30% 15%;
+  /* Deep Charcoal / Dusty Rose. Charcoal is a near-black and grounds the dark theme;
+     Dusty Rose is the accent in BOTH themes, unusually, because it carries a charcoal
+     label at 6.96:1 either way. What it cannot do is carry small text on a pale ground
+     (2.76:1) or take a white label, so light mode deepens it to #7C5A4B for icons. */
+  --bg: #100E11;
+  --surface: #171519;
+  --surface-alt: #231F26;
+  --ink: #F2EAE6;
+  --ink-soft: #B3A49D;
+  --ink-faint: #8E817B;
+  --accent: #B89484;
+  --accent-strong: #CBAA9C;
+  --accent-hover: #CBAA9C;
+  --accent-soft: #2A211D;
+  --accent-on: #100E11;
+  --line: #272329;
+  --shadow-color: 20 30% 2%;
+
+  /* Overview panel. The wash starts at the page ground and warms toward the rose,
+     so the panel reads as a lit region of the page rather than a second card;
+     tiles sit a step lighter than it in either theme so the figure/ground holds. */
+  --panel-wash: linear-gradient(135deg, color-mix(in srgb, var(--accent) 3%, var(--bg)) 0%, color-mix(in srgb, var(--accent) 17%, var(--bg)) 100%);
+  --panel-tile: var(--surface-alt);
+
+  /* Toggle state travels as tokens so each theme sets it once. Dark is the base. */
+  --sun-d: none;
+  --moon-d: block;
+  --toggle-x: 14px;
+  --toggle-track: var(--accent);
+  --toggle-thumb: var(--accent-on);
 
   --font-display: "Figtree", "Segoe UI", sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
 
+  --radius-xl: 32px;
   --radius-lg: 24px;
   --radius-md: 16px;
   --radius-sm: 10px;
@@ -31,37 +50,7 @@ img, svg { display: block; max-width: 100%; }
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-:root[data-theme="dark"] {
-  --bg: #100D1A;
-  --surface: #181425;
-  --surface-alt: #201A30;
-  --ink: #F4F2FA;
-  --ink-soft: #C2BBD9;
-  --ink-faint: #8C84A8;
-  --accent: #FF7A3D;
-  --accent-strong: #FF9257;
-  --accent-soft: #3A2113;
-  --accent-on: #14121F;
-  --line: #2C2640;
-  --shadow-color: 260 60% 3%;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #100D1A;
-    --surface: #181425;
-    --surface-alt: #201A30;
-    --ink: #F4F2FA;
-    --ink-soft: #C2BBD9;
-    --ink-faint: #8C84A8;
-    --accent: #FF7A3D;
-    --accent-strong: #FF9257;
-    --accent-soft: #3A2113;
-    --accent-on: #14121F;
-    --line: #2C2640;
-    --shadow-color: 260 60% 3%;
-  }
-}
 
 html { color-scheme: light dark; }
 
@@ -104,7 +93,7 @@ body {
 .skip-link:focus { left: 0; }
 
 .icon { width: 18px; height: 18px; flex-shrink: 0; }
-.icon-sprite symbol {
+.icon-sprite symbol:not([id^="i-logo-"]) {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -160,6 +149,114 @@ body {
   letter-spacing: -0.02em;
 }
 .mark-lg { width: 56px; height: 56px; border-radius: 16px; font-size: 1.25rem; margin: 0 auto 16px; }
+
+.avatar {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+  background: var(--surface-alt);
+}
+/* Fills the rail's full content width (288px rail - 48px padding). */
+.avatar-lg { width: 100%; height: auto; aspect-ratio: 1; border-radius: var(--radius-lg); margin: 0 auto 18px; }
+/* The rail is a scroll container, so a tall portrait costs reachability on short
+   laptop viewports. Give back some height where there isn't room for the full mark. */
+@media (max-height: 900px) {
+  .avatar-lg { width: 160px; }
+}
+@media (max-height: 760px) {
+  .avatar-lg { width: 104px; border-radius: var(--radius-md); }
+}
+
+/* Light theme: pale rose ground, charcoal ink, the same rose accent fill with a
+   charcoal label; icon tone deepened so it clears the text floor. */
+:root[data-theme="light"] {
+    --bg: #F7EDE8;
+    --surface: #FFFAF7;
+    --surface-alt: #EFE0D8;
+    --ink: #100E11;
+    --ink-soft: #6B534A;
+    --ink-faint: #7B6257;
+    --accent: #B89484;
+    --accent-strong: #7C5A4B;
+    --accent-hover: #A67F6E;
+    --accent-soft: #F0DDD4;
+    --accent-on: #100E11;
+    --line: #E8D5CB;
+    --shadow-color: 20 35% 25%;
+    --panel-wash: linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, var(--bg)) 0%, color-mix(in srgb, var(--accent) 26%, var(--bg)) 100%);
+    --panel-tile: var(--surface);
+    --sun-d: block;
+    --moon-d: none;
+    --toggle-x: 0px;
+    --toggle-track: var(--line);
+    --toggle-thumb: var(--surface);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #F7EDE8;
+    --surface: #FFFAF7;
+    --surface-alt: #EFE0D8;
+    --ink: #100E11;
+    --ink-soft: #6B534A;
+    --ink-faint: #7B6257;
+    --accent: #B89484;
+    --accent-strong: #7C5A4B;
+    --accent-hover: #A67F6E;
+    --accent-soft: #F0DDD4;
+    --accent-on: #100E11;
+    --line: #E8D5CB;
+    --shadow-color: 20 35% 25%;
+    --panel-wash: linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, var(--bg)) 0%, color-mix(in srgb, var(--accent) 26%, var(--bg)) 100%);
+    --panel-tile: var(--surface);
+    --sun-d: block;
+    --moon-d: none;
+    --toggle-x: 0px;
+    --toggle-track: var(--line);
+    --toggle-thumb: var(--surface);
+  }
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out-expo);
+}
+.theme-toggle:hover { background: var(--surface-alt); }
+.icon-sun { display: var(--sun-d); }
+.icon-moon { display: var(--moon-d); }
+.theme-toggle-track {
+  position: relative;
+  margin-left: auto;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--toggle-track);
+  transition: background 0.25s var(--ease-out-expo);
+}
+.theme-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--toggle-thumb);
+  transform: translateX(var(--toggle-x));
+  transition: transform 0.25s var(--ease-out-expo), background 0.25s var(--ease-out-expo);
+}
 
 /* ---------- Sidebar ---------- */
 .sidebar {
@@ -218,12 +315,6 @@ body {
   color: var(--ink-soft);
   transition: transform 0.2s var(--ease-out-expo), color 0.2s, border-color 0.2s, background 0.2s;
 }
-.social-btn:hover {
-  color: var(--accent-on);
-  background: var(--accent);
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
 
 .nav { display: flex; flex-direction: column; gap: 2px; margin-top: 24px; flex: 1; }
 .nav-link {
@@ -239,42 +330,7 @@ body {
 
 .sidebar-bottom { padding-top: 20px; border-top: 1px solid var(--line); }
 
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: var(--radius-sm);
-  color: var(--ink-soft);
-}
-.theme-toggle:hover { background: var(--surface-alt); }
-.icon-moon { display: none; }
-:root[data-theme="dark"] .icon-sun { display: none; }
-:root[data-theme="dark"] .icon-moon { display: block; }
 
-.theme-toggle-track {
-  margin-left: auto;
-  width: 34px;
-  height: 20px;
-  border-radius: 999px;
-  background: var(--line);
-  position: relative;
-  transition: background 0.25s var(--ease-out-expo);
-}
-.theme-toggle-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--surface);
-  box-shadow: 0 1px 3px hsl(var(--shadow-color) / 0.3);
-  transition: transform 0.25s var(--ease-out-expo);
-}
-:root[data-theme="dark"] .theme-toggle-track { background: var(--accent); }
-:root[data-theme="dark"] .theme-toggle-thumb { transform: translateX(14px); }
 
 .sidebar-copyright { margin-top: 14px; font-size: 0.8rem; color: var(--ink-faint); }
 
@@ -298,23 +354,33 @@ main {
 }
 
 /* ---------- Hero ---------- */
+/* The headline and the one action share the top line: the action is a
+   destination, not a step in the reading, so it sits out of the text column. */
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px 48px;
+}
+.hero-lead { min-width: 0; }
+.hero-cta { flex: none; margin-top: 8px; }
+
 .hero-headline {
-  font-size: clamp(2.1rem, 3.6vw, 3.2rem);
+  font-size: clamp(2.2rem, 4.1vw, 3.6rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  max-width: 26ch;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  max-width: 24ch;
+  text-wrap: balance;
 }
 
 .hero-sub {
-  margin-top: 22px;
-  font-size: 1.1rem;
+  margin-top: 20px;
+  font-size: 1.05rem;
   color: var(--ink-soft);
-  max-width: 58ch;
+  max-width: 62ch;
   line-height: 1.6;
 }
-
-.hero-actions { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
 
 .btn {
   display: inline-flex;
@@ -327,17 +393,11 @@ main {
   transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo), background 0.2s;
 }
 .btn .icon { width: 16px; height: 16px; transition: transform 0.25s var(--ease-out-expo); }
-.btn:hover .icon { transform: translateX(3px); }
 
 .btn-primary {
   background: var(--accent);
   color: var(--accent-on);
   box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.15);
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px -8px hsl(var(--shadow-color) / 0.35);
-  background: var(--accent-strong);
 }
 
 .btn-ghost {
@@ -345,9 +405,56 @@ main {
   color: var(--ink);
   border: 1px solid var(--line);
 }
-.btn-ghost:hover { background: var(--surface-alt); transform: translateY(-2px); }
 
-.stack-strip { margin-top: 40px; }
+.stack-strip { margin-top: 36px; }
+
+/* One bordered rail: a standing label, a hairline, then the tools divided by hairlines.
+   No eyebrow above the label - that is a standing ban, and the pinned brief names it too.
+   The tools use the drawn sprite, not vendor logos, so the icon system holds. */
+.toolbar {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.toolbar-label {
+  display: flex;
+  align-items: center;
+  flex: none;
+  padding: 15px 20px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  border-right: 1px solid var(--line);
+}
+/* The tools share the rail evenly rather than bunching at its left end; they
+   grow but never shrink, so a narrow rail scrolls instead of squashing them. */
+.toolbar-list {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.toolbar-list::-webkit-scrollbar { display: none; }
+.toolbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1 0 auto;
+  justify-content: center;
+  padding: 15px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.toolbar-item + .toolbar-item { border-left: 1px solid var(--line); }
+.toolbar-item .icon { width: 17px; height: 17px; color: var(--accent-strong); }
 .stack-pills { display: flex; flex-wrap: wrap; gap: 10px; }
 .pill {
   display: inline-flex;
@@ -363,13 +470,156 @@ main {
 }
 .pill .icon { color: var(--accent-strong); width: 16px; height: 16px; }
 
-/* ---------- Bento grid ---------- */
-.grid {
-  margin-top: 72px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+/* ---------- Home overview panel ----------
+   One tile per section below, each carrying a real preview rather than an icon
+   and a sentence: the projects tile shows the actual screenshots, the about tile
+   the actual portrait. The panel itself is a tinted ground, borderless and
+   shadowless, so a tile sitting on it is never a card inside a card. */
+.home-panel {
+  margin-top: 36px;
+  padding: 16px;
+  border-radius: var(--radius-xl);
+  background: var(--panel-wash);
 }
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 22px;
+  background: var(--panel-tile);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.05);
+  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo),
+    border-color 0.25s;
+}
+.tile:focus-within { border-color: color-mix(in srgb, var(--accent) 32%, var(--line)); }
+
+.tile-projects { grid-column: span 2; }
+.tile-about { grid-column: span 2; }
+.tile-services { grid-column: span 2; }
+.tile-cta { grid-column: span 2; }
+
+.tile-chip {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-on);
+}
+.tile-chip .icon { width: 19px; height: 19px; }
+
+/* Points out of the tile, the way the destination does. */
+.tile-arrow {
+  position: absolute;
+  top: 24px;
+  right: 22px;
+  width: 15px;
+  height: 15px;
+  color: var(--ink-faint);
+  transform: rotate(-45deg);
+  transition: transform 0.3s var(--ease-out-expo), color 0.3s;
+}
+
+.tile-name {
+  margin-top: 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.tile-name a {
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.25s;
+}
+/* The title is the tile's one link; the pseudo-element gives it the whole box. */
+.tile-name a::after { content: ""; position: absolute; inset: 0; }
+.tile:hover .tile-name a { border-bottom-color: var(--accent); }
+
+.tile-desc {
+  margin-top: 6px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 42ch;
+}
+
+/* Projects: two shipped sites stacked and stepped, running off the right edge,
+   the lower one cut by the tile — the work continues past what the tile shows. */
+.tile-shots {
+  margin: 22px -22px -22px 0;
+  display: grid;
+  gap: 14px;
+  min-height: 0;
+  max-height: 300px;
+}
+.tile-shot {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  border: 1px solid var(--line);
+  border-right: 0;
+}
+.tile-shot { margin-left: 56px; }
+.tile-shot-2 { margin-left: 24px; }
+
+/* About: the portrait fills the rest of the tile rather than floating in it. */
+.tile-portrait {
+  margin: 20px -22px -22px;
+  width: calc(100% + 44px);
+  max-width: none;
+  flex: 1;
+  min-height: 130px;
+  max-height: 330px;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+
+.tile-svc {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 26px;
+}
+.tile-svc li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.tile-svc li:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 12px; }
+.tile-svc .icon { width: 16px; height: 16px; color: var(--accent-strong); }
+
+/* The one tile that acts instead of linking, so it carries the accent wash. */
+.tile-cta {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 32px;
+  flex-wrap: wrap;
+  align-content: center;
+  background: var(--accent-soft);
+  border-color: transparent;
+}
+.tile-cta .tile-name { margin-top: 0; }
+.tile-cta .tile-desc { color: color-mix(in srgb, var(--accent) 12%, var(--ink-soft)); }
+.tile-cta .btn-primary { flex: none; }
+
+/* ---------- Bento grid ---------- */
 
 .card {
   background: var(--surface);
@@ -379,16 +629,11 @@ main {
   box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.04);
   opacity: 1;
   transform: none;
-  transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s var(--ease-out-expo), border-color 0.35s;
-}
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 40px -20px hsl(var(--shadow-color) / 0.25);
-  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo), border-color 0.25s;
 }
 
 .card-heading {
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.01em;
 }
@@ -396,38 +641,17 @@ main {
 .card-heading-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .card-note { font-size: 0.78rem; color: var(--ink-faint); }
 
-.card-services { grid-column: span 2; }
-.card-about { grid-column: span 1; }
-.card-projects { grid-column: span 2; }
-.card-process { grid-column: span 1; }
-.card-testimonials { grid-column: span 2; }
-.card-contact {
-  grid-column: span 1;
-  background: var(--accent-soft);
-  border-color: transparent;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.card-contact .btn-primary { margin-top: 18px; align-self: flex-start; }
+
 .card-copy { color: var(--ink-soft); margin-top: 10px; font-size: 0.95rem; line-height: 1.55; }
+/* On the accent wash, secondary text is tinted from that hue rather than left grey. */
+/* 12%, not 30%: when the accent is lighter than the ink (as here), a heavier mix
+   lifts the text off the wash instead of grounding it. 30% measured 4.0:1. */
+.card-contact .card-copy { color: color-mix(in srgb, var(--accent) 12%, var(--ink-soft)); }
 
 /* Services */
-.service-list { margin-top: 22px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px 24px; }
-.service-item { display: flex; gap: 14px; align-items: flex-start; }
-.service-icon {
-  flex-shrink: 0;
-  width: 38px;
-  height: 38px;
-  padding: 9px;
-  border-radius: 12px;
-  background: var(--surface-alt);
-  color: var(--accent-strong);
-}
-.service-name { font-weight: 600; font-size: 0.95rem; }
-.service-desc { color: var(--ink-soft); font-size: 0.85rem; margin-top: 3px; line-height: 1.45; }
 
 /* About */
+
 .placeholder-text {
   margin-top: 18px;
   color: var(--ink-soft);
@@ -439,59 +663,226 @@ main {
 .stat-value { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent-strong); }
 .stat-label { font-size: 0.78rem; color: var(--ink-faint); margin-top: 2px; }
 
-/* Projects */
-.project-tiles { margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
-.project-tile {
-  position: relative;
-  min-height: 168px;
-  border-radius: var(--radius-md);
-  padding: 18px;
+
+
+.grid {
+  margin-top: 72px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card-projects { grid-column: span 3; }
+.card-about { grid-column: span 1; }
+.card-process { grid-column: span 1; }
+.card-testimonials { grid-column: span 2; }
+.card-contact {
+  grid-column: span 3;
+  background: var(--accent-soft);
+  border-color: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+}
+.card-contact .card-copy { max-width: 46ch; }
+.card-contact .btn-primary { margin-top: 0; align-self: center; flex: none; }
+
+/* ---------- Services band ---------- */
+.services-band { margin-top: 72px; }
+.band-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.band-heading { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
+.band-note { font-size: 0.78rem; color: var(--ink-faint); }
+
+.svc-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.svc {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  overflow: hidden;
-  border: 1px dashed var(--line);
-  transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s var(--ease-out-expo),
-    border-color 0.35s;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 20px 18px;
+  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.04);
+  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo), border-color 0.25s;
 }
-.project-tile:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 40px -20px hsl(var(--shadow-color) / 0.25);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
-}
-.project-tile::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.55;
-}
-.project-tile-a::before { background:
-    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%),
-    linear-gradient(155deg, var(--surface-alt), var(--surface));
-}
-.project-tile-b::before { background:
-    radial-gradient(circle at 80% 30%, color-mix(in srgb, var(--accent) 25%, transparent), transparent 55%),
-    linear-gradient(155deg, var(--surface-alt), var(--surface));
-}
-.project-tile-c::before { background:
-    radial-gradient(circle at 75% 78%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 58%),
-    linear-gradient(155deg, var(--surface-alt), var(--surface));
-}
-.project-tile-d::before { background:
-    radial-gradient(circle at 25% 80%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 55%),
-    linear-gradient(155deg, var(--surface-alt), var(--surface));
-}
-.project-tile-icon {
-  position: relative;
-  z-index: 1;
-  width: 22px;
-  height: 22px;
-  margin-bottom: auto;
+.svc-tools { display: flex; gap: 6px; }
+.svc-tool {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--surface-alt);
   color: var(--accent-strong);
 }
-.project-name, .project-desc { position: relative; z-index: 1; }
-.project-name { font-weight: 700; font-size: 0.95rem; }
-.project-desc { color: var(--ink-soft); font-size: 0.82rem; margin-top: 3px; }
+.svc-tool .icon { width: 15px; height: 15px; }
+.svc-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.svc-glyph { width: 18px; height: 18px; flex: none; color: var(--ink-soft); }
+.svc-desc { margin-top: 6px; font-size: 0.85rem; line-height: 1.45; color: var(--ink-soft); }
+.svc-tag {
+  align-self: flex-start;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  /* ink, not accent-strong: amber on the soft wash is only 3:1, and this is 12.5px. */
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+/* margin-top:auto lines the checklists up across the row despite uneven copy above. */
+.svc-points {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.svc-point { display: flex; gap: 9px; align-items: flex-start; font-size: 0.8rem; line-height: 1.4; color: var(--ink-soft); }
+.svc-point .icon { width: 15px; height: 15px; flex: none; margin-top: 1px; color: var(--accent-strong); }
+
+/* ---------- Live automation band ---------- */
+.auto-band { margin-top: 64px; text-align: center; }
+.auto-heading { font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+.auto-copy { margin: 12px auto 0; max-width: 54ch; font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); }
+.auto-pills { margin-top: 22px; justify-content: center; }
+
+/* ---------- Client list ----------
+   Rows, not tiles: the work is anonymised, so there is no screenshot to show and
+   nothing to link to. Sequence lives in the names, so no decorative numbering. */
+.client-list { margin-top: 24px; }
+.client-row {
+  display: flex;
+  gap: 20px;
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+}
+.client-row:first-child { border-top: 0; padding-top: 8px; }
+.client-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--surface-alt);
+  color: var(--accent-strong);
+}
+.client-mark .icon { width: 22px; height: 22px; }
+/* flex:1 so the body claims the gap and the shot stays flush right across rows. */
+.client-body { flex: 1; min-width: 0; }
+.client-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.client-name { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+.client-role {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.client-desc {
+  margin-top: 10px;
+  max-width: 68ch;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.client-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.client-tags li {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+/* Screenshot rides on the right of the row, not in place of the mark. */
+.client-shot {
+  flex: none;
+  width: 260px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top center;
+  align-self: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-alt);
+}
+
+/* ---------- About band ----------
+   A full-width statement rather than a bento cell: an oversized lowercase heading,
+   the portrait carrying its own column, and a strip of shots beneath. */
+.about-band { margin-top: 72px; }
+.about-lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  gap: 56px;
+  align-items: center;
+}
+.about-heading {
+  font-size: clamp(2.1rem, 3.6vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.about-intro {
+  margin-top: 16px;
+  max-width: 34ch;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.about-text .placeholder-text { max-width: 58ch; }
+.about-portrait {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--surface-alt);
+}
+.about-strip-head { margin-top: 48px; }
+.about-strip {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+/* Dashed, like the project tiles: these are scaffolding until real shots land. */
+.about-shot {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+}
 
 /* Process */
 .process-list { margin-top: 20px; display: flex; flex-direction: column; gap: 18px; }
@@ -641,22 +1032,53 @@ main {
   to { opacity: 1; transform: translateY(0); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-headline, .hero-sub, .hero-actions, .stack-strip {
+  .hero-headline, .hero-sub, .hero-cta, .stack-strip, .home-panel {
     animation: rise-in 0.7s var(--ease-out-expo) both;
   }
   .hero-headline { animation-delay: 0.05s; }
-  .hero-sub { animation-delay: 0.18s; }
-  .hero-actions { animation-delay: 0.3s; }
-  .stack-strip { animation-delay: 0.42s; }
+  .hero-sub { animation-delay: 0.16s; }
+  .hero-cta { animation-delay: 0.26s; }
+  .stack-strip { animation-delay: 0.36s; }
+  .home-panel { animation-delay: 0.46s; }
 }
 
 /* ---------- Responsive ---------- */
+/* Vendor marks are filled single paths, not the stroked line system, and they carry
+   their own brand colour. WCAG exempts logotypes from contrast minimums.
+   fill is set on the <svg>, not the <symbol>: currentColor inside a symbol resolves
+   in the sprite's context, so it would pick up --ink instead of the brand colour. */
+.icon-sprite symbol[id^="i-logo-"] { stroke: none; }
+.icon.brand-n8n { fill: #EA4B71; }
+.icon.brand-zapier { fill: #FF4F00; }
+.icon.brand-claude { fill: #D97757; }
+/* OpenAI's mark is monochrome by design: it rides the ink so it flips with the theme. */
+.icon.brand-codex { fill: var(--ink); }
+/* VS Code ships with its own gradient, so it sets no fill of its own. */
+/* GoHighLevel ships as artwork, not a path, so it rides in as an <img>. */
+img.icon { object-fit: contain; }
+
 @media (max-width: 1040px) {
-  .service-list { grid-template-columns: minmax(0, 1fr); }
-  .quote-list { grid-template-columns: minmax(0, 1fr); }
+  .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Across a full row the stack would be two very wide bands, so the shots
+     stand side by side instead and only the right one runs off the tile. */
+  .tile-shots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: none;
+    margin: 22px -22px 0 0;
+  }
+  .tile-shot, .tile-shot-2 { margin-left: 0; }
+  /* Only the right-hand shot runs off the tile, so the left one closes again. */
+  .tile-shot { border-right: 1px solid var(--line); border-radius: var(--radius-sm); }
+  .tile-shot-2 { border-right: 0; border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+    .about-lead { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .about-portrait { max-width: 340px; }
+  .about-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .about-band { margin-top: 48px; }
 }
 
 @media (max-width: 900px) {
+  .client-shot { width: 220px; }
   .app { grid-template-columns: minmax(0, 1fr); }
   .topbar { display: flex; }
 
@@ -679,11 +1101,20 @@ main {
   main { grid-column: 1; padding: 32px 20px 40px; }
 
   .grid { grid-template-columns: minmax(0, 1fr); }
-  .card-services, .card-about, .card-projects, .card-process, .card-testimonials, .card-contact {
+  .card-about, .card-projects, .card-process, .card-testimonials, .card-contact {
     grid-column: span 1;
   }
-  .project-tiles { grid-template-columns: minmax(0, 1fr); }
+  .card-contact { flex-direction: column; align-items: stretch; justify-content: center; }
+  .card-contact .btn-primary { margin-top: 18px; align-self: flex-start; }
+  .process-list { grid-template-columns: minmax(0, 1fr); }
+  .services-band { margin-top: 48px; }
+  .auto-band { margin-top: 48px; }
+  .card-contact { flex-direction: column; align-items: stretch; }
+  .card-contact .btn-primary { margin-top: 18px; align-self: flex-start; }
   .hero { padding-top: 4px; }
+  .hero-top { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .hero-cta { margin-top: 0; }
+  .home-panel { padding: 12px; border-radius: var(--radius-lg); }
 
   .contact-block {
     grid-template-columns: minmax(0, 1fr);
@@ -693,7 +1124,598 @@ main {
   }
 }
 
+@media (max-width: 600px) {
+  .home-grid { grid-template-columns: minmax(0, 1fr); }
+  .tile-projects, .tile-about, .tile-services, .tile-cta { grid-column: span 1; }
+  .tile-svc { grid-template-columns: minmax(0, 1fr); }
+  .tile-svc li { border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+  .tile-svc li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .tile-shot-2 { margin-left: 22px; }
+  .tile-cta { flex-direction: column; align-items: stretch; }
+  .client-row { flex-direction: column; gap: 16px; }
+  .client-shot { width: 100%; align-self: stretch; }
+    /* The label would eat the row's width, so it stands above the tools instead. */
+  .toolbar { flex-direction: column; align-items: stretch; width: 100%; }
+  .toolbar-label { border-right: 0; border-bottom: 1px solid var(--line); }
+}
+
 @media (max-width: 480px) {
-  .hero-actions { flex-direction: column; align-items: stretch; }
+  .svc-grid { grid-template-columns: minmax(0, 1fr); }
+  .about-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .btn { justify-content: center; }
+  .hero-cta { align-self: stretch; }
+}
+
+/* ---------- System map (shared: homepage + case studies) ---------- */
+/* ---------- The system map ----------
+   Sits on the page ground, never inside a card: the nodes are the only chrome,
+   so nothing here nests a card inside another card. Edges are drawn by
+   js/sysmap.js from measured node positions — the graph is real geometry, not
+   a column gutter standing in for one. */
+.sysmap-block { margin-top: 64px; }
+
+.sysmap {
+  position: relative;
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  grid-auto-rows: minmax(0, auto);
+  column-gap: var(--gap, 62px);
+  row-gap: 16px;
+  align-items: center;
+}
+
+.sysmap-edges {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.sysmap-edge {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.sysmap-edge-feedback {
+  stroke-dasharray: 3 5;
+}
+.sysmap-route {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sysnode {
+  position: relative;
+  z-index: 1;
+  grid-column: var(--col, auto);
+  grid-row: var(--row, auto);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 15px 16px;
+  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.04);
+}
+.sysnode .icon {
+  width: 20px;
+  height: 20px;
+  color: var(--ink-soft);
+}
+.sysnode-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.sysnode-meta {
+  margin-top: 3px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+/* Nodes the live path runs through. */
+.sysnode-live {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+.sysnode-live .icon { color: var(--accent-strong); }
+
+@media (max-width: 900px) {
+  /* The map turns the corner: one column, edges redrawn down the stack from
+     the same declaration — sysmap.js measures whatever the layout produced. */
+  .sysmap {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+    row-gap: 34px;
+  }
+  .sysnode {
+    grid-column: 1;
+    grid-row: auto;
+    margin-left: 22px;
+  }
+}
+
+/* Four columns need the corner earlier than three do: below this the node
+   labels start wrapping to four and five lines. Same declarations as the
+   900px collapse, applied to the one map that is four wide. */
+@media (max-width: 1140px) {
+  .build-band .sysmap {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+    row-gap: 34px;
+  }
+  .build-band .sysnode {
+    grid-column: 1;
+    grid-row: auto;
+    margin-left: 22px;
+  }
+}
+
+/* ---------- Projects index ----------
+   One card per kind of work, sitting on the page ground rather than inside a
+   wash: the overview panel up top already owns that treatment, and a second
+   tinted panel would read as the same section twice. Cards that have a write-up
+   below carry the link and the arrow; the two still being documented carry
+   neither, so the affordance never promises a page that is not there. */
+.projects-band { margin-top: 72px; }
+
+.proj-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.proj-widest { grid-column: span 3; }
+.proj-wide { grid-column: span 2; }
+
+.proj {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.04);
+  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo),
+    border-color 0.25s;
+}
+.proj:focus-within { border-color: color-mix(in srgb, var(--accent) 32%, var(--line)); }
+
+.proj-chip {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-on);
+}
+.proj-chip .icon { width: 19px; height: 19px; }
+
+.proj-arrow {
+  position: absolute;
+  top: 26px;
+  right: 24px;
+  width: 15px;
+  height: 15px;
+  color: var(--ink-faint);
+  transform: rotate(-45deg);
+  transition: transform 0.3s var(--ease-out-expo), color 0.3s;
+}
+
+.proj-name {
+  margin-top: 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.proj-name a {
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.25s;
+}
+.proj-name a::after { content: ""; position: absolute; inset: 0; }
+.proj:hover .proj-name a { border-bottom-color: var(--accent); }
+
+/* The two still being documented use the site's dashed-placeholder convention
+   and carry their glyph in the heading rather than in a chip above it: an empty
+   slot should not wear the same mark as a card with a build behind it. */
+.proj-pending { border-style: dashed; }
+/* The spine every workflow is built on. The last step carries the accent the
+   way the outcome does everywhere else on the page — it is the one that pays. */
+.proj-spine { margin-top: auto; padding-top: 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+.proj-spine li {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.proj-spine li:last-child {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--accent-on);
+  font-weight: 600;
+}
+.proj-name-inline { display: flex; align-items: center; gap: 11px; margin-top: 0; }
+.proj-glyph { width: 20px; height: 20px; flex: none; color: var(--ink-soft); }
+
+.proj-desc {
+  margin-top: 6px;
+  max-width: 52ch;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.proj .placeholder-text { margin-top: 14px; font-size: 0.85rem; }
+
+/* The workflow gallery. Thumbnails are buttons because they open an overlay
+   rather than go anywhere; the frame fixes the aspect so seven screenshots of
+   seven different heights still read as one grid. */
+/* The card's title link stretches over the whole card (`.proj-name a::after`),
+   so the gallery has to sit above it or every thumbnail click lands on the link
+   instead of the button underneath it. */
+.wf-gallery {
+  position: relative;
+  z-index: 1;
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px 12px;
+}
+.wf-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.wf-frame {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel-tile);
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo),
+    border-color 0.3s;
+}
+.wf-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+.wf-open:focus-visible .wf-frame { border-color: var(--accent); }
+.wf-label {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+.wf-open:hover .wf-label { color: var(--ink); }
+.wf-id {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+/* ---------- Screenshot viewer ----------
+   The frame scrolls: a GoHighLevel flow is two thousand pixels tall, and
+   shrinking it to fit the viewport would make the thing unreadable, which is
+   the only reason to open it. */
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.lb[hidden] { display: none; }
+.lb-backdrop {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--shadow-color) / 0.65);
+  backdrop-filter: blur(3px);
+}
+.lb-dialog {
+  position: relative;
+  width: min(940px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 40px 80px -30px hsl(var(--shadow-color) / 0.6);
+}
+.lb-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: none;
+  padding: 14px 14px 14px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.lb-caption { font-size: 0.92rem; font-weight: 600; min-width: 0; }
+.lb-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+}
+.lb-btn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.lb-btn:hover { background: var(--surface-alt); color: var(--ink); }
+.lb-frame {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: var(--surface-alt);
+}
+.lb-img { width: 100%; height: auto; display: block; }
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 6px 18px -8px hsl(var(--shadow-color) / 0.5);
+}
+.lb-prev { left: 14px; }
+.lb-prev .icon { transform: rotate(180deg); }
+.lb-next { right: 14px; }
+
+.proj-shots {
+  margin: 22px -24px -24px 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.proj-shot {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+}
+.proj-shots .proj-shot:last-child { border-right: 0; border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+
+/* ---------- Featured build: the booking pipeline ----------
+   A project told as its own diagram rather than a screenshot: the map is the
+   pipeline, the list underneath is the six workflows that move it. Numbered
+   because the workflows carry those numbers in the build itself. */
+.build-band { margin-top: 72px; }
+.build-lead {
+  margin-top: 16px;
+  max-width: 72ch;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.build-band .sysmap-block { margin-top: 40px; }
+
+.build-list {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 44px;
+}
+.build-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.build-step:nth-last-child(-n+2) { border-bottom: 0; }
+/* An identifier from the build, not monospace worn as a costume. */
+.build-step-id {
+  flex: none;
+  padding-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+.build-step-name { font-size: 0.92rem; font-weight: 600; }
+.build-step-desc {
+  margin-top: 5px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.build-pills { margin-top: 36px; }
+
+/* The band is centred; the map is a diagram and reads left-aligned. */
+.auto-band .sysmap-block { margin-top: 40px; text-align: left; }
+.auto-band .auto-pills { margin-top: 32px; }
+
+/* ---------- Responsive: the two bands declared below the block above ----------
+   Both the projects index and the featured build are authored after the main
+   responsive section, so their breakpoints have to be restated here to win. */
+@media (max-width: 1040px) {
+  .proj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proj-widest { grid-column: span 2; }
+  /* The card narrows here, so four thumbs across would fall to 136px. */
+  .wf-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .projects-band { margin-top: 48px; }
+  .proj-grid { grid-template-columns: minmax(0, 1fr); }
+  .proj-wide, .proj-widest { grid-column: span 1; }
+
+  .build-band { margin-top: 48px; }
+  .build-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .build-step:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .build-step:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 600px) {
+  /* Three screenshots across a phone are thumbnails; two read as work. */
+  .proj-shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proj-shots .proj-shot:last-child { display: none; }
+  /* Four workflow thumbs across a phone are 100px wide and show nothing. */
+  .wf-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lb { padding: 0; }
+  .lb-dialog { border-radius: 0; border: 0; height: 100%; width: 100%; }
+  .lb-nav { top: auto; bottom: 16px; transform: none; }
+}
+
+/* ==========================================================================
+   Interaction polish
+
+   Three things live here, all of them invisible when they are right.
+
+   1. Hover lifts are gated behind a fine pointer. A touch device fires :hover
+      on tap and leaves it there, so on a phone every card you touched stayed
+      raised until you touched another one. Colour-only hovers are not gated —
+      a colour that lingers after a tap reads as feedback, a stuck lift reads
+      as a bug.
+
+   2. Every pressable thing answers the press. Scale is small (0.97 on a
+      control, less on a large surface, since the same ratio reads as a lurch
+      at card size) and fast, because it is confirming the interface heard you,
+      not performing.
+
+   3. The viewer fades and scales in from 0.96, never from 0 — nothing arrives
+      from nothing — and leaves faster than it enters.
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .social-btn:hover {
+    color: var(--accent-on);
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .btn:hover .icon { transform: translateX(3px); }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -8px hsl(var(--shadow-color) / 0.35);
+    background: var(--accent-hover);
+  }
+  .btn-ghost:hover { background: var(--surface-alt); transform: translateY(-2px); }
+
+  .tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -20px hsl(var(--shadow-color) / 0.3);
+    border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+  }
+  .tile:hover .tile-arrow { color: var(--accent); transform: rotate(-45deg) translateX(4px); }
+
+  .card:hover,
+  .svc:hover,
+  .proj:has(.proj-name a):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -20px hsl(var(--shadow-color) / 0.25);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+  }
+  .proj:hover .proj-arrow { color: var(--accent); transform: rotate(-45deg) translateX(4px); }
+
+  .wf-open:hover .wf-frame {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+    box-shadow: 0 14px 28px -18px hsl(var(--shadow-color) / 0.4);
+  }
+}
+
+/* ---------- Press ---------- */
+.btn:active { transform: scale(0.97); }
+.icon-btn:active,
+.social-btn:active,
+.lb-btn:active { transform: scale(0.94); }
+.theme-toggle:active { transform: scale(0.98); }
+.nav-link:active { transform: scale(0.99); }
+
+/* A whole card is a big surface: 0.97 on one reads as a lurch, so it presses
+   into the page instead of shrinking. */
+.tile:active,
+.card:active,
+.svc:active,
+.proj:has(.proj-name a):active { transform: translateY(-1px); }
+.wf-open:active .wf-frame { transform: scale(0.98); }
+
+.btn,
+.icon-btn,
+.social-btn,
+.theme-toggle,
+.nav-link,
+.lb-btn { transition-property: transform, background, color, border-color, box-shadow; }
+.wf-frame { transition: transform 0.16s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo), border-color 0.25s; }
+
+/* ---------- Viewer enter and exit ---------- */
+.lb {
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out-expo);
+}
+.lb[data-open="true"] { opacity: 1; }
+/* Centre origin is right here: a modal is not anchored to a trigger. */
+.lb-dialog {
+  transform: scale(0.96);
+  transition: transform 0.2s var(--ease-out-expo);
+}
+.lb[data-open="true"] .lb-dialog { transform: scale(1); }
+/* Out faster than in: the user has already decided. */
+.lb:not([data-open="true"]),
+.lb:not([data-open="true"]) .lb-dialog { transition-duration: 0.14s; }
+
+/* ---------- Reduced motion ----------
+   Fewer and gentler, not none: opacity and colour still carry the change,
+   movement does not. */
+@media (prefers-reduced-motion: reduce) {
+  .social-btn:hover,
+  .btn-primary:hover,
+  .btn-ghost:hover,
+  .tile:hover,
+  .card:hover,
+  .svc:hover,
+  .proj:has(.proj-name a):hover,
+  .wf-open:hover .wf-frame,
+  .btn:active,
+  .icon-btn:active,
+  .social-btn:active,
+  .lb-btn:active,
+  .theme-toggle:active,
+  .nav-link:active,
+  .tile:active,
+  .card:active,
+  .svc:active,
+  .proj:has(.proj-name a):active,
+  .wf-open:active .wf-frame { transform: none; }
+  .btn:hover .icon,
+  .tile:hover .tile-arrow,
+  .proj:hover .proj-arrow { transform: rotate(-45deg); }
+  .btn:hover .icon { transform: none; }
+  .lb-dialog, .lb[data-open="true"] .lb-dialog { transform: none; }
 }

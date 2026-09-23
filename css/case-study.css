@@ -93,86 +93,6 @@
 }
 .cs-fact-value a:hover { border-bottom-color: var(--accent); }
 
-/* ---------- The system map ----------
-   Sits on the page ground, never inside a card: the nodes are the only chrome,
-   so nothing here nests a card inside another card. Edges are drawn by
-   js/sysmap.js from measured node positions — the graph is real geometry, not
-   a column gutter standing in for one. */
-.sysmap-block { margin-top: 64px; }
-
-.sysmap {
-  position: relative;
-  margin-top: 28px;
-  display: grid;
-  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
-  grid-auto-rows: minmax(0, auto);
-  column-gap: var(--gap, 62px);
-  row-gap: 16px;
-  align-items: center;
-}
-
-.sysmap-edges {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-.sysmap-edge {
-  fill: none;
-  stroke: var(--line);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-}
-.sysmap-edge-feedback {
-  stroke-dasharray: 3 5;
-}
-.sysmap-route {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.sysnode {
-  position: relative;
-  z-index: 1;
-  grid-column: var(--col, auto);
-  grid-row: var(--row, auto);
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  padding: 15px 16px;
-  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.04);
-}
-.sysnode .icon {
-  width: 20px;
-  height: 20px;
-  color: var(--ink-soft);
-}
-.sysnode-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.35;
-}
-.sysnode-meta {
-  margin-top: 3px;
-  font-size: 0.8rem;
-  color: var(--ink-soft);
-  line-height: 1.45;
-}
-
-/* Nodes the live path runs through. */
-.sysnode-live {
-  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
-}
-.sysnode-live .icon { color: var(--accent-strong); }
 
 /* ---------- Detail grid: asymmetric spans, per the documented system ---------- */
 .cs-grid {
@@ -319,18 +239,6 @@
 }
 
 @media (max-width: 900px) {
-  /* The map turns the corner: one column, edges redrawn down the stack from
-     the same declaration — sysmap.js measures whatever the layout produced. */
-  .sysmap {
-    grid-template-columns: minmax(0, 1fr);
-    column-gap: 0;
-    row-gap: 34px;
-  }
-  .sysnode {
-    grid-column: 1;
-    grid-row: auto;
-    margin-left: 22px;
-  }
 
   .cs-grid, .cs-close { grid-template-columns: minmax(0, 1fr); }
   .cs-card-problem, .cs-card-build, .cs-card-wiring, .cs-card-result, .cs-more {

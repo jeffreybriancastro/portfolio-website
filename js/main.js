@@ -1,17 +1,15 @@
 (() => {
   "use strict";
 
-  /* Theme toggle */
+  /* Theme toggle. Dark is the authored default; the page otherwise follows the
+     system preference, and an explicit choice is remembered. */
   const root = document.documentElement;
   const themeToggle = document.getElementById("themeToggle");
   const THEME_KEY = "jc-theme";
 
   function applyTheme(theme) {
-    if (theme === "light" || theme === "dark") {
-      root.setAttribute("data-theme", theme);
-    } else {
-      root.removeAttribute("data-theme");
-    }
+    if (theme === "light" || theme === "dark") root.setAttribute("data-theme", theme);
+    else root.removeAttribute("data-theme");
   }
 
   try {
@@ -22,8 +20,8 @@
   }
 
   if (themeToggle) themeToggle.addEventListener("click", () => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const current = root.getAttribute("data-theme") || (prefersDark ? "dark" : "light");
+    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+    const current = root.getAttribute("data-theme") || (prefersLight ? "light" : "dark");
     const next = current === "dark" ? "light" : "dark";
     applyTheme(next);
     try {
@@ -65,26 +63,27 @@
     });
   });
 
-  /* Active nav link on scroll */
-  const sections = ["hero", "services", "projects", "about", "testimonials", "contact"]
-    .map((id) => document.getElementById(id))
-    .filter(Boolean);
+  /* Active nav link on scroll. */
+  function spy(ids, linkSelector) {
+    if (!("IntersectionObserver" in window)) return;
+    const targets = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    const links = document.querySelectorAll(linkSelector);
+    if (!targets.length || !links.length) return;
 
-  if ("IntersectionObserver" in window && sections.length) {
-    const navLinks = document.querySelectorAll(".nav-link");
-    const sectionObserver = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            navLinks.forEach((link) => {
-              link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
-            });
-          }
+          if (!entry.isIntersecting) return;
+          const id = entry.target.id;
+          links.forEach((link) => {
+            link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+          });
         });
       },
       { rootMargin: "-15% 0px -75% 0px" }
     );
-    sections.forEach((section) => sectionObserver.observe(section));
+    targets.forEach((target) => observer.observe(target));
   }
+
+  spy(["hero", "services", "projects", "about", "testimonials", "contact"], ".nav-link");
 })();

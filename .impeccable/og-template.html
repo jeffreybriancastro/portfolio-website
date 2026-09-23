@@ -9,8 +9,8 @@
   body {
     width: 1200px;
     height: 630px;
-    background: #F6F4FB;
-    color: #14121F;
+    background: #100E11;
+    color: #F2EAE6;
     font-family: "Figtree", sans-serif;
     display: grid;
     grid-template-columns: 1fr auto;
@@ -27,7 +27,7 @@
     right: 0;
     bottom: 0;
     height: 8px;
-    background: #FF6B2C;
+    background: #B89484;
   }
   .id {
     display: flex;
@@ -38,16 +38,10 @@
     width: 60px;
     height: 60px;
     border-radius: 17px;
-    background: #FF6B2C;
-    color: #14121F;
-    display: grid;
-    place-items: center;
-    font-weight: 800;
-    font-size: 1.4rem;
-    letter-spacing: -0.02em;
+    display: block;
   }
   .name { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
-  .role { font-size: 1rem; color: #514B69; margin-top: 2px; }
+  .role { font-size: 1rem; color: #B3A49D; margin-top: 2px; }
 
   h1 {
     margin: 40px 0 0;
@@ -60,7 +54,7 @@
   .sub {
     margin-top: 26px;
     font-size: 1.32rem;
-    color: #514B69;
+    color: #B3A49D;
     line-height: 1.45;
     max-width: 40ch;
   }
@@ -72,13 +66,13 @@
     padding: 0;
   }
   .pill {
-    background: #FFFFFF;
-    border: 1px solid #E2DEF0;
+    background: #171519;
+    border: 1px solid #272329;
     border-radius: 999px;
     padding: 10px 19px;
     font-size: 1.02rem;
     font-weight: 500;
-    color: #514B69;
+    color: #B3A49D;
   }
 
   /* A miniature of the case studies' system map: the thing the site is about. */
@@ -86,21 +80,21 @@
   .map svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
   .nodes { position: relative; display: flex; flex-direction: column; gap: 26px; }
   .node {
-    background: #FFFFFF;
-    border: 1px solid #E2DEF0;
+    background: #171519;
+    border: 1px solid #272329;
     border-radius: 15px;
     padding: 15px 17px;
     font-size: 1.02rem;
     font-weight: 600;
   }
-  .node span { display: block; font-size: 0.86rem; font-weight: 400; color: #514B69; margin-top: 3px; }
-  .node.live { border-color: #FFB28A; }
+  .node span { display: block; font-size: 0.86rem; font-weight: 400; color: #B3A49D; margin-top: 3px; }
+  .node.live { border-color: #7C5A4B; }
 </style>
 </head>
 <body>
   <div>
     <div class="id">
-      <div class="mark">JC</div>
+      <img class="mark" src="../img/logo-mark.png" alt="" />
       <div>
         <div class="name">Jeffrey Brian Castro</div>
         <div class="role">Websites · Funnels · CRM · Automation</div>
@@ -114,14 +108,13 @@
       <li class="pill">GoHighLevel</li>
       <li class="pill">n8n</li>
       <li class="pill">Zapier</li>
-      <li class="pill">Make</li>
     </ul>
   </div>
 
   <div class="map">
     <svg viewBox="0 0 310 300" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M26 46C-8 46 -8 150 26 150" fill="none" stroke="#FF6B2C" stroke-width="2.4"/>
-      <path d="M26 150C-8 150 -8 254 26 254" fill="none" stroke="#FF6B2C" stroke-width="2.4"/>
+      <path d="M26 46C-8 46 -8 150 26 150" fill="none" stroke="#B89484" stroke-width="2.4"/>
+      <path d="M26 150C-8 150 -8 254 26 254" fill="none" stroke="#B89484" stroke-width="2.4"/>
     </svg>
     <div class="nodes">
       <div class="node live">Your site or funnel<span>Captures the lead</span></div>
