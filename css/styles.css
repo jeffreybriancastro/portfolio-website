@@ -1,6 +1,6 @@
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html, body, h1, h2, h3, p, ul, ol, li, blockquote, figure { margin: 0; padding: 0; }
+html, body, h1, h2, h3, p, ul, ol, li, blockquote, figure, dl, dd { margin: 0; padding: 0; }
 ul, ol { list-style: none; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
@@ -1592,6 +1592,18 @@ img.icon { object-fit: contain; }
   .lb-nav { top: auto; bottom: 16px; transform: none; }
 }
 
+/* The service name is the way into its walkthrough; the card keeps its own
+   hover lift, so the link only needs to say it is one. */
+.svc { position: relative; }
+.svc-name a {
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.25s;
+}
+.svc-name a::after { content: ""; position: absolute; inset: 0; }
+
+/* The result card is one column wide, so its list cannot be two. */
+.cs-card-result .cs-list { grid-template-columns: minmax(0, 1fr); }
+
 /* ==========================================================================
    Interaction polish
 
@@ -1642,6 +1654,8 @@ img.icon { object-fit: contain; }
     border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
   }
   .proj:hover .proj-arrow { color: var(--accent); transform: rotate(-45deg) translateX(4px); }
+
+  .svc:hover .svc-name a { border-bottom-color: var(--accent); }
 
   .wf-open:hover .wf-frame {
     transform: translateY(-2px);
