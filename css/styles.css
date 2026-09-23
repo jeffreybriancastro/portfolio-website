@@ -927,21 +927,6 @@ main {
   border: 1px solid var(--line);
   background: var(--surface-alt);
 }
-.about-strip-head { margin-top: 48px; }
-.about-strip {
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 16px;
-}
-/* Real shots now, opening in the same viewer as the workflow screenshots, so
-   the frame comes from .wf-frame and this only has to keep the grid honest. */
-.about-shot { min-width: 0; }
-.about-strip .wf-frame { border-radius: var(--radius-md); }
-/* Screenshots are read from the top left; photographs are composed from the
-   middle, so they get the centre of the frame. */
-.about-strip .wf-frame img { object-position: center; }
-
 /* Process */
 .process-list { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
 .process-step { display: flex; gap: 14px; align-items: flex-start; }
@@ -1123,7 +1108,6 @@ img.icon { object-fit: contain; }
   .skill-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .skill:nth-last-child(2) { border-bottom: 1px solid var(--line); }
   .about-portrait { max-width: 340px; }
-  .about-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .about-band { margin-top: 48px; }
 }
 
@@ -1191,7 +1175,6 @@ img.icon { object-fit: contain; }
 
 @media (max-width: 480px) {
   .svc-grid { grid-template-columns: minmax(0, 1fr); }
-  .about-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .btn { justify-content: center; }
   .hero-cta { align-self: stretch; }
 }
