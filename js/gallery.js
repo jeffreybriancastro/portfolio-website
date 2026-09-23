@@ -14,8 +14,13 @@
   "use strict";
 
   const lb = document.getElementById("lightbox");
-  const triggers = Array.from(document.querySelectorAll("[data-gallery] .wf-open"));
-  if (!lb || !triggers.length) return;
+  /* Each gallery is its own sequence: stepping off the end of one should wrap
+     back to its own first shot, not wander into the next gallery on the page. */
+  const galleries = Array.from(document.querySelectorAll("[data-gallery]"))
+    .map((g) => Array.from(g.querySelectorAll(".wf-open")))
+    .filter((set) => set.length);
+  if (!lb || !galleries.length) return;
+  let triggers = galleries[0];
 
   const caption = document.getElementById("lb-caption");
   const count = document.getElementById("lb-count");
@@ -70,7 +75,14 @@
     }, 160);
   }
 
-  triggers.forEach((t, i) => t.addEventListener("click", () => open(i)));
+  galleries.forEach((set) =>
+    set.forEach((t, i) =>
+      t.addEventListener("click", () => {
+        triggers = set;
+        open(i);
+      })
+    )
+  );
   prevBtn.addEventListener("click", () => show(index - 1));
   nextBtn.addEventListener("click", () => show(index + 1));
   lb.querySelectorAll("[data-lb-close]").forEach((el) =>

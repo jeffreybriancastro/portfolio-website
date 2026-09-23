@@ -1383,7 +1383,7 @@ img.icon { object-fit: contain; }
 .proj:hover .proj-name a { border-bottom-color: var(--accent); }
 
 /* The pipeline's own stage names, carrying the numbers the build gives them. */
-.proj-stages { margin-top: auto; padding-top: 22px; display: grid; gap: 2px; }
+.proj-stages { margin-top: 18px; padding-top: 0; display: grid; gap: 2px; }
 .proj-stages li {
   display: flex;
   align-items: baseline;
@@ -1467,6 +1467,9 @@ img.icon { object-fit: contain; }
   object-position: left top;
 }
 .wf-open:focus-visible .wf-frame { border-color: var(--accent); }
+/* One wide screenshot rather than a grid of seven, so the frame matches it. */
+.wf-gallery-single { grid-template-columns: minmax(0, 1fr); margin-top: 20px; }
+.wf-gallery-single .wf-frame { aspect-ratio: 16 / 9; }
 .wf-label {
   display: flex;
   align-items: baseline;
