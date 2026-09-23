@@ -20,7 +20,7 @@ A personal portfolio website for Jeffrey Brian Castro to showcase his work build
 
 ## Positioning
 
-Combines hands-on delivery across the full client-ops stack (site/funnel build + CRM setup + backend automation) rather than a single specialty — built and shipped using Claude Code as part of the workflow.
+GoHighLevel is the stated strength and the headline: CRM setup, pipelines, workflows and the automation around them, with n8n, Zapier, APIs and webhooks as the surrounding tools. Funnels and sites are delivered too, and shown, but they sit under the GHL story rather than beside it. LinkedIn lead generation (Dripify, Sales Navigator, prospecting) is explicitly an add-on, presented below the numbered skills rather than as one of them — the user's own framing.
 
 ## Operating Context
 

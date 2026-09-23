@@ -877,9 +877,8 @@ main {
   padding: 20px 0;
   border-bottom: 1px solid var(--line);
 }
-/* Five items over two columns leaves the last one alone on its row. */
-.skill:last-child { grid-column: span 2; border-bottom: 0; }
-.skill:nth-last-child(2) { border-bottom: 0; }
+/* Four items over two columns: the bottom row carries no rule under it. */
+.skill:nth-last-child(-n+2) { border-bottom: 0; }
 .skill-id {
   flex: none;
   font-family: var(--font-mono);
@@ -899,6 +898,17 @@ main {
 }
 /* The separator leads rather than trails: a trailing one strands a dot at the
    end of a wrapped line, where a leading one just continues the list. */
+/* The add-on sits below the numbered set and reads quieter than it: it is
+   offered alongside the GoHighLevel work, not as a fifth pillar of it. */
+.skill-addon { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+.skill-addon-lead {
+  margin-bottom: 8px;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+.skill-addon .skill-name { font-weight: 600; color: var(--ink-soft); }
+.skill-addon .skill-tags { margin-top: 8px; }
+
 .skill-tags li { display: flex; align-items: center; gap: 10px; }
 .skill-tags li:not(:first-child)::before {
   content: "";
@@ -1116,7 +1126,6 @@ img.icon { object-fit: contain; }
   .tile-shot-2 { border-right: 0; border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
     .about-lead { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .skill-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .skill:last-child { grid-column: span 1; }
   .skill:nth-last-child(2) { border-bottom: 1px solid var(--line); }
   .about-portrait { max-width: 340px; }
   .about-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
