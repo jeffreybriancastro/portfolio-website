@@ -1530,6 +1530,7 @@ img.icon { object-fit: contain; }
 .lb-caption { font-size: 0.92rem; font-weight: 600; min-width: 0; }
 .lb-count {
   margin-left: auto;
+  flex: none;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--ink-faint);
@@ -1553,8 +1554,29 @@ img.icon { object-fit: contain; }
   min-height: 0;
   overflow: auto;
   background: var(--surface-alt);
+  cursor: grab;
+  overscroll-behavior: contain;
 }
-.lb-img { width: 100%; height: auto; display: block; }
+.lb-frame[data-dragging="true"] { cursor: grabbing; user-select: none; }
+/* Zoom is the image's own width, so panning is the frame's native scroll —
+   no transform maths, no clamping, and scrollbars for free. */
+.lb-img {
+  width: calc(100% * var(--zoom, 1));
+  max-width: none;
+  height: auto;
+  display: block;
+}
+
+.lb-zoom { display: flex; align-items: center; gap: 4px; flex: none; }
+.lb-zoom-level {
+  min-width: 4ch;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+}
+.lb-zoom .lb-btn { width: 32px; height: 32px; }
+.lb-zoom .lb-btn .icon { width: 15px; height: 15px; }
 
 .lb-nav {
   position: absolute;
