@@ -1,0 +1,197 @@
+/* ============================================================
+   What the Projects dialogs hold.
+
+   The template framed local HTML pages here. These panels hold documents
+   instead - the pipeline write-up and the Sushi Box build - so they need the
+   type scale the framed pages brought with them.
+   ============================================================ */
+
+.wpanel {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(24px, 3vw, 44px) clamp(20px, 2.6vw, 38px) clamp(40px, 5vw, 72px);
+  color: var(--navy);
+}
+
+.wpanel__head { margin-bottom: clamp(20px, 2.4vw, 32px); }
+
+.wpanel__title {
+  margin: 0 0 10px;
+  font-size: clamp(24px, 2.6vw, 38px);
+  font-weight: 700;
+  letter-spacing: var(--ls-display);
+  line-height: 1.12;
+}
+
+.wpanel__lede {
+  margin: 0;
+  max-width: 62ch;
+  font-size: clamp(14px, 1vw, 15.5px);
+  line-height: var(--lh-body);
+  color: var(--muted);
+}
+
+.wpanel__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--orange);
+  color: var(--navy-ink);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 200ms var(--ease-out), transform 220ms var(--ease-spring);
+}
+.wpanel__link:hover { background: var(--orange-hover); transform: translateY(-1px); }
+.wpanel__link:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+/* ---------- The board ---------- */
+.wpanel__figure { margin: 0 0 clamp(20px, 2.4vw, 32px); }
+.wpanel__figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--plate);
+}
+.wpanel__figure figcaption {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* ---------- Stage chips ---------- */
+.wpanel__stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 clamp(22px, 2.6vw, 36px);
+  padding-left: 0;
+  list-style: none;
+}
+.wpanel__stage {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: var(--radius-pill);
+  background: var(--tint);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.wpanel__stage-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--orange-ink);
+}
+
+/* ---------- What each workflow does ---------- */
+.wpanel__steps { margin: 0; padding-left: 0; list-style: none; }
+.wpanel__step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+.wpanel__step:first-child { border-top: 0; }
+.wpanel__step-num {
+  font-variant-numeric: tabular-nums;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--orange-ink);
+  padding-top: 2px;
+}
+.wpanel__step-name {
+  margin: 0 0 5px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.wpanel__step-desc {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 14px;
+  line-height: var(--lh-body);
+  color: var(--muted);
+}
+
+/* ---------- The Sushi Box screens ---------- */
+.wpanel__shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 clamp(24px, 3vw, 40px);
+  padding-left: 0;
+  list-style: none;
+}
+@media (max-width: 720px) {
+  .wpanel__shots { grid-template-columns: minmax(0, 1fr); }
+}
+.wpanel__shot {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.wpanel__shot img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--plate);
+  transition: transform 260ms var(--ease-out), border-color 200ms var(--ease-out);
+}
+.wpanel__shot:hover img { transform: translateY(-2px); border-color: var(--line-strong); }
+.wpanel__shot:focus-visible img { outline: 2px solid var(--orange); outline-offset: 3px; }
+.wpanel__shot-label {
+  display: block;
+  margin-top: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ---------- The client's message ----------
+   White in both themes, for the same reason as .tgrid__note-shot: a receipt
+   recoloured to match a palette stops being a receipt. */
+.wpanel__quote {
+  margin: 0;
+  padding-top: clamp(20px, 2.4vw, 30px);
+  border-top: 1px solid var(--line);
+}
+.wpanel__quote-lead {
+  margin-bottom: 12px;
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--orange-ink);
+}
+.wpanel__quote img {
+  width: 100%;
+  max-width: 620px;
+  height: auto;
+  padding: 12px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+}
+
+/* ---------- A card that takes the whole row ----------
+   The barrel is a wide drum and half a row of it is a drum with a hole beside
+   it. This lives here, not in bento.css, because projects-grid.css declares
+   `.bento__card--wide { grid-column: span 2 }` and is imported after it - at
+   equal specificity the later sheet wins, and the card carries both classes. */
+@media (min-width: 1100px) {
+  .bento__card--full { grid-column: 1 / -1; }
+}

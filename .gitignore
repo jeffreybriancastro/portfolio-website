@@ -1,6 +1,13 @@
 # macOS
 .DS_Store
 
+# Dependencies and build output
+node_modules/
+dist/
+
+# Verification screenshots from `npm run shoot`
+.shots/
+
 # Review screenshots: regenerated on every design pass, ~1MB each
 .impeccable/review/
 
@@ -9,5 +16,3 @@
 
 # Vercel CLI link state
 .vercel/
-
-node_modules/

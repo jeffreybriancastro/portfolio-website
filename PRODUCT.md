@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-static HTML/CSS/JS
+Vite 6 + React 19 + TypeScript (SPA), deployed on Vercel
 
 ## Users
 

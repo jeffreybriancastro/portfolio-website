@@ -1,0 +1,329 @@
+/* ============================================
+   PHONE APP CHROME (below the shell breakpoint)
+   The rail is gone under 1100px. What replaces it is app furniture:
+     .tabbar      bottom tab bar, Contact raised in the middle
+     .theme-btn   the theme switch, in Home's header or floating top-right
+     .hprofile    Home's identity header (the rail, laid flat)
+     .hstats      the three proof facts under the lede
+     .htiles      Home's explore row, one tile per view, snap scrolling
+     .hproof      the first testimonial as a card
+   plus the page-level corrections: no floating pill to clear any more,
+   room at the bottom for the bar, Projects as a two-column grid with a
+   filter, Contact with the form first.
+   Everything here is scoped to max-width: 1099px; the desktop never sees it.
+   ============================================ */
+
+@media (max-width: 1099px) {
+  /* ---------- Bottom tab bar ---------- */
+  .tabbar {
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    z-index: 60;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    height: 66px;
+    border-radius: var(--radius-pill);
+    background: var(--navy-ink);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 30px 60px -20px rgba(6, 12, 26, 0.6);
+  }
+  .tabbar__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 100%;
+    color: rgba(244, 244, 237, 0.58);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: color var(--dur-fast) var(--ease-out), transform var(--dur-med) var(--ease-spring);
+  }
+  .tabbar__tab:active { transform: scale(0.94); }
+  .tabbar__tab[aria-current='page'] { color: var(--cream); }
+  .tabbar__tab[aria-current='page'] .tabbar__label { position: relative; }
+  .tabbar__tab[aria-current='page'] .tabbar__label::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--orange);
+    transform: translateX(-50%);
+  }
+  .tabbar__fab {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin-top: -26px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: #0B1120;
+    box-shadow: 0 14px 30px -8px rgba(255, 122, 26, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition: transform var(--dur-med) var(--ease-spring);
+  }
+  .tabbar__tab--primary[aria-current='page'] .tabbar__fab { background: var(--orange-hover); }
+  .tabbar__tab--primary:active .tabbar__fab { transform: scale(0.92); }
+  .tabbar__tab:focus-visible { outline: 2px solid var(--orange); outline-offset: -6px; border-radius: var(--radius-pill); }
+
+  /* ---------- Theme switch ---------- */
+  .theme-btn {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--navy);
+    border: 1px solid var(--line);
+    box-shadow: 0 8px 20px -10px rgba(11, 30, 63, 0.35);
+    transition: transform var(--dur-med) var(--ease-spring);
+  }
+  .theme-btn:active { transform: scale(0.92); }
+  .theme-btn--float {
+    position: fixed;
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    right: 16px;
+    z-index: 50;
+  }
+
+  /* ---------- Page frame ---------- */
+  /* No floating pill to clear any more; just the notch. Room at the bottom
+     for the bar plus a thumb. */
+  .home,
+  .pgrid { padding-top: calc(22px + env(safe-area-inset-top, 0px)); }
+  .shell__panel { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+  /* Inner pages float the theme switch top-right; keep the head clear of it. */
+  .pgrid__head { padding-right: 56px; }
+
+  /* ---------- Home: profile header ---------- */
+  .hprofile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .hprofile__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    background: var(--white);
+    border: 2px solid var(--white);
+    box-shadow: 0 6px 16px -6px rgba(11, 30, 63, 0.4);
+  }
+  .hprofile__who { display: flex; flex-direction: column; min-width: 0; }
+  .hprofile__name {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--navy);
+  }
+  .hprofile__verified { color: var(--verified); }
+  .hprofile__handle {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hprofile__visits { color: var(--orange-ink); font-weight: 600; }
+  .hprofile__visits::before { content: ' · '; color: var(--muted); font-weight: 400; }
+  .hprofile__theme { margin-left: auto; }
+
+  .home__head { gap: 12px; }
+  .home__headline { flex-direction: column; }
+
+  /* ---------- Home: stats ---------- */
+  .hstats {
+    display: flex;
+    gap: 22px;
+    list-style: none;
+    margin: 4px 0 2px;
+    padding: 0;
+  }
+  .hstats b { display: block; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); }
+  .hstats span { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+  /* ---------- Home: section rows ---------- */
+  .hsec {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 6px 0 -6px;
+  }
+  .hsec__title { font-size: 15px; font-weight: 700; color: var(--navy); }
+  .hsec__aside { font-size: 12.5px; font-weight: 600; color: var(--orange-ink); }
+
+  /* ---------- Home: explore tiles ---------- */
+  .htiles {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+    margin: 0 calc(-1 * var(--panel-x));
+    padding: 6px var(--panel-x) 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--panel-x);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .htiles::-webkit-scrollbar { display: none; }
+  .htiles > li { flex: 0 0 auto; scroll-snap-align: start; }
+  .htile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(236px, 66vw);
+    height: 290px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 24px 50px -30px rgba(11, 30, 63, 0.35);
+    color: var(--navy);
+    transition: transform var(--dur-med) var(--ease-spring);
+  }
+  .htile:active { transform: scale(0.97); }
+  .htile__n {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 1;
+    padding: 5px 9px;
+    border-radius: var(--radius-pill);
+    background: var(--navy-ink);
+    color: var(--cream);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .htile__img { display: block; width: 100%; height: 170px; object-fit: cover; object-position: top; }
+  .htile__glyph { display: grid; place-items: center; height: 170px; color: var(--orange); }
+  .htile__body { padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .htile__title { font-size: 16px; font-weight: 700; line-height: 1.2; }
+  .htile__desc { font-size: 12.5px; line-height: 1.45; color: var(--muted); padding-right: 30px; }
+  .htile__go {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: #0B1120;
+  }
+  /* Glyph tiles: light plates in the light theme, navy in the dark one. */
+  .htile--dark { background: linear-gradient(160deg, rgba(255, 122, 26, 0.08), transparent 60%), var(--white); }
+  .htile--dark .htile__n { background: var(--orange); color: #0B1120; }
+  .htile--accent { background: linear-gradient(160deg, rgba(24, 56, 140, 0.10), transparent 60%), var(--white); }
+
+  /* ---------- Home: proof card ---------- */
+  .hproof {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    padding: 12px;
+    border-radius: 18px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    color: var(--navy);
+    transition: transform var(--dur-med) var(--ease-spring);
+  }
+  .hproof:active { transform: scale(0.98); }
+  .hproof__thumb { position: relative; display: block; }
+  .hproof__thumb img { display: block; width: 96px; height: 96px; object-fit: cover; border-radius: 14px; }
+  .hproof__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+  .hproof__play::before {
+    content: '';
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+  .hproof__play svg { position: relative; color: #0B1120; }
+  .hproof__copy { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .hproof__kicker { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange-ink); }
+  .hproof__title { font-size: 14px; font-weight: 700; line-height: 1.3; }
+  .hproof__meta { font-size: 12px; color: var(--muted); }
+
+  /* ---------- Projects: filter + two-column grid ---------- */
+  .pfilter {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    margin: 4px 0 0;
+    border-radius: var(--radius-pill);
+    background: var(--tint);
+  }
+  .pfilter__btn {
+    flex: 1;
+    min-height: 36px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+  .pfilter__btn[aria-pressed='true'] {
+    background: var(--white);
+    color: var(--navy);
+    box-shadow: 0 2px 8px -2px rgba(11, 30, 63, 0.25);
+  }
+  .pgrid__hint { display: none; }
+  .bento--projects { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .bento--projects .bento__card--wide,
+  .bento--projects .bento__card[data-id='plan'] { grid-column: span 2; }
+  .bento--projects .bento__stack { grid-column: span 2; }
+  .bento--projects .bento__card { padding: 12px; }
+  .bento--projects .bento__card--wide .bento__media { height: 150px; }
+  .bento--projects .bento__card:not(.bento__card--wide) .bento__media { max-height: 118px; }
+}
+
+@media (max-width: 639px) {
+  .bento--projects .bento__title { font-size: 14px; }
+  .bento--projects .bento__desc { font-size: 12px; }
+}
+
+/* ---------- Contact: the form first, submit within reach ---------- */
+@media (max-width: 1099px) {
+  .cgrid__glass { flex-direction: column; }
+  .cgrid__panel { order: -1; }
+}
+
+/* ---------- Dark theme ---------- */
+[data-theme='dark'] .theme-btn { background: var(--paper); }
+[data-theme='dark'] .htile { background: var(--paper); }
+[data-theme='dark'] .htile--dark { background: var(--navy-ink); border-color: transparent; color: var(--cream); }
+[data-theme='dark'] .htile--dark .htile__desc { color: rgba(244, 244, 237, 0.65); }
+[data-theme='dark'] .htile--accent { background: linear-gradient(160deg, #1C3A73, var(--navy-ink) 70%); }
+[data-theme='dark'] .hproof { background: var(--paper); }
+[data-theme='dark'] .hprofile__avatar { border-color: var(--paper); }
+[data-theme='dark'] .pfilter__btn[aria-pressed='true'] { background: var(--paper); }
+[data-theme='dark'] .tabbar { background: #04070F; }

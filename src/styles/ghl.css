@@ -1,0 +1,61 @@
+/* ---------- GoHighLevel embeds ----------
+   See lib/ghl.ts for why the reveal below exists. Short version:
+   form_embed.js measures both iframes correctly and then hides them with
+   inline styles, and only un-hides the ones it recognises as an activated
+   inline form. !important is what beats an inline style. `height` is
+   deliberately absent - height is the part the script gets right. */
+
+.ghl-embed {
+  position: relative;
+  display: grid;
+  min-height: 520px;
+  width: 100%;
+}
+
+.ghl-embed iframe {
+  grid-area: 1 / 1;
+  width: 100%;
+  min-height: 520px;
+  border: none;
+  border-radius: 18px;
+  display: block;
+  overflow: hidden;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  left: auto !important;
+}
+
+.ghl-embed--calendar,
+.ghl-embed--calendar iframe {
+  min-height: 640px;
+}
+
+/* Sits underneath; a loaded widget paints over it. GoHighLevel widgets render
+   on a transparent body, so this note reads straight through one that loaded
+   perfectly well - which is why main.tsx hides it on the load event and on the
+   widget's own postMessage, matched against the frame's contentWindow so one
+   widget loading never clears the other one's note. */
+.ghl-pending {
+  grid-area: 1 / 1;
+  align-self: center;
+  justify-self: start;
+  max-width: 44ch;
+  padding: 24px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.ghl-pending strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--navy);
+}
+.ghl-pending a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
