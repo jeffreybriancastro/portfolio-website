@@ -1389,6 +1389,40 @@ img.icon { object-fit: contain; }
    one empty, so this one line runs wider rather than stacking five short ones. */
 .proj-full .proj-desc { max-width: 78ch; }
 
+/* ---------- What a client said ----------
+   There is one testimonial, so it is set as a passage on the page ground
+   rather than dropped into a card. A single quote in a three-up grid
+   announces that only one exists, and the page already has enough cards. */
+.quote {
+  margin: 56px 0 0;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+  max-width: 62ch;
+}
+.quote-body p {
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.55;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.quote-body p + p { margin-top: 18px; }
+/* The opening mark hangs into the margin so the first line starts on the
+   same vertical as every line under it. */
+.quote-open { text-indent: -0.42em; }
+.quote-by {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.quote-who {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.quote-what { font-size: 0.82rem; color: var(--ink-faint); }
+
 .proj {
   position: relative;
   display: flex;
