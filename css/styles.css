@@ -1384,6 +1384,10 @@ img.icon { object-fit: contain; }
 }
 .proj-widest { grid-column: span 3; }
 .proj-wide { grid-column: span 2; }
+.proj-full { grid-column: 1 / -1; }
+/* The measure that suits a quarter-width tile leaves a third of a full-width
+   one empty, so this one line runs wider rather than stacking five short ones. */
+.proj-full .proj-desc { max-width: 78ch; }
 
 .proj {
   position: relative;
@@ -1524,6 +1528,10 @@ img.icon { object-fit: contain; }
 /* One wide screenshot rather than a grid of seven, so the frame matches it. */
 .wf-gallery-single { grid-template-columns: minmax(0, 1fr); margin-top: 20px; }
 .wf-gallery-single .wf-frame { aspect-ratio: 16 / 9; }
+/* Screens of a website are close to 2:1. In the 4/3 frame the workflow
+   screenshots use, half of each one would be outside the crop. */
+.wf-gallery-site .wf-frame { aspect-ratio: 16 / 9; }
+.wf-gallery-site .wf-frame img { object-position: center top; }
 .wf-label {
   display: flex;
   align-items: baseline;
@@ -1717,6 +1725,8 @@ img.icon { object-fit: contain; }
   .proj-widest { grid-column: span 2; }
   /* The card narrows here, so four thumbs across would fall to 136px. */
   .wf-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* Four site screens go to a 2x2, not a row of three and a lonely fourth. */
+  .wf-gallery-site { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 900px) {
