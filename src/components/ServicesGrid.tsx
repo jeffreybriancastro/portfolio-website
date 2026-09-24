@@ -2,6 +2,8 @@ import type { CSSProperties } from 'react'
 import { MagnetStraight, Timer, PlugsConnected, Trophy, CheckCircle } from '@/components/slab'
 import type { Icon } from '@/components/slab'
 import Autopilot, { TOOLS } from '@/components/Autopilot'
+import { Link } from 'react-router-dom'
+import { ArrowUpRight } from '@/components/slab'
 
 /**
  * ServicesGrid - the Services view on one glass sheet.
@@ -68,6 +70,8 @@ const GITHUB = '/icons/ai/github.svg'
 
 type Service = {
   index: string
+  /** The walkthrough behind this service, under /work/. */
+  slug: string
   title: string
   description: string
   chip: string
@@ -78,6 +82,7 @@ type Service = {
 const SERVICES: Service[] = [
   {
     index: '01',
+    slug: 'automation-workflow',
     title: 'Automation Workflows',
     description: 'Follow-up that keeps working after you log off.',
     chip: 'Runs without you',
@@ -91,6 +96,7 @@ const SERVICES: Service[] = [
   },
   {
     index: '02',
+    slug: 'ghl-crm-setup',
     title: 'CRM Setup',
     description: 'A GoHighLevel build your team stops working around.',
     chip: 'No training',
@@ -103,6 +109,7 @@ const SERVICES: Service[] = [
   },
   {
     index: '03',
+    slug: 'sales-funnel',
     title: 'AI-Coded Funnels',
     description: 'Multi-step pages that carry a lead to a booked call.',
     chip: 'Fast turnaround',
@@ -116,6 +123,7 @@ const SERVICES: Service[] = [
   },
   {
     index: '04',
+    slug: 'website-build',
     title: 'AI-Coded Websites',
     description: 'On-brand sites that load quickly and hand over clean.',
     chip: 'Yours to keep',
@@ -199,7 +207,7 @@ export default function ServicesGrid() {
         <div className="sgrid__offers">
           <div className="sgrid__offers-head">
             <h2 className="sgrid__offers-title">What I build.</h2>
-            <p className="sgrid__offers-sub">Built on your stack, in your account.</p>
+            <p className="sgrid__offers-sub">Open one to see how it gets built.</p>
           </div>
           <ul className="bento sgrid__services" role="list">
             {SERVICES.map((s) => (
@@ -211,7 +219,12 @@ export default function ServicesGrid() {
                       {s.index} / {String(SERVICES.length).padStart(2, '0')}
                     </span>
                   </span>
-                  <span className="bento__title">{s.title}</span>
+                  <span className="bento__title">
+                    <Link className="sgrid__service-link" to={`/work/${s.slug}`}>
+                      {s.title}
+                      <ArrowUpRight size={13} weight="bold" aria-hidden="true" />
+                    </Link>
+                  </span>
                   <span className="bento__desc">{s.description}</span>
                 </span>
                 <span className="sgrid__chip" aria-hidden="true">{s.chip}</span>

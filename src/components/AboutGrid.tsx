@@ -61,6 +61,17 @@ const CAPABILITIES: Capability[] = [
   },
 ]
 
+/** Jeffrey's own list, from the old site's skills section. */
+const ADDON = [
+  'Prospecting',
+  'Dripify',
+  'Sales Navigator',
+  'Lead Research',
+  'CRM Management',
+  'Pipeline Tracking',
+  'Automated Follow Ups',
+]
+
 export default function AboutGrid() {
   return (
     <section className="pgrid agrid" aria-labelledby="about-title">
@@ -93,6 +104,11 @@ export default function AboutGrid() {
             opportunities and stop losing people who were already interested.
           </p>
 
+          {/* The scrolling region. The bar below it is pinned, because where
+              he is, whether he is open, and the one profile that is his are
+              the three facts a visitor came for - they do not belong below a
+              fold on a viewport that does not scroll. */}
+          <div className="agrid__scroll">
           <ul className="agrid__caps" role="list">
             {CAPABILITIES.map((c) => (
               <li key={c.index} className="agrid__cap">
@@ -114,6 +130,20 @@ export default function AboutGrid() {
               </li>
             ))}
           </ul>
+
+          {/* Offered alongside the GoHighLevel work, not as a fifth pillar of
+              it - which is Jeffrey's own framing, and why it sits below the
+              numbered set and reads quieter than it. */}
+          <div className="agrid__addon">
+            <p className="agrid__addon-lead">Also, as an add-on</p>
+            <p className="agrid__addon-name">LinkedIn lead generation</p>
+            <ul className="agrid__addon-tags" role="list">
+              {ADDON.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </div>
+          </div>
 
           {/* One plate, cells sharing a mark / title / meta anatomy. */}
           <div className="agrid__bar">

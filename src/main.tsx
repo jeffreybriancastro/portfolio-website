@@ -14,6 +14,7 @@ const TestimonialsGrid = lazy(() => import('@/components/TestimonialsGrid'))
 const AboutGrid = lazy(() => import('@/components/AboutGrid'))
 const ContactGrid = lazy(() => import('@/components/ContactGrid'))
 const BookGrid = lazy(() => import('@/components/BookGrid'))
+const CaseStudy = lazy(() => import('@/components/CaseStudy'))
 import './styles/tokens.css'
 import './styles/global.css'
 import './styles/slab.css'
@@ -34,6 +35,7 @@ import './styles/testimonials-grid.css'
 import './styles/about-grid.css'
 import './styles/contact-grid.css'
 import './styles/book-grid.css'
+import './styles/case-study.css'
 import './styles/ghl.css'
 import './styles/boot.css'
 import './styles/credentials.css'
@@ -67,6 +69,8 @@ createRoot(container).render(
           <Route path="/about" element={<AboutGrid />} />
           <Route path="/contact" element={<ContactGrid />} />
           <Route path="/book" element={<BookGrid />} />
+          {/* The four service walkthroughs. Not a fixed viewport - see CaseStudy. */}
+          <Route path="/work/:slug" element={<CaseStudy />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

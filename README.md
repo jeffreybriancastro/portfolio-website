@@ -37,6 +37,7 @@ rewrites, so real files still win.
 | Shipped sites and funnels (the 3D barrel and its previews) | `src/data/funnels.ts` |
 | FAQs on the Contact view | `src/data/faqs.ts` |
 | Services, the four-step method, the live automation diagram | `src/components/ServicesGrid.tsx`, `src/components/Autopilot.tsx` |
+| The four service walkthroughs at `/work/:slug` | `src/data/caseStudies.ts` |
 | Client list and the testimonial | `src/components/TestimonialsGrid.tsx` |
 | Bio and skills | `src/components/AboutGrid.tsx` |
 | GoHighLevel form + calendar ids | `src/lib/ghl.ts` |

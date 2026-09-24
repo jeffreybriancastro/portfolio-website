@@ -1,0 +1,340 @@
+/* ============================================================
+   Service walkthroughs (/work/:slug)
+
+   The one route that scrolls. The six views are laid out to the panel box;
+   there is five hundred words and a diagram here, and sizing that to the box
+   would mean cutting it.
+   ============================================================ */
+
+.cs { padding-bottom: clamp(40px, 6vh, 80px); }
+
+/* .pgrid is a fixed viewport from 1100px up: `height: 100%` with
+   `grid-template-rows: auto 1fr`, sized to the panel and not meant to scroll.
+   This page has three children, not two, and it DOES scroll - so it takes
+   .pgrid's type scale and head, and gives back its layout. Two classes, to
+   beat the single-class rule in projects-grid.css. */
+@media (min-width: 1100px) {
+  .pgrid.cs {
+    height: auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.cs__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 180ms var(--ease-out);
+}
+.cs__back:hover { color: var(--orange-ink); }
+.cs__back:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 4px; }
+
+/* The honesty note. Quieter than the lede it follows, but above the fold:
+   it is the sentence that lets the page carry this much detail. */
+.cs__frame {
+  margin: 10px 0 0;
+  max-width: 62ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  padding-left: 12px;
+  border-left: 2px solid var(--line-strong);
+}
+
+.cs__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+  margin: 20px 0 0;
+}
+.cs__facts div { display: flex; flex-direction: column; gap: 2px; }
+.cs__facts dt {
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--orange-ink);
+}
+.cs__facts dd { margin: 0; font-size: 14px; font-weight: 600; color: var(--navy); }
+
+.cs__glass { display: grid; gap: clamp(24px, 3vw, 40px); }
+
+.cs__h2 {
+  margin: 0 0 12px;
+  font-size: clamp(17px, 1.5vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+
+.cs__copy {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 14.5px;
+  line-height: var(--lh-body);
+  color: var(--muted);
+}
+
+/* ---------- The detail cards ---------- */
+.cs__detail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px);
+}
+@media (max-width: 860px) {
+  .cs__detail { grid-template-columns: minmax(0, 1fr); }
+}
+.cs__card {
+  padding: clamp(18px, 2vw, 26px);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 1px 2px rgba(6, 12, 26, 0.04);
+}
+.cs__card--problem { grid-column: 1 / -1; }
+.cs__card--wired { grid-column: 1 / -1; }
+
+.cs__list { display: grid; gap: 10px; margin: 0; padding-left: 0; list-style: none; }
+.cs__list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.cs__list svg { color: var(--orange); margin-top: 2px; }
+
+/* ---------- How it's wired ---------- */
+.cs__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 26px);
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+@media (max-width: 1040px) { .cs__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .cs__steps { grid-template-columns: minmax(0, 1fr); } }
+.cs__steps li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; }
+.cs__step-num {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.cs__step-name { margin: 0 0 3px; font-size: 14px; font-weight: 700; color: var(--navy); }
+.cs__step-desc { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+
+/* ---------- Tools ---------- */
+.cs__tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding-left: 0; list-style: none; }
+.cs__tool {
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--tint);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ---------- Close ---------- */
+.cs__close {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(14px, 1.6vw, 22px);
+  margin-top: clamp(20px, 2.4vw, 32px);
+}
+@media (max-width: 860px) { .cs__close { grid-template-columns: minmax(0, 1fr); } }
+
+.cs__more {
+  padding: clamp(18px, 2vw, 26px);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+}
+.cs__more-list { display: grid; gap: 2px; }
+.cs__more-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+.cs__more-link:first-child { border-top: 0; }
+.cs__more-link svg { color: var(--muted); flex: 0 0 auto; transition: transform 220ms var(--ease-out), color 180ms; }
+.cs__more-link:hover svg { color: var(--orange); transform: translate(2px, -2px); }
+.cs__more-name { display: block; font-size: 14.5px; font-weight: 700; color: var(--navy); }
+.cs__more-desc { display: block; margin-top: 2px; font-size: 13px; color: var(--muted); }
+
+.cs__cta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(18px, 2vw, 26px);
+  border-radius: var(--radius-card);
+  background: var(--panel-dark);
+  color: var(--cream);
+}
+[data-theme='dark'] .cs__cta { color: var(--navy); }
+.cs__cta .cs__h2 { color: inherit; }
+.cs__cta .cs__copy { color: inherit; opacity: 0.75; }
+.cs__cta-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  padding: 11px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--orange);
+  color: var(--navy-ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 200ms var(--ease-out), transform 220ms var(--ease-spring);
+}
+.cs__cta-btn:hover { background: var(--orange-hover); transform: translateY(-1px); }
+
+/* ============================================================
+   The system map. Carried over from the old site's stylesheet, retuned to
+   these tokens. Sits on the page ground, never inside a card: the nodes are
+   the only chrome, so nothing here nests a card inside a card. Edges are
+   drawn by SysMap.tsx from measured node positions, so the graph is real
+   geometry, not a column gutter standing in for one.
+   ============================================================ */
+.sysmap {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  grid-auto-rows: minmax(0, auto);
+  column-gap: var(--gap, 62px);
+  row-gap: 16px;
+  align-items: center;
+}
+
+.sysmap-edges {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.sysmap-edge {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.sysmap-edge-feedback { stroke-dasharray: 3 5; }
+.sysmap-route {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sysnode {
+  position: relative;
+  z-index: 1;
+  grid-column: var(--col, auto);
+  grid-row: var(--row, auto);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md, 16px);
+  padding: 15px 16px;
+  box-shadow: 0 1px 2px rgba(6, 12, 26, 0.04);
+}
+.sysnode > svg { color: var(--muted); flex: 0 0 auto; }
+.sysnode-name { margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.35; color: var(--navy); }
+.sysnode-meta { margin: 3px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+
+/* Nodes the live path runs through. */
+.sysnode-live { border-color: color-mix(in srgb, var(--orange) 50%, var(--line-strong)); }
+.sysnode-live > svg { color: var(--orange); }
+
+/* The map turns the corner: one column, edges redrawn down the stack from the
+   same declaration, because SysMap measures whatever the layout made. */
+@media (max-width: 900px) {
+  .sysmap { grid-template-columns: minmax(0, 1fr); column-gap: 0; row-gap: 34px; }
+  .sysnode { grid-column: 1; grid-row: auto; margin-left: 22px; }
+}
+
+/* ---------- The add-on under the skills on About ---------- */
+.agrid__addon { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.agrid__addon-lead { margin: 0 0 6px; font-size: 12px; color: var(--muted); }
+.agrid__addon-name { margin: 0; font-size: 14px; font-weight: 700; color: var(--navy); }
+.agrid__addon-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 8px 0 0;
+  padding-left: 0;
+  list-style: none;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.agrid__addon-tags li { display: flex; align-items: center; gap: 14px; }
+.agrid__addon-tags li:not(:first-child)::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--muted);
+  opacity: 0.6;
+}
+
+/* The service name is the way into its walkthrough. */
+.sgrid__service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--orange) 45%, transparent);
+  transition: border-color 200ms var(--ease-out);
+}
+.sgrid__service-link:hover { border-bottom-color: var(--orange); }
+.sgrid__service-link svg { color: var(--orange); }
+.sgrid__service-link::after { content: ""; position: absolute; inset: 0; }
+.sgrid__service { position: relative; }
+
+/* About is a fixed viewport, and the LinkedIn add-on restored from the old
+   site added ~114px to the left column - enough to push the location bar past
+   the glass on a 950px-tall window, and more on a shorter laptop. The column
+   scrolls rather than overflowing, the same way the client ledger does on
+   Testimonials. The trims below mean it usually does not have to. */
+@media (min-width: 1100px) {
+  .agrid__copy { min-height: 0; }
+  .agrid__scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .agrid__bar { flex: 0 0 auto; }
+}
+.agrid__addon { margin-top: 12px; padding-top: 12px; }
+.agrid__addon-tags { gap: 4px 12px; }

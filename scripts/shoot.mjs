@@ -42,6 +42,10 @@ const ROUTES = [
   ['about', '/about'],
   ['contact', '/contact'],
   ['book', '/book'],
+  ['work-automation', '/work/automation-workflow'],
+  ['work-crm', '/work/ghl-crm-setup'],
+  ['work-funnel', '/work/sales-funnel'],
+  ['work-website', '/work/website-build'],
 ]
 
 /** The Projects cards that open a dialog, by data-id. */
