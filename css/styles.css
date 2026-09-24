@@ -1390,27 +1390,40 @@ img.icon { object-fit: contain; }
 .proj-full .proj-desc { max-width: 78ch; }
 
 /* ---------- What a client said ----------
-   There is one testimonial, so it is set as a passage on the page ground
-   rather than dropped into a card. A single quote in a three-up grid
-   announces that only one exists, and the page already has enough cards. */
+   The message as it arrived, not retyped. The screenshot keeps its own white
+   ground: a chat bubble recoloured to match this palette stops being a
+   receipt and becomes a graphic, which is the opposite of the point. The
+   frame around it is the site's, so it reads as something pinned to the page
+   rather than something drawn on it. */
 .quote {
   margin: 56px 0 0;
   padding-top: 40px;
   border-top: 1px solid var(--line);
-  max-width: 62ch;
+  max-width: 680px;
 }
-.quote-body p {
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-  line-height: 1.55;
-  letter-spacing: -0.015em;
-  color: var(--ink);
+.quote-lead {
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-faint);
 }
-.quote-body p + p { margin-top: 18px; }
-/* The opening mark hangs into the margin so the first line starts on the
-   same vertical as every line under it. */
-.quote-open { text-indent: -0.42em; }
+/* One item, and its own proportions: the 4/3 and 16/9 frames elsewhere would
+   crop a wide chat screenshot to a strip of its middle. Two classes, because
+   .wf-gallery and its breakpoints are declared further down this file and a
+   single class would lose to them on order. */
+.wf-gallery.quote-gallery { grid-template-columns: minmax(0, 1fr); margin-top: 14px; }
+.wf-gallery.quote-gallery .wf-frame {
+  aspect-ratio: auto;
+  border-radius: var(--radius-sm);
+  background: #FFFFFF;
+}
+.wf-gallery.quote-gallery .wf-frame img {
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
 .quote-by {
-  margin-top: 26px;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
   gap: 3px;
