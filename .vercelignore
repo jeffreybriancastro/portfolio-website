@@ -1,0 +1,15 @@
+# Kept in the repo, kept off the live site.
+# Vercel serves everything it deploys, so anything listed here would
+# otherwise be fetchable at jeffreybrianbuilds.com/<path>.
+
+# Design and product notes: version them, do not publish them.
+DESIGN.md
+PRODUCT.md
+
+# The GoHighLevel form theme and its local preview. The theme is pasted
+# into GHL by hand and the preview only ever runs on localhost; neither
+# belongs on the public site.
+ghl/
+
+# Impeccable's own working files.
+.impeccable/
