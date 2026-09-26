@@ -6,7 +6,7 @@
 #
 #   sh scripts/build-site.sh        -> dist/
 #
-# Cloudflare Pages settings: build command "sh scripts/build-site.sh",
+# Cloudflare (Pages or Workers Builds): build command "sh scripts/build-site.sh",
 # output directory "dist".
 set -eu
 cd "$(dirname "$0")/.."

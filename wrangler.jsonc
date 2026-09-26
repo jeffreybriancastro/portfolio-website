@@ -1,0 +1,14 @@
+// Cloudflare Workers config: serves the static site, nothing else runs.
+// Workers Builds settings in the dashboard:
+//   Build command:  sh scripts/build-site.sh     (copies the public files into dist/)
+//   Deploy command: npx wrangler deploy
+// "name" must match the Worker's name in the Cloudflare dashboard.
+{
+  "name": "portfolio-website-revamp",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // Unknown paths get the site's own 404 page with a 404 status.
+    "not_found_handling": "404-page"
+  }
+}
