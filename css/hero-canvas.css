@@ -1,0 +1,47 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE. */
+
+/* ============================================
+   HERO CANVAS - animated WebGL contour background
+   The host is created by js/hero-canvas.js; there is no markup for it, so a
+   visitor without JS, WebGL, a fine pointer or motion never gets one.
+
+   It sits behind the main column only (the sidebar keeps its flat ground) at
+   z-index -1: above the body's background, below every in-flow element, so
+   cards and panels cover it and nothing needs its own z-index. The canvas is
+   transparent - only the hairlines are drawn - and it fades toward the bottom
+   of the viewport so it reads as the hero's ground, not the page's.
+   ============================================ */
+.hero-canvas {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: var(--sidebar-w, 288px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 92%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 92%);
+}
+.hero-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hero-canvas.is-on { opacity: 1; }
+.hero-canvas.is-on.is-away {
+  opacity: 0;
+  transition-duration: 0.6s;
+}
+
+/* Same breakpoint as the shell: below it the sidebar is an off-canvas drawer. */
+@media (max-width: 900px) {
+  .hero-canvas { left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-canvas { display: none; }
+}
+/* The site's own "Reduce motion" switch (js/access.js). */
+html[data-motion="reduce"] .hero-canvas { display: none; }

@@ -1,0 +1,94 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE.
+
+   Phone tab bar (js/tabbar.js). A flat bar on the page ground, hairline edge,
+   Contact as the one filled rose disc. Shown under 900px only, the same
+   breakpoint at which the sidebar becomes a drawer. */
+
+.jc-tabbar { display: none; }
+
+@media (max-width: 900px) {
+  .jc-tabbar {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    /* under the drawer's scrim (40), so an open menu covers it */
+    z-index: 35;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: stretch;
+    height: 62px;
+    padding: 0 4px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 12px 32px -18px hsl(var(--shadow-color) / 0.6);
+    font-family: var(--font-display);
+  }
+
+  .jc-tabbar__tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-width: 0;
+    border-radius: 999px;
+    color: var(--ink-faint);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s var(--ease-out-expo), transform 0.2s var(--ease-out-expo);
+  }
+  .jc-tabbar__tab svg { display: block; flex: none; }
+  .jc-tabbar__tab:active { transform: scale(0.94); }
+  .jc-tabbar__tab[aria-current] { color: var(--ink); }
+  .jc-tabbar__tab[aria-current] svg { color: var(--accent-strong); }
+  .jc-tabbar__tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+
+  /* Contact: the filled disc carries the action; its name is for screen
+     readers, the envelope says it to everyone else. */
+  .jc-tabbar__fab {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-on);
+    transition: background 0.2s var(--ease-out-expo), transform 0.2s var(--ease-out-expo);
+  }
+  .jc-tabbar__tab--primary .jc-tabbar__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .jc-tabbar__tab--primary[aria-current] svg { color: inherit; }
+  .jc-tabbar__tab--primary[aria-current] .jc-tabbar__fab { background: var(--accent-hover); }
+  .jc-tabbar__tab--primary:active { transform: none; }
+  .jc-tabbar__tab--primary:active .jc-tabbar__fab { transform: scale(0.92); }
+
+  /* Room at the bottom for the bar plus a thumb, so the last lines of copy and
+     the GoHighLevel calendar are never under it. Padded on main, not body, so
+     nothing below .app ends the sticky layout early. access.css raises
+     --jc-dock-clear when its button stacks above the bar. */
+  html[data-tabbar] main { padding-bottom: calc(var(--jc-dock-clear, 100px) + env(safe-area-inset-bottom, 0px)); }
+
+  /* The sticky top bar would cover a section's first lines after an in-page
+     jump; land them just below it instead. */
+  html[data-tabbar] main [id] { scroll-margin-top: 80px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jc-tabbar__tab:active,
+  .jc-tabbar__tab--primary:active .jc-tabbar__fab { transform: none; }
+}

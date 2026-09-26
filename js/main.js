@@ -85,7 +85,7 @@
     targets.forEach((target) => observer.observe(target));
   }
 
-  spy(["hero", "services", "projects", "about", "contact", "book"], ".nav-link");
+  spy(["hero", "services", "projects", "testimonials", "about", "faqs", "book"], ".nav-link");
 
   /* The GoHighLevel form and calendar render on a transparent body, so the
      "if this does not load, email me" note behind each one reads straight

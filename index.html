@@ -31,6 +31,17 @@
 <link rel="preconnect" href="https://go.jeffreybrianbuilds.com" />
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/access.css" />
+<link rel="stylesheet" href="css/cursor.css" />
+<link rel="stylesheet" href="css/smooth.css" />
+<link rel="stylesheet" href="css/tabbar.css" />
+<script src="js/access.js"></script>
+<link rel="stylesheet" href="css/hero-canvas.css" />
+<link rel="stylesheet" href="css/intro.css" />
+<script src="js/intro.js"></script>
+<link rel="stylesheet" href="css/autopilot.css" />
+<link rel="stylesheet" href="css/barrel.css" />
+<link rel="stylesheet" href="css/wf-marquee.css" />
 </head>
 <body>
 
@@ -67,6 +78,8 @@
   <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-3.7 3.4-6.2 7.5-6.2s7.5 2.5 7.5 6.2"/></symbol>
   <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8.5 4.6L12 12.2 3.5 7.6 12 3z"/><path d="m3.5 12 8.5 4.6 8.5-4.6"/><path d="m3.5 16.4 8.5 4.6 8.5-4.6"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-board" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/><path d="M5.5 8h1.5M11 8h2M17 8h1.5M11 11.5h2M17 11.5h1.5"/></symbol>
+  <symbol id="i-logo-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
   </g>
 </svg>
 
@@ -113,8 +126,9 @@
       <a href="#hero" class="nav-link is-active">Home</a>
       <a href="#services" class="nav-link">Services</a>
       <a href="#projects" class="nav-link">Projects</a>
+      <a href="#testimonials" class="nav-link">Testimonials</a>
       <a href="#about" class="nav-link">About</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#faqs" class="nav-link">FAQs / Contact</a>
       <a href="#book" class="nav-link">Book a call</a>
     </nav>
 
@@ -146,14 +160,30 @@
       <div class="stack-strip">
         <div class="toolbar">
           <p class="toolbar-label" id="toolbar-label">Tools I work with</p>
-          <ul class="toolbar-list" aria-labelledby="toolbar-label">
-            <li class="toolbar-item"><img class="icon brand-ghl" src="img/logo-ghl.webp" width="18" height="18" alt="" decoding="async" />GoHighLevel</li>
-            <li class="toolbar-item"><svg class="icon brand-n8n" aria-hidden="true"><use href="#i-logo-n8n"/></svg>n8n</li>
-            <li class="toolbar-item"><svg class="icon brand-zapier" aria-hidden="true"><use href="#i-logo-zapier"/></svg>Zapier</li>
-            <li class="toolbar-item"><svg class="icon brand-claude" aria-hidden="true"><use href="#i-logo-claude"/></svg>Claude Code</li>
-            <li class="toolbar-item"><svg class="icon brand-codex" aria-hidden="true"><use href="#i-logo-codex"/></svg>Codex</li>
-            <li class="toolbar-item"><svg class="icon brand-vscode" aria-hidden="true"><use href="#i-logo-vscode"/></svg>VS Code</li>
-          </ul>
+          <!-- A marquee: the list runs twice so a -50% translate lands on the
+               seam. The second copy is presentation only, hidden from screen
+               readers, so the tools are announced once. Under reduced motion the
+               copy is hidden and the first list scrolls by hand as before. -->
+          <div class="toolbar-marquee">
+            <ul class="toolbar-list" aria-labelledby="toolbar-label">
+              <li class="toolbar-item"><img class="icon brand-ghl" src="img/logo-ghl.webp" width="18" height="18" alt="" decoding="async" />GoHighLevel</li>
+              <li class="toolbar-item"><svg class="icon brand-n8n" aria-hidden="true"><use href="#i-logo-n8n"/></svg>n8n</li>
+              <li class="toolbar-item"><svg class="icon brand-zapier" aria-hidden="true"><use href="#i-logo-zapier"/></svg>Zapier</li>
+              <li class="toolbar-item"><svg class="icon brand-claude" aria-hidden="true"><use href="#i-logo-claude"/></svg>Claude Code</li>
+              <li class="toolbar-item"><svg class="icon brand-codex" aria-hidden="true"><use href="#i-logo-codex"/></svg>Codex</li>
+              <li class="toolbar-item"><svg class="icon brand-vscode" aria-hidden="true"><use href="#i-logo-vscode"/></svg>VS Code</li>
+              <li class="toolbar-item"><svg class="icon brand-github" aria-hidden="true"><use href="#i-logo-github"/></svg>GitHub</li>
+            </ul>
+            <ul class="toolbar-list toolbar-list-copy" aria-hidden="true">
+              <li class="toolbar-item"><img class="icon brand-ghl" src="img/logo-ghl.webp" width="18" height="18" alt="" decoding="async" />GoHighLevel</li>
+              <li class="toolbar-item"><svg class="icon brand-n8n"><use href="#i-logo-n8n"/></svg>n8n</li>
+              <li class="toolbar-item"><svg class="icon brand-zapier"><use href="#i-logo-zapier"/></svg>Zapier</li>
+              <li class="toolbar-item"><svg class="icon brand-claude"><use href="#i-logo-claude"/></svg>Claude Code</li>
+              <li class="toolbar-item"><svg class="icon brand-codex"><use href="#i-logo-codex"/></svg>Codex</li>
+              <li class="toolbar-item"><svg class="icon brand-vscode"><use href="#i-logo-vscode"/></svg>VS Code</li>
+              <li class="toolbar-item"><svg class="icon brand-github"><use href="#i-logo-github"/></svg>GitHub</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -181,6 +211,20 @@
             <img class="tile-portrait" src="img/jeffrey-portrait.webp" width="720" height="960"
                  alt="Jeffrey Brian Castro on a rooftop at night, the city skyline lit behind him."
                  loading="lazy" decoding="async" />
+          </li>
+
+          <!-- The live board. The number is the board's own count, read off the
+               GoHighLevel opportunities view, not a claim. -->
+          <li class="tile tile-board">
+            <span class="tile-chip" aria-hidden="true"><svg class="icon"><use href="#i-board"/></svg></span>
+            <svg class="icon tile-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+            <h2 class="tile-name"><a href="#proj-crm">The live board</a></h2>
+            <p class="tile-desc">One pipeline, six stages, running in GoHighLevel right now.</p>
+            <p class="tile-stat">
+              <span class="tile-stat-big">359</span>
+              <span class="tile-stat-label">opportunities tracked</span>
+            </p>
+            <p class="tile-stat-sub"><img class="icon brand-ghl" src="img/logo-ghl.webp" width="15" height="15" alt="" decoding="async" />6 workflows moving them</p>
           </li>
 
           <li class="tile tile-services">
@@ -281,48 +325,62 @@
       <h2 class="auto-heading" id="auto-heading">A lead arrives. Nothing after it waits on you.</h2>
       <p class="auto-copy">Someone submits an enquiry. From there the call is booked, the reminders go out, and the record lands in the right pipeline, without anyone touching it.</p>
 
-      <div class="sysmap-block">
-        <div class="sysmap" data-sysmap style="--cols: 3"
-             data-edges='[{"from":"enquiry","to":"contact"},{"from":"contact","to":"reminders"},{"from":"contact","to":"booked"},{"from":"contact","to":"pipeline"}]'
-             data-route='["enquiry","contact","booked"]'>
-          <svg class="sysmap-edges" aria-hidden="true"></svg>
-          <div class="sysnode sysnode-live" data-node="enquiry" style="--col: 1; --row: 2">
-            <svg class="icon" aria-hidden="true"><use href="#i-funnel"/></svg>
-            <div>
-              <p class="sysnode-name">Enquiry submitted</p>
-              <p class="sysnode-meta">Form on the site or funnel</p>
-            </div>
-          </div>
-          <div class="sysnode sysnode-live" data-node="contact" style="--col: 2; --row: 2">
-            <svg class="icon" aria-hidden="true"><use href="#i-crm"/></svg>
-            <div>
-              <p class="sysnode-name">Contact created</p>
-              <p class="sysnode-meta">Tagged and owned in GHL</p>
-            </div>
-          </div>
-          <div class="sysnode" data-node="reminders" style="--col: 3; --row: 1">
-            <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
-            <div>
-              <p class="sysnode-name">Reminders sent</p>
-              <p class="sysnode-meta">Email and SMS, on a schedule</p>
-            </div>
-          </div>
-          <div class="sysnode sysnode-live" data-node="booked" style="--col: 3; --row: 2">
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
-            <div>
-              <p class="sysnode-name">Call booked</p>
-              <p class="sysnode-meta">Straight into the calendar</p>
-            </div>
-          </div>
-          <div class="sysnode" data-node="pipeline" style="--col: 3; --row: 3">
-            <svg class="icon" aria-hidden="true"><use href="#i-automation"/></svg>
-            <div>
-              <p class="sysnode-name">Pipeline updated</p>
-              <p class="sysnode-meta">Stage moves as things happen</p>
-            </div>
-          </div>
+      <figure class="ap" data-autopilot aria-label="Example automation flow, end to end"
+              data-links='[{"from":"form","to":"tag"},{"from":"tag","to":"opportunity"},{"from":"opportunity","to":"wait"},{"from":"wait","to":"reminders"},{"from":"reminders","to":"appointment"},{"from":"reminders","to":"opportunity","kind":"loop","label":"Rebooked"},{"from":"appointment","to":"attended","kind":"dash"},{"from":"appointment","to":"noshow","kind":"dash"},{"from":"appointment","to":"lost","kind":"dash"},{"from":"attended","to":"repeat"},{"from":"noshow","to":"reengage"}]'
+              data-route='["form","tag","opportunity","wait","reminders","appointment","attended","repeat"]'>
+        <div class="ap-flow">
+          <svg class="ap-cables" aria-hidden="true"></svg>
+          <svg class="ap-signals" aria-hidden="true"></svg>
+          <ol class="ap-chain">
+            <li class="ap-node ap-node-live" data-node="form" style="--x: 80; --y: 12">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-funnel"/></svg></span>
+              <span class="ap-cap"><strong>Enquiry in</strong><span>Messenger or form</span></span>
+            </li>
+            <li class="ap-node ap-node-live" data-node="tag" style="--x: 250; --y: 12">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-crm"/></svg></span>
+              <span class="ap-cap"><strong>Tag &amp; assign</strong><span>Owner set in GHL</span></span>
+            </li>
+            <li class="ap-node ap-node-live" data-node="opportunity" style="--x: 420; --y: 12">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></span>
+              <span class="ap-cap"><strong>Opportunity</strong><span>Created on the board</span></span>
+            </li>
+            <li class="ap-node ap-node-live" data-node="wait" style="--x: 590; --y: 12">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+              <span class="ap-cap"><strong>Wait 1 hour</strong><span>Did they book?</span></span>
+            </li>
+            <li class="ap-node ap-node-live" data-node="reminders" style="--x: 760; --y: 12">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></span>
+              <span class="ap-cap"><strong>Reminders</strong><span>Email &amp; SMS</span></span>
+            </li>
+            <li class="ap-node ap-node-live ap-node-gate" data-node="appointment" style="--x: 920; --y: 12">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+              <span class="ap-cap"><strong>Appointment</strong><span>Attended?</span></span>
+            </li>
+          </ol>
+          <ul class="ap-outcomes">
+            <li class="ap-node ap-node-live" data-node="attended" style="--x: 130; --y: 244; --col: 1; --row: 1">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <span class="ap-cap"><strong>Attended</strong><span>Thanked, stage moves</span></span>
+            </li>
+            <li class="ap-node ap-node-live" data-node="repeat" style="--x: 310; --y: 244; --col: 1; --row: 2">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-loop"/></svg></span>
+              <span class="ap-cap"><strong>Repeat client</strong><span>Promo a week later</span></span>
+            </li>
+            <li class="ap-node" data-node="noshow" style="--x: 530; --y: 244; --col: 2; --row: 1">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></span>
+              <span class="ap-cap"><strong>No show</strong><span>Chased to rebook</span></span>
+            </li>
+            <li class="ap-node" data-node="reengage" style="--x: 710; --y: 244; --col: 2; --row: 2">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+              <span class="ap-cap"><strong>Re-engagement</strong><span>Three emails, two months</span></span>
+            </li>
+            <li class="ap-node ap-node-lost" data-node="lost" style="--x: 920; --y: 244; --col: 3; --row: 1">
+              <span class="ap-tile"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></span>
+              <span class="ap-cap"><strong>Closed lost</strong><span>Stage moves itself</span></span>
+            </li>
+          </ul>
         </div>
-      </div>
+      </figure>
 
       <ul class="stack-pills auto-pills">
         <li class="pill"><img class="icon brand-ghl" src="img/logo-ghl.webp" width="18" height="18" alt="" decoding="async" />GoHighLevel CRM</li>
@@ -345,64 +403,68 @@
           <svg class="icon proj-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
           <h3 class="proj-name"><a href="#automation-build">Automations</a></h3>
           <p class="proj-desc">Real screens from the GoHighLevel workflows I build. Six of them carry a lead from the first message to a closed deal.</p>
-        <ul class="wf-gallery" data-gallery aria-label="GoHighLevel workflow screenshots">
-            <li class="wf-item">
-              <button class="wf-open" type="button"
-                      data-full="img/wf-00-list.webp" data-w="900" data-h="456"
-                      data-caption="All six, in GoHighLevel" data-alt="The GoHighLevel workflows list: six workflows, 001 New Enquiry Intake through 006 Closed Lost, every one published.">
-                <span class="wf-frame"><img src="img/wf-00-list-thumb.webp" width="420" height="200" alt="" loading="lazy" decoding="async" /></span>
-                <span class="wf-label">All six, in GoHighLevel</span>
-              </button>
-            </li>
-            <li class="wf-item">
-              <button class="wf-open" type="button"
-                      data-full="img/wf-01-enquiry.webp" data-w="782" data-h="2000"
-                      data-caption="001 New enquiry intake" data-alt="The 001 workflow: a Messenger reply or form submission tags the contact, finds or creates the opportunity, assigns an owner, then checks an hour later whether a booking happened.">
-                <span class="wf-frame"><img src="img/wf-01-enquiry-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
-                <span class="wf-label"><span class="wf-id">001</span>New enquiry intake</span>
-              </button>
-            </li>
-            <li class="wf-item">
-              <button class="wf-open" type="button"
-                      data-full="img/wf-02-booked.webp" data-w="660" data-h="1999"
-                      data-caption="002 Appointment booked" data-alt="The 002 workflow: a booking fires a confirmation email, then a reminder, then a final reminder.">
-                <span class="wf-frame"><img src="img/wf-02-booked-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
-                <span class="wf-label"><span class="wf-id">002</span>Appointment booked</span>
-              </button>
-            </li>
-            <li class="wf-item">
-              <button class="wf-open" type="button"
-                      data-full="img/wf-03-attended.webp" data-w="890" data-h="2000"
-                      data-caption="003 Attended" data-alt="The 003 workflow: an attended appointment notifies the team, sends a thank-you, and moves the deal to Closed / Repeat.">
-                <span class="wf-frame"><img src="img/wf-03-attended-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
-                <span class="wf-label"><span class="wf-id">003</span>Attended</span>
-              </button>
-            </li>
-            <li class="wf-item">
-              <button class="wf-open" type="button"
-                      data-full="img/wf-04-noshow.webp" data-w="516" data-h="1999"
-                      data-caption="004 No show" data-alt="The 004 workflow: a no-show email, then two rebooking checks, then the deal moves to Closed Lost.">
-                <span class="wf-frame"><img src="img/wf-04-noshow-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
-                <span class="wf-label"><span class="wf-id">004</span>No show</span>
-              </button>
-            </li>
-            <li class="wf-item">
-              <button class="wf-open" type="button"
-                      data-full="img/wf-05-repeat.webp" data-w="890" data-h="2000"
-                      data-caption="005 Closed / repeat" data-alt="The 005 workflow: the contact is tagged a repeat client and gets a promo email seven days later.">
-                <span class="wf-frame"><img src="img/wf-05-repeat-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
-                <span class="wf-label"><span class="wf-id">005</span>Closed / repeat</span>
-              </button>
-            </li>
-            <li class="wf-item">
-              <button class="wf-open" type="button"
-                      data-full="img/wf-06-lost.webp" data-w="564" data-h="2000"
-                      data-caption="006 Closed lost" data-alt="The 006 workflow: the no-show tag is removed and three re-engagement emails go out over two months.">
-                <span class="wf-frame"><img src="img/wf-06-lost-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
-                <span class="wf-label"><span class="wf-id">006</span>Closed lost</span>
-              </button>
-            </li>
-          </ul>
+          <div class="wfm" data-wf-marquee>
+            <div class="wfm-track">
+              <ul class="wf-gallery wfm-set" data-gallery aria-label="GoHighLevel workflow screenshots">
+                <li class="wf-item">
+                  <button class="wf-open" type="button"
+                          data-full="img/wf-00-list.webp" data-w="900" data-h="456"
+                          data-caption="All six, in GoHighLevel" data-alt="The GoHighLevel workflows list: six workflows, 001 New Enquiry Intake through 006 Closed Lost, every one published.">
+                    <span class="wf-frame"><img src="img/wf-00-list-thumb.webp" width="420" height="200" alt="" loading="lazy" decoding="async" /></span>
+                    <span class="wf-label">All six, in GoHighLevel</span>
+                  </button>
+                </li>
+                <li class="wf-item">
+                  <button class="wf-open" type="button"
+                          data-full="img/wf-01-enquiry.webp" data-w="782" data-h="2000"
+                          data-caption="001 New enquiry intake" data-alt="The 001 workflow: a Messenger reply or form submission tags the contact, finds or creates the opportunity, assigns an owner, then checks an hour later whether a booking happened.">
+                    <span class="wf-frame"><img src="img/wf-01-enquiry-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
+                    <span class="wf-label"><span class="wf-id">001</span>New enquiry intake</span>
+                  </button>
+                </li>
+                <li class="wf-item">
+                  <button class="wf-open" type="button"
+                          data-full="img/wf-02-booked.webp" data-w="660" data-h="1999"
+                          data-caption="002 Appointment booked" data-alt="The 002 workflow: a booking fires a confirmation email, then a reminder, then a final reminder.">
+                    <span class="wf-frame"><img src="img/wf-02-booked-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
+                    <span class="wf-label"><span class="wf-id">002</span>Appointment booked</span>
+                  </button>
+                </li>
+                <li class="wf-item">
+                  <button class="wf-open" type="button"
+                          data-full="img/wf-03-attended.webp" data-w="890" data-h="2000"
+                          data-caption="003 Attended" data-alt="The 003 workflow: an attended appointment notifies the team, sends a thank-you, and moves the deal to Closed / Repeat.">
+                    <span class="wf-frame"><img src="img/wf-03-attended-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
+                    <span class="wf-label"><span class="wf-id">003</span>Attended</span>
+                  </button>
+                </li>
+                <li class="wf-item">
+                  <button class="wf-open" type="button"
+                          data-full="img/wf-04-noshow.webp" data-w="516" data-h="1999"
+                          data-caption="004 No show" data-alt="The 004 workflow: a no-show email, then two rebooking checks, then the deal moves to Closed Lost.">
+                    <span class="wf-frame"><img src="img/wf-04-noshow-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
+                    <span class="wf-label"><span class="wf-id">004</span>No show</span>
+                  </button>
+                </li>
+                <li class="wf-item">
+                  <button class="wf-open" type="button"
+                          data-full="img/wf-05-repeat.webp" data-w="890" data-h="2000"
+                          data-caption="005 Closed / repeat" data-alt="The 005 workflow: the contact is tagged a repeat client and gets a promo email seven days later.">
+                    <span class="wf-frame"><img src="img/wf-05-repeat-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
+                    <span class="wf-label"><span class="wf-id">005</span>Closed / repeat</span>
+                  </button>
+                </li>
+                <li class="wf-item">
+                  <button class="wf-open" type="button"
+                          data-full="img/wf-06-lost.webp" data-w="564" data-h="2000"
+                          data-caption="006 Closed lost" data-alt="The 006 workflow: the no-show tag is removed and three re-engagement emails go out over two months.">
+                    <span class="wf-frame"><img src="img/wf-06-lost-thumb.webp" width="420" height="302" alt="" loading="lazy" decoding="async" /></span>
+                    <span class="wf-label"><span class="wf-id">006</span>Closed lost</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </li>
 
         <li class="proj" id="proj-shape" tabindex="-1">
@@ -427,6 +489,7 @@
             <img class="proj-shot" src="img/work-findthepulse.webp" width="640" height="360" alt="" loading="lazy" decoding="async" />
             <img class="proj-shot" src="img/work-easycrane.webp" width="640" height="360" alt="" loading="lazy" decoding="async" />
           </div>
+          <div class="barrel" data-barrel></div>
         </li>
 
         <li class="proj proj-wide" id="proj-crm" tabindex="-1">
@@ -503,95 +566,119 @@
 
       </ul>
 
-      <!-- One client, in their own words, as the message actually arrived.
-           Typed out and set in the site's own face it reads as copy I wrote;
-           the screenshot is the part that cannot be. It keeps its white
-           ground and its timestamp on purpose: retouching evidence to match
-           a palette is how you turn evidence back into decoration. The full
-           text lives in the alt so it is still there for a screen reader. -->
-      <figure class="quote">
-        <p class="quote-lead">After launch, from the client.</p>
-        <ul class="wf-gallery quote-gallery" data-gallery aria-label="Message from The Sushi Box CDO">
-          <li class="wf-item">
-            <button class="wf-open" type="button"
-                    data-full="img/testimonial-sushibox.webp" data-w="952" data-h="237"
-                    data-caption="The Sushi Box CDO, after launch"
-                    data-alt="A message from The Sushi Box CDO, sent at 4:18 PM: &quot;Jeffrey, thank you for helping bring The Sushi Box CDO&rsquo;s online presence to life. You took the time to understand what we actually needed and turned our ideas into a website and booking system that feels simple, professional, and useful for our customers. I really appreciate how hands on you were throughout the process, from planning up to launch. We&rsquo;re very happy with how everything came together.&quot;">
-              <span class="wf-frame"><img src="img/testimonial-sushibox.webp" width="952" height="237" alt="A message from The Sushi Box CDO, sent at 4:18 PM: &quot;Jeffrey, thank you for helping bring The Sushi Box CDO&rsquo;s online presence to life. You took the time to understand what we actually needed and turned our ideas into a website and booking system that feels simple, professional, and useful for our customers. I really appreciate how hands on you were throughout the process, from planning up to launch. We&rsquo;re very happy with how everything came together.&quot;" loading="lazy" decoding="async" /></span>
-            </button>
-          </li>
-        </ul>
-        <figcaption class="quote-by">
-          <span class="quote-who">The Sushi Box CDO</span>
-          <span class="quote-what">Maki shop and event catering, Cagayan de Oro</span>
-        </figcaption>
-      </figure>
     </section>
-    <!-- Bento grid -->
-    <section class="grid" aria-label="Portfolio overview">
+    <!-- Testimonials: the client's own message beside the ledger of who the
+         work was for. Named where there is permission to name. -->
+    <section class="testimonials-band" id="testimonials" tabindex="-1" aria-labelledby="testimonials-heading">
+      <div class="band-head">
+        <h2 class="band-heading" id="testimonials-heading">One client, in their own words.</h2>
+        <p class="band-note">A short list on purpose.</p>
+      </div>
 
-      <!-- Projects -->
-      <article class="card card-projects" id="client-work" tabindex="-1">
-        <div class="card-heading-row">
-          <h2 class="card-heading">Three clients. Real systems behind them.</h2>
-          <p class="card-note">A short list on purpose.</p>
-        </div>
-        <ul class="client-list">
-          <li class="client-row">
-            <span class="client-mark" aria-hidden="true"><svg class="icon"><use href="#i-automation"/></svg></span>
-            <div class="client-body">
-              <p class="client-head">
-                <span class="client-name">Client 1</span>
-                <span class="client-role">Automation and GHL Specialist</span>
-              </p>
-              <p class="client-desc">Build workflows that save clients hours every day.</p>
-              <ul class="client-tags">
-                <li>Workflows</li>
-                <li>Automation</li>
-                <li>GHL</li>
-              </ul>
-            </div>
-            <img class="client-shot" src="img/work-teameasycrane.webp" width="640" height="360"
-                 alt="" loading="lazy" decoding="async" />
-          </li>
-          <li class="client-row">
-            <span class="client-mark" aria-hidden="true"><svg class="icon"><use href="#i-funnel"/></svg></span>
-            <div class="client-body">
-              <p class="client-head">
-                <span class="client-name">Client 2</span>
-                <span class="client-role">Funnel Designer</span>
-                <span class="client-role">CRM Manager</span>
-              </p>
-              <p class="client-desc">Design high-converting funnels that turn traffic into revenue. Manage and optimize client CRMs for better conversions.</p>
-              <ul class="client-tags">
-                <li>Funnels</li>
-                <li>CRM</li>
-                <li>Pipelines</li>
-              </ul>
-            </div>
-            <img class="client-shot" src="img/work-findthepulse.webp" width="640" height="360"
-                 alt="" loading="lazy" decoding="async" />
-          </li>
-          <li class="client-row">
-            <span class="client-mark" aria-hidden="true"><svg class="icon"><use href="#i-crm"/></svg></span>
-            <div class="client-body">
-              <p class="client-head">
-                <span class="client-name">Client 3</span>
-                <span class="client-role">Automation Architect and GHL Specialist</span>
-              </p>
-              <p class="client-desc">Design complete business automation systems from the ground up.</p>
-              <ul class="client-tags">
-                <li>Systems Design</li>
-                <li>Automation</li>
-                <li>GHL</li>
-              </ul>
-            </div>
-            <img class="client-shot" src="img/work-easycrane.webp" width="640" height="360"
-                 alt="" loading="lazy" decoding="async" />
-          </li>
-        </ul>
-      </article>
+      <div class="tm-layout">
+        <!-- One client, in their own words, as the message actually arrived.
+             Typed out and set in the site's own face it reads as copy I wrote;
+             the screenshot is the part that cannot be. It keeps its white
+             ground and its timestamp on purpose: retouching evidence to match
+             a palette is how you turn evidence back into decoration. The full
+             text lives in the alt so it is still there for a screen reader. -->
+        <figure class="quote">
+          <p class="quote-lead">After launch, from the client.</p>
+          <ul class="wf-gallery quote-gallery" data-gallery aria-label="Message from The Sushi Box CDO">
+            <li class="wf-item">
+              <button class="wf-open" type="button"
+                      data-full="img/testimonial-sushibox.webp" data-w="952" data-h="237"
+                      data-caption="The Sushi Box CDO, after launch"
+                      data-alt="A message from The Sushi Box CDO, sent at 4:18 PM: &quot;Jeffrey, thank you for helping bring The Sushi Box CDO&rsquo;s online presence to life. You took the time to understand what we actually needed and turned our ideas into a website and booking system that feels simple, professional, and useful for our customers. I really appreciate how hands on you were throughout the process, from planning up to launch. We&rsquo;re very happy with how everything came together.&quot;">
+                <span class="wf-frame"><img src="img/testimonial-sushibox.webp" width="952" height="237" alt="A message from The Sushi Box CDO, sent at 4:18 PM: &quot;Jeffrey, thank you for helping bring The Sushi Box CDO&rsquo;s online presence to life. You took the time to understand what we actually needed and turned our ideas into a website and booking system that feels simple, professional, and useful for our customers. I really appreciate how hands on you were throughout the process, from planning up to launch. We&rsquo;re very happy with how everything came together.&quot;" loading="lazy" decoding="async" /></span>
+              </button>
+            </li>
+          </ul>
+          <figcaption class="quote-by">
+            <span class="quote-who">The Sushi Box CDO</span>
+            <span class="quote-what">Maki shop and event catering, Cagayan de Oro</span>
+          </figcaption>
+          <a class="quote-link" href="https://thesushiboxcdo.com/the-sushi-box-cdo" target="_blank" rel="noopener">See the site they are talking about <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </figure>
 
+        <article class="card card-ledger" id="client-work" tabindex="-1">
+          <div class="card-heading-row">
+            <h3 class="card-heading">Who the work was for.</h3>
+            <p class="card-note">Named where I have permission to.</p>
+          </div>
+          <ul class="client-list">
+            <li class="client-row">
+              <span class="client-mark" aria-hidden="true"><svg class="icon"><use href="#i-website"/></svg></span>
+              <div class="client-body">
+                <p class="client-head">
+                  <a class="client-name client-link" href="https://thesushiboxcdo.com/the-sushi-box-cdo" target="_blank" rel="noopener">The Sushi Box CDO<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <span class="client-role">Website and booking system</span>
+                </p>
+                <p class="client-desc">A maki shop and event caterer in Cagayan de Oro. I built the site, put their real delivery-app reviews on it, and wired a GoHighLevel calendar into the menu page so pickup bookings land straight in the CRM.</p>
+                <ul class="client-tags">
+                  <li>Website</li>
+                  <li>GoHighLevel</li>
+                  <li>Booking</li>
+                </ul>
+              </div>
+              <img class="client-shot" src="img/sushi-01-home-thumb.webp" width="640" height="334"
+                   alt="" loading="lazy" decoding="async" />
+            </li>
+            <li class="client-row">
+              <span class="client-mark" aria-hidden="true"><svg class="icon"><use href="#i-automation"/></svg></span>
+              <div class="client-body">
+                <p class="client-head">
+                  <span class="client-name">Client 1</span>
+                  <span class="client-role">Automation and GHL Specialist</span>
+                </p>
+                <p class="client-desc">Build workflows that save clients hours every day.</p>
+                <ul class="client-tags">
+                  <li>Workflows</li>
+                  <li>Automation</li>
+                  <li>GHL</li>
+                </ul>
+              </div>
+              <img class="client-shot" src="img/work-teameasycrane.webp" width="640" height="360"
+                   alt="" loading="lazy" decoding="async" />
+            </li>
+            <li class="client-row">
+              <span class="client-mark" aria-hidden="true"><svg class="icon"><use href="#i-funnel"/></svg></span>
+              <div class="client-body">
+                <p class="client-head">
+                  <span class="client-name">Client 2</span>
+                  <span class="client-role">Funnel Designer</span>
+                  <span class="client-role">CRM Manager</span>
+                </p>
+                <p class="client-desc">Design high-converting funnels that turn traffic into revenue. Manage and optimize client CRMs for better conversions.</p>
+                <ul class="client-tags">
+                  <li>Funnels</li>
+                  <li>CRM</li>
+                  <li>Pipelines</li>
+                </ul>
+              </div>
+              <img class="client-shot" src="img/work-findthepulse.webp" width="640" height="360"
+                   alt="" loading="lazy" decoding="async" />
+            </li>
+            <li class="client-row">
+              <span class="client-mark" aria-hidden="true"><svg class="icon"><use href="#i-crm"/></svg></span>
+              <div class="client-body">
+                <p class="client-head">
+                  <span class="client-name">Client 3</span>
+                  <span class="client-role">Automation Architect and GHL Specialist</span>
+                </p>
+                <p class="client-desc">Design complete business automation systems from the ground up.</p>
+                <ul class="client-tags">
+                  <li>Systems Design</li>
+                  <li>Automation</li>
+                  <li>GHL</li>
+                </ul>
+              </div>
+              <img class="client-shot" src="img/work-easycrane.webp" width="640" height="360"
+                   alt="" loading="lazy" decoding="async" />
+            </li>
+          </ul>
+        </article>
+      </div>
     </section>
 
     <!-- Featured build: the six-workflow booking pipeline -->
@@ -843,6 +930,40 @@
 
     </section>
 
+    <!-- FAQs: the questions people ask before they write. `name` on <details>
+         makes it an exclusive accordion (one open at a time) with no script;
+         browsers without it just let several stay open. Two answers are ones
+         only Jeffrey can commit to, so they say "ask me" rather than a number. -->
+    <section class="faq-band" id="faqs" tabindex="-1" aria-labelledby="faq-heading">
+      <div class="band-head">
+        <h2 class="band-heading" id="faq-heading">Quick answers.</h2>
+        <p class="band-note">Still have one? Ask it in the form below.</p>
+      </div>
+      <div class="faq-list">
+          <details class="faq" name="faq" open>
+            <summary class="faq-q">What do you actually build?<svg class="icon faq-caret" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p class="faq-a">Four things, and most clients start with one: automation workflows, a GoHighLevel CRM setup, a sales funnel, or a website. They tend to end up connected, because a funnel that does not feed the CRM is just a page.</p>
+          </details>
+          <details class="faq" name="faq">
+            <summary class="faq-q">Do I need to already be on GoHighLevel?<svg class="icon faq-caret" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p class="faq-a">No. If you are, I build inside the account you have. If you are not, I can set it up, or wire what you do use through n8n, Zapier or Make instead. The point is that it runs on your stack, not that you move to mine.</p>
+          </details>
+          <details class="faq" name="faq">
+            <summary class="faq-q">What happens after I send this form?<svg class="icon faq-caret" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p class="faq-a">It lands in my GoHighLevel as an opportunity with an owner on it &ndash; the same wiring you can see on in Projects above. You get a reply from me, not an account manager, and a straight answer on whether I am the right fit.</p>
+          </details>
+          <details class="faq" name="faq">
+            <summary class="faq-q">Where are you based?<svg class="icon faq-caret" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p class="faq-a">Cagayan de Oro in the Philippines, GMT+8. That overlaps a full working day with Australia and Asia, and the early morning with Europe. For US clients the overlap is the evening my side, which I do work.</p>
+          </details>
+            <!-- TODO (Jeffrey): replace with your real pricing model. -->
+          <details class="faq" name="faq">
+            <summary class="faq-q">How do you price work?<svg class="icon faq-caret" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p class="faq-a">It depends on the build, so I quote after we talk rather than off a list. Tell me what you are running now and what is still manual and I will come back with the shape of it and what it takes.</p>
+          </details>
+      </div>
+    </section>
+
     <!-- Contact -->
     <section class="contact-block" aria-labelledby="contact-heading" id="contact" tabindex="-1">
 
@@ -981,8 +1102,15 @@
 
 <script src="js/main.js"></script>
 <script src="js/sysmap.js" defer></script>
+<script src="js/autopilot.js" defer></script>
 <script src="js/gallery.js" defer></script>
+<script src="js/wf-marquee.js" defer></script>
+<script type="module" src="js/barrel.js"></script>
 <!-- Resizes the GoHighLevel form iframe to its content. -->
 <script src="https://go.jeffreybrianbuilds.com/js/form_embed.js" defer></script>
+<script type="module" src="js/hero-canvas.js"></script>
+<script src="js/smooth.js" defer></script>
+<script src="js/cursor.js" defer></script>
+<script src="js/tabbar.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,97 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE.
+   https://github.com/brewed-ops/portfolio-template  (c) BrewedOps
+
+   Workflow marquee (001-006). Ported from the React branch's WorkflowSamples
+   (.wfs): the list is doubled so a keyframe can translate -50% and land the
+   reset on a seamless seam. The duplicate half is aria-hidden and out of the
+   tab order, so each frame is announced once.
+
+   The frames are the site's own .wf-open / .wf-frame / .wf-label, so a click
+   opens the existing screenshot viewer (js/gallery.js). Only the first list
+   carries data-gallery; the copy forwards its clicks (js/wf-marquee.js).
+
+   No JS: one still row that scrolls by hand. Reduced motion: the same. */
+
+.wfm {
+  --wfm-gap: 14px;
+  --wfm-item: clamp(210px, 21vw, 270px);
+  position: relative;
+  z-index: 1; /* above the card's stretched title link, like .wf-gallery */
+  margin-top: 22px;
+  /* Bleed to the card's sides so frames travel edge to edge. */
+  margin-inline: -24px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.wfm::-webkit-scrollbar { display: none; }
+
+.wfm-track {
+  display: flex;
+  width: max-content;
+  padding: 4px 0 6px; /* room for the hover lift and the focus ring */
+}
+
+/* The set is still a .wf-gallery (its z-index and the viewer's hook), laid
+   out as a row instead of the grid styles.css gives it. Two classes, so the
+   grid's breakpoints further down styles.css do not win on order. */
+.wf-gallery.wfm-set {
+  display: flex;
+  flex: none;
+  gap: var(--wfm-gap);
+  margin: 0;
+  padding: 0 var(--wfm-gap) 0 24px;
+  grid-template-columns: none;
+}
+.wfm-set + .wfm-set { padding-left: 0; }
+.wfm-set .wf-item { flex: none; width: var(--wfm-item); }
+.wfm-set .wf-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* The copy exists only for the loop. */
+.wfm-set[aria-hidden="true"] { display: none; }
+
+/* ---------- Looping ----------
+   Only once js/wf-marquee.js has built the copy and measured the set. */
+@media (prefers-reduced-motion: no-preference) {
+  .wfm[data-loop] {
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+            mask: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+  }
+  .wfm[data-loop] .wfm-set[aria-hidden="true"] { display: flex; }
+  .wfm[data-loop] .wfm-set { padding-left: 0; }
+  .wfm[data-loop] .wfm-track {
+    animation: wfm-slide var(--wfm-duration, 60s) linear infinite;
+  }
+  /* Hold still while someone is looking at or pointing at a frame. */
+  .wfm[data-loop]:hover .wfm-track,
+  .wfm[data-loop]:focus-within .wfm-track,
+  .wfm[data-loop][data-paused] .wfm-track { animation-play-state: paused; }
+
+  /* Keyboard focus hands the row over to the reader: the loop stops, the
+     track goes back to its start, and the row scrolls natively so the
+     browser can bring each focused frame into view. */
+  .wfm[data-loop]:has(:focus-visible) {
+    overflow-x: auto;
+    -webkit-mask: none;
+            mask: none;
+  }
+  .wfm[data-loop]:has(:focus-visible) .wfm-track { animation: none; }
+  .wfm[data-loop]:has(:focus-visible) .wfm-set:first-child { padding-left: 24px; }
+  .wfm[data-loop]:has(:focus-visible) .wfm-set[aria-hidden="true"] { display: none; }
+}
+
+/* The accessibility menu's own "reduce motion" switch: the same still row. */
+:root[data-motion="reduce"] .wfm[data-loop] { overflow-x: auto; -webkit-mask: none; mask: none; }
+:root[data-motion="reduce"] .wfm[data-loop] .wfm-track { animation: none; }
+:root[data-motion="reduce"] .wfm[data-loop] .wfm-set:first-child { padding-left: 24px; }
+:root[data-motion="reduce"] .wfm[data-loop] .wfm-set[aria-hidden="true"] { display: none; }
+
+@keyframes wfm-slide {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (max-width: 600px) {
+  .wfm { --wfm-item: min(62vw, 240px); }
+}

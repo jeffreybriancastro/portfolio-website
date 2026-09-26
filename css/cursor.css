@@ -1,0 +1,67 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE.
+
+   Cursor ring (js/cursor.js). The outer element only moves; the inner ring
+   only scales and fills, so the two never fight over one transform. */
+
+.jc-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 0.25s var(--ease-out-expo, ease-out);
+}
+.jc-cursor.is-visible { opacity: 1; }
+.jc-cursor[data-state="hidden"] { opacity: 0; }
+
+.jc-cursor__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  /* White is a blend operand, not a palette colour: under difference it reads
+     light over the charcoal theme and dark over the pale rose one. */
+  border: 1.5px solid #fff;
+  background: transparent;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.25s ease-out,
+    border-color 0.25s ease-out;
+}
+.jc-cursor[data-state="grow"] .jc-cursor__ring {
+  transform: scale(1.5);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+.jc-cursor[data-state="open"] .jc-cursor__ring {
+  transform: scale(2.4);
+  background: #fff;
+}
+.jc-cursor.is-pressed .jc-cursor__ring { transform: scale(0.85); }
+.jc-cursor.is-pressed[data-state="grow"] .jc-cursor__ring { transform: scale(1.275); }
+.jc-cursor.is-pressed[data-state="open"] .jc-cursor__ring { transform: scale(2.04); }
+
+.jc-cursor__label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  /* black under difference over a white disc: the label inverts with the page */
+  color: #000;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+.jc-cursor[data-state="open"] .jc-cursor__label { opacity: 1; }
+
+/* Belt and braces: the script already stays off under either preference. */
+@media (prefers-reduced-motion: reduce) {
+  .jc-cursor { display: none; }
+}
+:root[data-motion="reduce"] .jc-cursor { display: none; }

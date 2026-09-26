@@ -13,3 +13,6 @@ ghl/
 
 # Impeccable's own working files.
 .impeccable/
+
+# Repo notes, not site pages.
+README.md

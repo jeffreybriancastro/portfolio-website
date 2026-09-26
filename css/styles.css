@@ -504,7 +504,8 @@ main {
 .tile:focus-within { border-color: color-mix(in srgb, var(--accent) 32%, var(--line)); }
 
 .tile-projects { grid-column: span 2; }
-.tile-about { grid-column: span 2; }
+.tile-about { grid-column: span 1; }
+.tile-board { grid-column: span 1; }
 .tile-services { grid-column: span 2; }
 .tile-cta { grid-column: span 2; }
 
@@ -1157,6 +1158,7 @@ main {
 .icon.brand-claude { fill: #D97757; }
 /* OpenAI's mark is monochrome by design: it rides the ink so it flips with the theme. */
 .icon.brand-codex { fill: var(--ink); }
+.icon.brand-github { fill: var(--ink); }
 /* VS Code ships with its own gradient, so it sets no fill of its own. */
 /* GoHighLevel ships as artwork, not a path, so it rides in as an <img>. */
 img.icon { object-fit: contain; }
@@ -1938,4 +1940,162 @@ img.icon { object-fit: contain; }
   .proj:hover .proj-arrow { transform: rotate(-45deg); }
   .btn:hover .icon { transform: none; }
   .lb-dialog, .lb[data-open="true"] .lb-dialog { transform: none; }
+}
+
+/* ======================================================================
+   Carried over from the React rebuild, set in this site's own language.
+   ====================================================================== */
+
+/* ---------- Tools marquee ----------
+   The rail keeps its label and hairlines; only the list moves. Two copies of
+   the list sit side by side and the pair slides by exactly one copy's width,
+   so the loop has no visible seam. Edges fade so a tool enters rather than
+   appearing out of the label's border. */
+.toolbar-marquee {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+}
+.toolbar-marquee .toolbar-list {
+  flex: none;
+  overflow: visible;
+  animation: toolbar-slide 38s linear infinite;
+}
+/* Each copy ends on a hairline so the seam between them matches every other gap. */
+.toolbar-marquee .toolbar-item { flex: none; border-left: 0; border-right: 1px solid var(--line); }
+.toolbar-marquee:hover .toolbar-list,
+.toolbar-marquee:focus-within .toolbar-list { animation-play-state: paused; }
+@keyframes toolbar-slide { to { transform: translateX(-100%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .toolbar-marquee { -webkit-mask-image: none; mask-image: none; overflow-x: auto; scrollbar-width: none; }
+  .toolbar-marquee .toolbar-list { animation: none; }
+  .toolbar-list-copy { display: none; }
+}
+:root[data-motion="reduce"] .toolbar-marquee { -webkit-mask-image: none; mask-image: none; overflow-x: auto; scrollbar-width: none; }
+:root[data-motion="reduce"] .toolbar-marquee .toolbar-list { animation: none; }
+:root[data-motion="reduce"] .toolbar-list-copy { display: none; }
+
+/* ---------- Live board tile ----------
+   The one number on the page, and it is a reading off the GoHighLevel board,
+   so it is set in Space Mono like the workflow ids it sits beside. */
+.tile-stat {
+  margin-top: auto;
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tile-stat-big {
+  font-family: var(--font-mono);
+  font-size: clamp(2.6rem, 4.4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.tile-stat-label { font-size: 0.86rem; font-weight: 600; color: var(--ink-soft); }
+.tile-stat-sub {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+.tile-stat-sub .icon { width: 15px; height: 15px; }
+
+/* ---------- Testimonials band ----------
+   The message first, at its own proportions, then the ledger at full width -
+   the rows were drawn for the whole column and wrap badly in half of it. */
+.testimonials-band { margin-top: 72px; }
+.tm-layout {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+.tm-layout .quote {
+  margin: 0;
+  padding: 26px;
+  max-width: 720px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.quote-link {
+  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.25s;
+}
+.quote-link:hover { border-bottom-color: var(--accent); }
+.quote-link .icon,
+.client-link .icon { width: 13px; height: 13px; transform: rotate(-45deg); color: var(--accent-strong); }
+.client-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.25s;
+}
+.client-link:hover { border-bottom-color: var(--accent); }
+
+/* ---------- FAQs ----------
+   Native <details>: the hairline list, a plus that turns to a cross when open,
+   the answer at reading measure. */
+.faq-band { margin-top: 72px; }
+.faq-list {
+  margin-top: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 6px 26px;
+}
+.faq + .faq { border-top: 1px solid var(--line); }
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  list-style: none;
+  border-radius: var(--radius-sm);
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.faq-caret {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--accent-strong);
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.faq[open] .faq-caret { transform: rotate(45deg); }
+.faq-q:hover { color: var(--accent-strong); }
+.faq-a {
+  padding: 0 38px 22px 0;
+  max-width: 68ch;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+@media (max-width: 600px) {
+  .faq-list { padding: 4px 18px; }
+  .faq-a { padding-right: 0; }
 }

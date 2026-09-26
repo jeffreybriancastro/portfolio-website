@@ -1,0 +1,275 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE.
+
+   Accessibility menu: a floating button bottom-right and the small panel it
+   opens, then the effect of each switch, keyed off the data attributes that
+   js/access.js writes on <html>. Sized in px on purpose, so the menu stays put
+   while the text-size switch scales the page around it. */
+
+.jc-a11y {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  /* under the drawer scrim (40) and the lightbox (120) */
+  z-index: 36;
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.4;
+}
+@media (max-width: 900px) {
+  .jc-a11y { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  /* clear the phone tab bar when js/tabbar.js is on the page */
+  html[data-tabbar] .jc-a11y { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Room under the last section, so at the end of the page the button never
+   sits on the GoHighLevel calendar's corner. */
+@media (min-width: 901px) {
+  main { padding-bottom: 96px; }
+}
+@media (max-width: 900px) {
+  html:not([data-tabbar]) main { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+  /* the tab bar pads main by this much; the button stacks above the bar */
+  html[data-tabbar] { --jc-dock-clear: 156px; }
+}
+
+.jc-a11y svg { display: block; flex: none; }
+
+.jc-a11y__button {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 6px 18px -8px hsl(var(--shadow-color) / 0.5);
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out-expo), border-color 0.2s, transform 0.2s var(--ease-out-expo);
+}
+.jc-a11y__button:hover { background: var(--surface-alt); }
+.jc-a11y__button:active { transform: scale(0.96); }
+.jc-a11y.is-open .jc-a11y__button,
+.jc-a11y__button[aria-expanded="true"] {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+
+/* ---- panel ---- */
+.jc-a11y__panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  width: min(300px, calc(100vw - 32px));
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 48px -24px hsl(var(--shadow-color) / 0.55);
+  opacity: 0;
+  transform: translateY(6px);
+  transform-origin: bottom right;
+  pointer-events: none;
+  transition: opacity 0.16s var(--ease-out-expo), transform 0.24s var(--ease-out-expo);
+}
+.jc-a11y__panel[hidden] { display: none; }
+.jc-a11y.is-open .jc-a11y__panel {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.jc-a11y__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.jc-a11y__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.jc-a11y__close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.jc-a11y__close:hover { background: var(--surface-alt); color: var(--ink); }
+
+.jc-a11y__label {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.jc-a11y__sizes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.jc-a11y__size {
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.jc-a11y__size[data-size="lg"] { font-size: 16px; }
+.jc-a11y__size[data-size="xl"] { font-size: 18px; }
+.jc-a11y__size:hover { background: var(--surface-alt); }
+.jc-a11y__size[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-on);
+}
+
+.jc-a11y__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+.jc-a11y__switch {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out-expo);
+}
+.jc-a11y__switch:hover { background: var(--surface-alt); }
+.jc-a11y__switch-text { display: flex; flex-direction: column; gap: 1px; }
+.jc-a11y__switch-label { font-size: 14px; font-weight: 600; }
+.jc-a11y__switch-desc { font-size: 12.5px; color: var(--ink-soft); }
+
+/* Same track and thumb as the theme switch in the sidebar. */
+.jc-a11y__toggle {
+  position: relative;
+  flex: none;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--line);
+  transition: background 0.25s var(--ease-out-expo);
+}
+.jc-a11y__toggle::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--ink-soft);
+  transition: transform 0.25s var(--ease-out-expo), background 0.25s var(--ease-out-expo);
+}
+.jc-a11y__switch[aria-pressed="true"] .jc-a11y__toggle { background: var(--accent); }
+.jc-a11y__switch[aria-pressed="true"] .jc-a11y__toggle::after {
+  transform: translateX(14px);
+  background: var(--accent-on);
+}
+
+.jc-a11y__reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.jc-a11y__reset:hover:not(:disabled) { background: var(--surface-alt); }
+.jc-a11y__reset:disabled { color: var(--ink-faint); cursor: default; opacity: 0.6; }
+
+@media (prefers-reduced-motion: reduce) {
+  .jc-a11y__panel { transform: none; }
+  .jc-a11y__button:active { transform: none; }
+}
+
+/* ============================================
+   EFFECTS
+   ============================================ */
+
+/* Text size: the sheets size type in rem, so raising the root size scales the
+   copy the way browser text zoom does. body pins 16px, so it is re-pointed at
+   the root. Widths stay in px; the layout reflows around the larger type. */
+:root[data-a11y-text="lg"] { font-size: 112.5%; }
+:root[data-a11y-text="xl"] { font-size: 125%; }
+:root[data-a11y-text] body { font-size: 1rem; }
+
+/* High contrast: the two muted inks climb toward the main ink and the
+   hairlines darken, in whichever theme is showing. Dark is the base. */
+:root[data-a11y-contrast] {
+  --ink-soft: #E4D9D4;
+  --ink-faint: #D3C6C0;
+  --line: #5A5160;
+}
+:root[data-a11y-contrast][data-theme="light"] {
+  --ink-soft: #3A2A24;
+  --ink-faint: #45342D;
+  --line: #A88A7C;
+  --accent-strong: #5E4236;
+}
+@media (prefers-color-scheme: light) {
+  :root[data-a11y-contrast]:not([data-theme="dark"]) {
+    --ink-soft: #3A2A24;
+    --ink-faint: #45342D;
+    --line: #A88A7C;
+    --accent-strong: #5E4236;
+  }
+}
+
+/* Reduce motion, as the visitor's own switch: every animation and transition
+   stops. The operating-system setting is left to the site's own gentler
+   prefers-reduced-motion rules, which keep opacity and colour changes. */
+:root[data-a11y-motion] *,
+:root[data-a11y-motion] *::before,
+:root[data-a11y-motion] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+:root[data-a11y-motion] { scroll-behavior: auto !important; }
+
+/* Underline links: links in the page content, not the sidebar nav, the tab
+   bar or this menu, which already read as controls. */
+:root[data-a11y-links] main a {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}

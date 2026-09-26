@@ -1,0 +1,208 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE.
+   https://github.com/brewed-ops/portfolio-template  (c) BrewedOps
+
+   The funnel barrel (js/barrel.js) and its preview dialog. Ported from the
+   React branch's .funnels__barrel / .funnels__modal rules, then re-dressed in
+   this site's tokens: the dialog reuses the screenshot viewer's .lb classes
+   from styles.css and only adds what the viewer does not have. */
+
+/* ---------- The drum ----------
+   Empty and out of the layout until js/barrel.js has rendered with its
+   textures; the card's static .proj-shots carry the card until then. */
+.barrel { display: none; }
+/* styles.css gives .proj-shots display:grid, which would beat the hidden
+   attribute the script sets once the drum is up. */
+.proj-shots[hidden] { display: none; }
+.barrel[data-state="ready"] {
+  display: block;
+  position: relative;
+  /* Above the card's stretched title link (.proj-name a::after), the same way
+     .wf-gallery is, or every drag would start a navigation. */
+  z-index: 1;
+  isolation: isolate;
+  /* Bleed to the card's edges on three sides; the card clips. */
+  margin: 18px -24px -24px;
+  /* The card is a flex column and may be stretched by its row neighbour:
+     the drum takes whatever height is left, never less than this. */
+  flex: 1 0 auto;
+  min-height: clamp(300px, 30vw, 400px);
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  background: var(--panel-wash);
+}
+/* A soft pool of the accent under the drum so it sits on the card rather than
+   floating in it. */
+.barrel[data-state="ready"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  width: 58%;
+  height: 40px;
+  transform: translateX(-50%);
+  z-index: -1;
+  background: radial-gradient(ellipse at center, hsl(var(--shadow-color) / 0.35), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+.barrel-gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: pan-y; /* vertical page scroll passes through; horizontal drag spins */
+}
+
+/* Follows the pointer over a page. */
+.barrel-label {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% - 14px));
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 11px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 26px -12px hsl(var(--shadow-color) / 0.5);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.16s var(--ease-out-expo);
+}
+.barrel-label.is-on { opacity: 1; }
+.barrel-label-cat {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+.barrel-label-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.barrel-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-faint);
+}
+
+/* Every page as a real button. Visually hidden until one has keyboard focus,
+   then laid out along the bottom of the drum so the focus is visible. */
+.barrel-list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.barrel-list:has(:focus-visible) {
+  z-index: 4;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  white-space: normal;
+}
+.barrel-list-btn {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.barrel-list-btn:hover,
+.barrel-list-btn:focus-visible { color: var(--ink); border-color: var(--accent); }
+.barrel-list:has(:focus-visible) ~ .barrel-hint { display: none; }
+
+@media (max-width: 600px) {
+  .barrel[data-state="ready"] { min-height: 300px; }
+}
+
+/* ---------- Preview dialog ----------
+   Layout, backdrop, enter/exit and the buttons come from .lb in styles.css. */
+.barrel-lb-bar { gap: 12px; }
+.barrel-lb-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  margin-right: auto;
+}
+.barrel-lb-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+.barrel-lb-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+/* The public address, when there is one. An address that looks clickable and
+   is not is worse than none, so private builds show no link at all. */
+.barrel-lb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 46%;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface-alt);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.barrel-lb-link[hidden] { display: none; }
+.barrel-lb-host { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.barrel-lb-link .icon { width: 14px; height: 14px; transform: rotate(-45deg); }
+.barrel-lb-link:hover { color: var(--ink); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.barrel-lb-frame { cursor: default; }
+.barrel-lb-desc {
+  flex: none;
+  margin: 0;
+  padding: 14px 20px 16px;
+  border-top: 1px solid var(--line);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 78ch;
+}
+
+@media (max-width: 600px) {
+  .barrel-lb-bar { flex-wrap: wrap; padding: 12px 12px 12px 16px; }
+  .barrel-lb-head { flex: 1 1 0; }
+  .barrel-lb-link { order: 3; max-width: 100%; flex: 1 1 100%; justify-content: center; }
+  .barrel-lb-frame { display: flex; align-items: center; }
+}

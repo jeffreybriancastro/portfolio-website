@@ -1,0 +1,297 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE. */
+
+/* ============================================
+   INTRO - "the workflow writes the line"
+
+   A workflow runs across four n8n-style nodes and the headline is revealed
+   word by word as the run passes. At the end the headline flies onto the real
+   `.hero-headline`, which the page then assembles around.
+
+   Every rule that hides anything is keyed on a class js/intro.js adds only when
+   it decides to run, so with no JS (or a failed one) nothing here applies.
+   The overlay itself is built by the script; there is no markup for it.
+
+   The clone's type is copied from the real headline's computed style at run
+   time and each word is placed on the box the browser laid it out in, so the
+   swap at scale 1 is exact. The words are absolutely placed blocks rather than
+   inline text on purpose: a masked word needs `overflow: hidden`, and an
+   inline-block with `overflow != visible` moves its baseline, which would drop
+   the line against the headline it has to land on.
+   ============================================ */
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  /* Catches the click that skips, so it never lands on a hidden link. */
+  pointer-events: auto;
+  cursor: default;
+  /* No backdrop: html.is-intro hides the page instead, so the page ground
+     (and the contour shader, if it has loaded) stays behind the sequence. */
+}
+
+.boot__title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  opacity: 0;
+  will-change: transform;
+  color: var(--ink);
+}
+
+/* The mask. Padding opens headroom for ascenders and the negative margin gives
+   it straight back, so the glyphs sit exactly where the real ones do.
+   The parked translate has to clear the PADDED box: 132% covers it at any size.
+   Keep in sync with the keyframe in js/intro.js. */
+.boot__word {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  padding: 0.2em 0.04em 0.08em;
+  margin: -0.2em -0.04em -0.08em;
+  white-space: pre;
+}
+.boot__word-in {
+  display: block;
+  transform: translateY(132%);
+  will-change: transform;
+}
+
+/* ---------- The canvas ----------
+   An n8n execution in miniature: a half-pill trigger, square step nodes with a
+   port on each side, thin cables, and the run streaming the cables in the
+   accent as it passes. Nodes earn a check when the run clears them.
+   Everything is in design units and scaled with the headline. */
+.boot__canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  opacity: 0;
+  will-change: transform;
+  --n8n-node: var(--surface);
+  --n8n-border: color-mix(in srgb, var(--ink) 24%, var(--surface));
+  --n8n-cable: color-mix(in srgb, var(--ink) 26%, var(--bg));
+  /* Done-state in the site's one accent, not the template's success green:
+     live state on this site is always the rose. */
+  --n8n-ok: var(--accent);
+  --n8n-ink: var(--ink);
+}
+/* Deepened on the pale ground (same two routes to light as styles.css). */
+:root[data-theme="light"] .boot__canvas { --n8n-ok: var(--accent-strong); }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .boot__canvas { --n8n-ok: var(--accent-strong); }
+}
+
+.boot__cables {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
+.boot__cable {
+  fill: none;
+  stroke: var(--n8n-cable);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0;
+}
+.boot__cable--live {
+  stroke: var(--accent);
+  opacity: 1;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent) 45%, transparent));
+}
+
+.boot__n {
+  position: absolute;
+  width: 40px;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.boot__n-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  background: var(--n8n-node);
+  border: 1.5px solid var(--n8n-border);
+  color: var(--n8n-ink);
+  box-shadow: 0 6px 14px -8px hsl(var(--shadow-color) / 0.35);
+  transition: border-color 260ms var(--ease-out-expo);
+}
+.boot__n-card svg { display: block; }
+/* n8n's trigger tile: rounded on the input side, square on the output side. */
+.boot__n--trigger .boot__n-card { border-radius: 20px 9px 9px 20px; }
+.boot__n.is-done .boot__n-card { border-color: var(--n8n-ok); }
+
+.boot__n-port {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--n8n-node);
+  border: 1.5px solid var(--n8n-border);
+  transform: translateY(-50%);
+}
+.boot__n-port--in  { left: -5px; }
+.boot__n-port--out { right: -5px; }
+.boot__n--trigger .boot__n-port--in,
+.boot__n--last .boot__n-port--out { display: none; }
+.boot__n.is-done .boot__n-port { border-color: var(--n8n-ok); }
+
+.boot__n-check {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--n8n-ok);
+  color: var(--bg);
+  box-shadow: 0 0 0 2px var(--n8n-node);
+  opacity: 0;
+  transform: scale(0.3);
+}
+
+.boot__n-label {
+  position: absolute;
+  top: 46px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--n8n-ink);
+}
+
+/* The execution. Outer element travels (rAF), inner element pops (WAAPI). */
+.boot__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  will-change: transform;
+}
+.boot__dot-core {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 0 12px 2px color-mix(in srgb, var(--accent) 60%, transparent);
+  opacity: 0;
+}
+
+/* Execution status, the way n8n reports it under the canvas. */
+.boot__status {
+  position: absolute;
+  left: 0;
+  top: 82px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  opacity: 0;
+}
+.boot__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: boot-pulse 900ms ease-in-out infinite;
+}
+.boot__status.is-done { color: var(--n8n-ok); }
+.boot__status.is-done .boot__status-dot { background: var(--n8n-ok); animation: none; }
+@keyframes boot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.6); opacity: 0.5; }
+}
+
+/* ---------- What the intro holds back ----------
+   The real headline never plays its own entrance on a page the intro ran on:
+   the clone lands exactly on top of it, so the swap has to be instantaneous. */
+html.intro-on .hero-headline { animation: none; }
+html.is-intro-head .hero-headline { opacity: 0; }
+
+/* The rest of the hero keeps its own rise-in from styles.css: holding it at
+   `animation: none` and letting go restarts that entrance, so the page
+   assembles around the headline on the same beat the original does. */
+html.is-intro .hero-sub,
+html.is-intro .hero-cta,
+html.is-intro .stack-strip,
+html.is-intro .home-panel {
+  animation: none;
+  opacity: 0;
+}
+
+/* Below the hero is off screen; it only has to be out of the way. */
+html.is-intro main > :not(.hero) { opacity: 0; }
+
+/* The sidebar deals itself out, top to bottom; the phone bar drops in. */
+html.is-intro .sidebar > * {
+  opacity: 0;
+  transform: translateX(-16px);
+}
+html.is-intro .sidebar { border-right-color: transparent; }
+html.intro-on .sidebar { transition: border-color 560ms var(--ease-out-expo); }
+@media (max-width: 900px) {
+  /* The drawer carries its own transform transition; keep it. */
+  html.intro-on .sidebar { transition: transform 0.35s var(--ease-out-expo), border-color 560ms var(--ease-out-expo); }
+}
+html.is-intro .topbar {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+html.intro-on .sidebar > *,
+html.intro-on .topbar {
+  transition:
+    opacity 560ms var(--ease-out-expo),
+    transform 700ms var(--ease-out-expo);
+}
+html.intro-on .sidebar > :nth-child(2) { transition-delay: 60ms; }
+html.intro-on .sidebar > :nth-child(3) { transition-delay: 120ms; }
+html.intro-on .sidebar > :nth-child(4) { transition-delay: 180ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .boot { display: none; }
+  html.is-intro-head .hero-headline,
+  html.is-intro .hero-sub,
+  html.is-intro .hero-cta,
+  html.is-intro .stack-strip,
+  html.is-intro .home-panel,
+  html.is-intro main > :not(.hero),
+  html.is-intro .sidebar > *,
+  html.is-intro .topbar {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The site's own "Reduce motion" switch (js/access.js), same answer. */
+html[data-motion="reduce"] .boot { display: none; }
+html[data-motion="reduce"].is-intro-head .hero-headline,
+html[data-motion="reduce"].is-intro .hero-sub,
+html[data-motion="reduce"].is-intro .hero-cta,
+html[data-motion="reduce"].is-intro .stack-strip,
+html[data-motion="reduce"].is-intro .home-panel,
+html[data-motion="reduce"].is-intro main > :not(.hero),
+html[data-motion="reduce"].is-intro .sidebar > *,
+html[data-motion="reduce"].is-intro .topbar {
+  opacity: 1;
+  transform: none;
+}
