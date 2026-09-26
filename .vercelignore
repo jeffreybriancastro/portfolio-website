@@ -16,3 +16,7 @@ ghl/
 
 # Repo notes, not site pages.
 README.md
+
+# Cloudflare-only files.
+_headers
+scripts/

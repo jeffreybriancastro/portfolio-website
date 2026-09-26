@@ -1,0 +1,20 @@
+# Cloudflare Pages headers, the same set vercel.json gives the Vercel deploy.
+# Keep the two in step when either changes.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# CSS and JS are versioned with ?v= in the pages, so an hour is safe.
+/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+/og.png
+  Cache-Control: public, max-age=31536000, immutable

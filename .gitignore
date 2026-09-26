@@ -11,3 +11,6 @@
 .vercel/
 
 node_modules/
+
+# Built by scripts/build-site.sh for Cloudflare Pages.
+dist/
