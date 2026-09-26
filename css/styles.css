@@ -8,6 +8,12 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- Tokens ---------- */
 :root {
+  /* Type scales with the screen: 16px on phones and laptops, rising to 18px
+     on wide monitors, where the column is up to 1680px wide and 16px copy
+     reads small. Everything is sized in rem, so the whole ramp follows.
+     The accessibility menu's text sizes multiply this (css/access.css). */
+  --root-fs: clamp(100%, 0.3vw + 12.6px, 112.5%);
+  font-size: var(--root-fs);
   /* Deep Charcoal / Dusty Rose. Charcoal is a near-black and grounds the dark theme;
      Dusty Rose is the accent in BOTH themes, unusually, because it carries a charcoal
      label at 6.96:1 either way. What it cannot do is carry small text on a pale ground
@@ -58,7 +64,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   transition: background 0.3s var(--ease-out-expo), color 0.3s var(--ease-out-expo);
@@ -123,7 +129,7 @@ body {
   border-bottom: 1px solid var(--line);
 }
 .topbar-id { display: flex; align-items: center; gap: 10px; }
-.topbar-name { font-weight: 600; font-size: 0.95rem; }
+.topbar-name { font-weight: 600; font-size: 1rem; }
 
 .icon-btn {
   display: grid;
@@ -145,7 +151,7 @@ body {
   background: var(--accent);
   color: var(--accent-on);
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   letter-spacing: -0.02em;
 }
 .mark-lg { width: 56px; height: 56px; border-radius: 16px; font-size: 1.25rem; margin: 0 auto 16px; }
@@ -276,14 +282,14 @@ body {
 
 .profile { text-align: center; padding-bottom: 20px; }
 .profile-name { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
-.profile-role { color: var(--ink-soft); font-size: 0.85rem; margin-top: 4px; }
+.profile-role { color: var(--ink-soft); font-size: 0.9rem; margin-top: 4px; }
 
 .status {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   margin-top: 12px;
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   color: var(--ink-soft);
   background: var(--surface-alt);
   padding: 6px 12px;
@@ -320,7 +326,7 @@ body {
 .nav-link {
   padding: 11px 14px;
   border-radius: var(--radius-sm);
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   font-weight: 500;
   color: var(--ink-soft);
   transition: background 0.2s var(--ease-out-expo), color 0.2s;
@@ -332,7 +338,7 @@ body {
 
 
 
-.sidebar-copyright { margin-top: 14px; font-size: 0.8rem; color: var(--ink-faint); }
+.sidebar-copyright { margin-top: 14px; font-size: 0.86rem; color: var(--ink-faint); }
 
 .scrim {
   display: none;
@@ -392,7 +398,7 @@ main {
   padding: 13px 22px;
   border-radius: 999px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo), background 0.2s;
 }
 .btn .icon { width: 16px; height: 16px; transition: transform 0.25s var(--ease-out-expo); }
@@ -451,7 +457,7 @@ main {
   flex: 1 0 auto;
   justify-content: center;
   padding: 15px 18px;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   font-weight: 500;
   color: var(--ink-soft);
   white-space: nowrap;
@@ -467,7 +473,7 @@ main {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--ink-soft);
 }
@@ -552,7 +558,7 @@ main {
 
 .tile-desc {
   margin-top: 6px;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   line-height: 1.5;
   color: var(--ink-soft);
   max-width: 42ch;
@@ -602,7 +608,7 @@ main {
   gap: 10px;
   padding: 14px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 0.88rem;
+  font-size: 0.94rem;
   font-weight: 600;
 }
 .tile-svc li:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 12px; }
@@ -643,10 +649,10 @@ main {
 }
 
 .card-heading-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.card-note { font-size: 0.78rem; color: var(--ink-faint); }
+.card-note { font-size: 0.84rem; color: var(--ink-faint); }
 
 
-.card-copy { color: var(--ink-soft); margin-top: 10px; font-size: 0.95rem; line-height: 1.55; }
+.card-copy { color: var(--ink-soft); margin-top: 10px; font-size: 1rem; line-height: 1.55; }
 /* On the accent wash, secondary text is tinted from that hue rather than left grey. */
 /* 12%, not 30%: when the accent is lighter than the ink (as here), a heavier mix
    lifts the text off the wash instead of grounding it. 30% measured 4.0:1. */
@@ -659,7 +665,7 @@ main {
 .placeholder-text {
   margin-top: 18px;
   color: var(--ink-soft);
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   line-height: 1.6;
   font-style: italic;
 }
@@ -695,7 +701,7 @@ main {
 .services-band { margin-top: 72px; }
 .band-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .band-heading { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
-.band-note { font-size: 0.78rem; color: var(--ink-faint); }
+.band-note { font-size: 0.84rem; color: var(--ink-faint); }
 
 .svc-grid {
   margin-top: 20px;
@@ -734,7 +740,7 @@ main {
   letter-spacing: -0.01em;
 }
 .svc-glyph { width: 18px; height: 18px; flex: none; color: var(--ink-soft); }
-.svc-desc { margin-top: 6px; font-size: 0.85rem; line-height: 1.45; color: var(--ink-soft); }
+.svc-desc { margin-top: 6px; font-size: 0.9rem; line-height: 1.45; color: var(--ink-soft); }
 .svc-tag {
   align-self: flex-start;
   margin-top: 16px;
@@ -744,7 +750,7 @@ main {
   background: var(--accent-soft);
   /* ink, not accent-strong: amber on the soft wash is only 3:1, and this is 12.5px. */
   color: var(--ink);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -758,13 +764,13 @@ main {
   flex-direction: column;
   gap: 9px;
 }
-.svc-point { display: flex; gap: 9px; align-items: flex-start; font-size: 0.8rem; line-height: 1.4; color: var(--ink-soft); }
+.svc-point { display: flex; gap: 9px; align-items: flex-start; font-size: 0.86rem; line-height: 1.4; color: var(--ink-soft); }
 .svc-point .icon { width: 15px; height: 15px; flex: none; margin-top: 1px; color: var(--accent-strong); }
 
 /* ---------- Live automation band ---------- */
 .auto-band { margin-top: 64px; text-align: center; }
 .auto-heading { font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
-.auto-copy { margin: 12px auto 0; max-width: 54ch; font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); }
+.auto-copy { margin: 12px auto 0; max-width: 54ch; font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
 .auto-pills { margin-top: 22px; justify-content: center; }
 
 /* ---------- Client list ----------
@@ -799,13 +805,13 @@ main {
   border-radius: 999px;
   background: var(--accent-soft);
   color: var(--ink);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 600;
 }
 .client-desc {
   margin-top: 10px;
   max-width: 68ch;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.55;
   color: var(--ink-soft);
 }
@@ -814,7 +820,7 @@ main {
   padding: 6px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   color: var(--ink-soft);
 }
 /* Screenshot rides on the right of the row, not in place of the mark. */
@@ -860,7 +866,7 @@ main {
 .about-copy {
   margin-top: 16px;
   max-width: 62ch;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.65;
   color: var(--ink-soft);
 }
@@ -886,18 +892,18 @@ main {
 .skill-id {
   flex: none;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--accent-strong);
 }
 .skill-body { min-width: 0; }
-.skill-name { font-size: 0.98rem; font-weight: 600; letter-spacing: -0.01em; }
+.skill-name { font-size: 1.02rem; font-weight: 600; letter-spacing: -0.01em; }
 .skill-tags {
   margin-top: 7px;
   display: flex;
   flex-wrap: wrap;
   gap: 4px 10px;
-  font-size: 0.83rem;
+  font-size: 0.88rem;
   color: var(--ink-soft);
 }
 /* The separator leads rather than trails: a trailing one strands a dot at the
@@ -907,7 +913,7 @@ main {
 .skill-addon { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
 .skill-addon-lead {
   margin-bottom: 8px;
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   color: var(--ink-faint);
 }
 .skill-addon .skill-name { font-weight: 600; color: var(--ink-soft); }
@@ -944,11 +950,11 @@ main {
   background: var(--surface-alt);
   color: var(--ink-soft);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   font-weight: 700;
 }
-.process-name { font-weight: 600; font-size: 0.9rem; }
-.process-desc { color: var(--ink-soft); font-size: 0.82rem; margin-top: 2px; line-height: 1.45; }
+.process-name { font-weight: 600; font-size: 0.96rem; }
+.process-desc { color: var(--ink-soft); font-size: 0.88rem; margin-top: 2px; line-height: 1.45; }
 
 /* ---------- Footer ---------- */
 /* ---------- Contact ----------
@@ -989,7 +995,7 @@ main {
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  font-size: 0.88rem;
+  font-size: 0.94rem;
   line-height: 1.45;
   color: var(--ink-soft);
 }
@@ -1004,7 +1010,7 @@ main {
   margin-top: 26px;
   padding-top: 20px;
   border-top: 1px solid var(--line);
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   color: var(--ink-faint);
 }
 .contact-fallback a {
@@ -1030,7 +1036,7 @@ main {
   grid-area: 1 / 1;
   align-self: center;
   padding: 28px;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   line-height: 1.6;
   color: var(--ink-soft);
 }
@@ -1050,7 +1056,7 @@ main {
 .contact-noscript,
 .booking-noscript {
   padding: 24px;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   color: var(--ink-soft);
   line-height: 1.6;
 }
@@ -1130,7 +1136,7 @@ main {
   margin-top: 56px;
   padding-top: 24px;
   border-top: 1px solid var(--line);
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   color: var(--ink-faint);
 }
 
@@ -1325,13 +1331,13 @@ img.icon { object-fit: contain; }
   color: var(--ink-soft);
 }
 .sysnode-name {
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   font-weight: 600;
   line-height: 1.35;
 }
 .sysnode-meta {
   margin-top: 3px;
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   color: var(--ink-soft);
   line-height: 1.45;
 }
@@ -1407,7 +1413,7 @@ img.icon { object-fit: contain; }
   max-width: 680px;
 }
 .quote-lead {
-  font-size: 0.84rem;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--ink-faint);
@@ -1434,12 +1440,12 @@ img.icon { object-fit: contain; }
   gap: 3px;
 }
 .quote-who {
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
-.quote-what { font-size: 0.82rem; color: var(--ink-faint); }
+.quote-what { font-size: 0.88rem; color: var(--ink-faint); }
 
 .proj {
   position: relative;
@@ -1499,7 +1505,7 @@ img.icon { object-fit: contain; }
   align-items: baseline;
   gap: 10px;
   padding: 6px 0;
-  font-size: 0.83rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--ink-soft);
 }
@@ -1516,7 +1522,7 @@ img.icon { object-fit: contain; }
   padding: 7px 14px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   font-weight: 500;
   color: var(--ink-soft);
   white-space: nowrap;
@@ -1533,11 +1539,11 @@ img.icon { object-fit: contain; }
 .proj-desc {
   margin-top: 6px;
   max-width: 52ch;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   line-height: 1.55;
   color: var(--ink-soft);
 }
-.proj .placeholder-text { margin-top: 14px; font-size: 0.85rem; }
+.proj .placeholder-text { margin-top: 14px; font-size: 0.9rem; }
 
 /* The workflow gallery. Thumbnails are buttons because they open an overlay
    rather than go anywhere; the frame fixes the aspect so seven screenshots of
@@ -1589,7 +1595,7 @@ img.icon { object-fit: contain; }
   align-items: baseline;
   gap: 7px;
   margin-top: 8px;
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 600;
   line-height: 1.3;
   color: var(--ink-soft);
@@ -1597,7 +1603,7 @@ img.icon { object-fit: contain; }
 .wf-open:hover .wf-label { color: var(--ink); }
 .wf-id {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--accent-strong);
 }
@@ -1641,12 +1647,12 @@ img.icon { object-fit: contain; }
   padding: 14px 14px 14px 20px;
   border-bottom: 1px solid var(--line);
 }
-.lb-caption { font-size: 0.92rem; font-weight: 600; min-width: 0; }
+.lb-caption { font-size: 0.98rem; font-weight: 600; min-width: 0; }
 .lb-count {
   margin-left: auto;
   flex: none;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   color: var(--ink-faint);
 }
 .lb-btn {
@@ -1688,7 +1694,7 @@ img.icon { object-fit: contain; }
   min-width: 4ch;
   text-align: center;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--ink-faint);
 }
 .lb-zoom .lb-btn { width: 32px; height: 32px; }
@@ -1726,7 +1732,7 @@ img.icon { object-fit: contain; }
 .build-lead {
   margin-top: 16px;
   max-width: 72ch;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--ink-soft);
 }
@@ -1751,14 +1757,14 @@ img.icon { object-fit: contain; }
   flex: none;
   padding-top: 2px;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--accent-strong);
 }
-.build-step-name { font-size: 0.92rem; font-weight: 600; }
+.build-step-name { font-size: 0.98rem; font-weight: 600; }
 .build-step-desc {
   margin-top: 5px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   line-height: 1.55;
   color: var(--ink-soft);
 }
@@ -2001,7 +2007,7 @@ img.icon { object-fit: contain; }
   font-variant-numeric: tabular-nums;
   color: var(--ink);
 }
-.tile-stat-label { font-size: 0.86rem; font-weight: 600; color: var(--ink-soft); }
+.tile-stat-label { font-size: 0.9rem; font-weight: 600; color: var(--ink-soft); }
 .tile-stat-sub {
   margin-top: 16px;
   padding-top: 14px;
@@ -2009,7 +2015,7 @@ img.icon { object-fit: contain; }
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.84rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 .tile-stat-sub .icon { width: 15px; height: 15px; }
@@ -2050,7 +2056,7 @@ img.icon { object-fit: contain; }
 .tm-layout .wf-gallery.quote-gallery { grid-area: shot; margin-top: 0; align-self: center; }
 .tm-layout .quote-by { grid-area: by; margin-top: 10px; }
 .tm-layout .quote-who { font-size: 1.2rem; letter-spacing: -0.02em; }
-.tm-layout .quote-what { font-size: 0.9rem; }
+.tm-layout .quote-what { font-size: 0.96rem; }
 .tm-layout .quote-link { grid-area: link; justify-self: start; }
 @media (max-width: 900px) {
   .tm-layout .quote {
@@ -2066,7 +2072,7 @@ img.icon { object-fit: contain; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--ink);
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
@@ -2123,7 +2129,7 @@ img.icon { object-fit: contain; }
 .faq-a {
   padding: 0 38px 22px 0;
   max-width: 68ch;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--ink-soft);
 }
@@ -2203,7 +2209,7 @@ img.icon { object-fit: contain; }
 }
 .tile-cta-main { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
 .tile-cta .tile-name { font-size: clamp(1.35rem, 2vw, 1.75rem); font-weight: 800; letter-spacing: -0.02em; }
-.tile-cta .tile-desc { font-size: 0.95rem; max-width: 40ch; }
+.tile-cta .tile-desc { font-size: 1rem; max-width: 40ch; }
 .tile-cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .tile-cta .btn-ghost { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
 .tile-cta-points {
@@ -2216,7 +2222,7 @@ img.icon { object-fit: contain; }
   display: flex;
   gap: 10px;
   padding: 12px 0;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   line-height: 1.45;
   color: color-mix(in srgb, var(--accent) 12%, var(--ink-soft));
 }
@@ -2232,3 +2238,6 @@ img.icon { object-fit: contain; }
   .tile-cta-actions { width: 100%; flex-direction: column; }
   .tile-cta-actions .btn { justify-content: center; white-space: nowrap; }
 }
+
+/* Two even lines, never a lone "· Funnels" leading the second. */
+.profile-role { text-wrap: balance; }

@@ -75,12 +75,12 @@
 .barrel-label.is-on { opacity: 1; }
 .barrel-label-cat {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--accent-strong);
 }
 .barrel-label-title {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--ink);
@@ -95,7 +95,7 @@
   pointer-events: none;
   white-space: nowrap;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.74rem;
   color: var(--ink-faint);
 }
 
@@ -129,7 +129,7 @@
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--ink-soft);
-  font-size: 0.74rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
 }
@@ -153,13 +153,13 @@
 }
 .barrel-lb-tag {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: var(--accent-strong);
 }
 .barrel-lb-title {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.25;
@@ -180,7 +180,7 @@
   background: var(--surface-alt);
   color: var(--ink-soft);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   text-decoration: none;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
@@ -194,7 +194,7 @@
   margin: 0;
   padding: 14px 20px 16px;
   border-top: 1px solid var(--line);
-  font-size: 0.84rem;
+  font-size: 0.9rem;
   line-height: 1.55;
   color: var(--ink-soft);
   max-width: 78ch;

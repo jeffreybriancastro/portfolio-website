@@ -21,7 +21,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--ink-soft);
   padding: 7px 14px 7px 10px;
@@ -64,7 +64,7 @@
 
 .cs-frame {
   margin-top: 16px;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   color: var(--ink-faint);
   max-width: 60ch;
 }
@@ -78,12 +78,12 @@
   gap: 22px 28px;
 }
 .cs-fact-label {
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   color: var(--ink-faint);
 }
 .cs-fact-value {
   margin-top: 5px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -113,7 +113,7 @@
 .cs-copy {
   margin-top: 18px;
   color: var(--ink-soft);
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   line-height: 1.6;
 }
 
@@ -127,7 +127,7 @@
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  font-size: 0.88rem;
+  font-size: 0.94rem;
   line-height: 1.45;
   color: var(--ink-soft);
 }
@@ -148,12 +148,12 @@
   gap: 12px;
 }
 .cs-engagement dt {
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   color: var(--ink-faint);
 }
 .cs-engagement dd {
   margin: 2px 0 0;
-  font-size: 0.88rem;
+  font-size: 0.94rem;
   font-weight: 600;
 }
 
@@ -191,12 +191,12 @@
 .cs-more-link:hover .icon:first-child { color: var(--accent-strong); }
 .cs-more-name {
   display: block;
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   font-weight: 600;
 }
 .cs-more-desc {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   color: var(--ink-soft);
   margin-top: 2px;
 }

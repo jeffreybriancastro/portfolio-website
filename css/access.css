@@ -228,8 +228,8 @@
 /* Text size: the sheets size type in rem, so raising the root size scales the
    copy the way browser text zoom does. body pins 16px, so it is re-pointed at
    the root. Widths stay in px; the layout reflows around the larger type. */
-:root[data-a11y-text="lg"] { font-size: 112.5%; }
-:root[data-a11y-text="xl"] { font-size: 125%; }
+:root[data-a11y-text="lg"] { font-size: calc(var(--root-fs, 100%) * 1.125); }
+:root[data-a11y-text="xl"] { font-size: calc(var(--root-fs, 100%) * 1.25); }
 :root[data-a11y-text] body { font-size: 1rem; }
 
 /* High contrast: the two muted inks climb toward the main ink and the
