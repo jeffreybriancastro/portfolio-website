@@ -2024,13 +2024,42 @@ img.icon { object-fit: contain; }
   grid-template-columns: minmax(0, 1fr);
   gap: 20px;
 }
+/* The message spans the column: the screenshot on the left at its own
+   proportions, who sent it and the way to their site on the right, centred
+   against it. A half-width card left the other half of the band empty. */
 .tm-layout .quote {
   margin: 0;
   padding: 26px;
-  max-width: 720px;
+  max-width: none;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface);
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(220px, 2fr);
+  grid-template-rows: 1fr auto auto auto 1fr;
+  grid-template-areas:
+    "shot ."
+    "shot lead"
+    "shot by"
+    "shot link"
+    "shot .";
+  column-gap: clamp(28px, 4vw, 64px);
+  align-items: start;
+}
+.tm-layout .quote-lead { grid-area: lead; }
+.tm-layout .wf-gallery.quote-gallery { grid-area: shot; margin-top: 0; align-self: center; }
+.tm-layout .quote-by { grid-area: by; margin-top: 10px; }
+.tm-layout .quote-who { font-size: 1.2rem; letter-spacing: -0.02em; }
+.tm-layout .quote-what { font-size: 0.9rem; }
+.tm-layout .quote-link { grid-area: link; justify-self: start; }
+@media (max-width: 900px) {
+  .tm-layout .quote {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: "lead" "shot" "by" "link";
+  }
+  .tm-layout .wf-gallery.quote-gallery { margin-top: 14px; }
+  .tm-layout .quote-by { margin-top: 18px; }
 }
 .quote-link {
   margin-top: 18px;
