@@ -4,7 +4,7 @@
 //   Deploy command: npx wrangler deploy
 // "name" must match the Worker's name in the Cloudflare dashboard.
 {
-  "name": "portfolio-website-revamp",
+  "name": "jeffreybrianbuilds",
   "compatibility_date": "2026-09-01",
   "assets": {
     "directory": "./dist",
