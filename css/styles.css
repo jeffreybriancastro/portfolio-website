@@ -2131,3 +2131,64 @@ img.icon { object-fit: contain; }
   .faq-list { padding: 4px 18px; }
   .faq-a { padding-right: 0; }
 }
+
+/* ---------- Home panel, second pass ----------
+   Projects shows three shipped sites instead of one oversized crop; the live
+   board sits its number under the description and bleeds the real board
+   beneath it, the way About bleeds the portrait; the CTA tile stacks its
+   words over two actions and centres in its cell. */
+.tile-collage {
+  margin-top: 20px;
+  flex: 1;
+  min-height: 200px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.tile-collage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+}
+/* Sites are read from their top-left corner (logo, headline start), so a
+   tall cell trims the right edge rather than both. */
+.tile-collage-lead { grid-row: span 2; object-position: left top !important; }
+
+.tile-board .tile-stat { margin-top: 18px; padding-top: 0; }
+.tile-board-shot {
+  margin: 18px -22px -22px;
+  width: calc(100% + 44px);
+  max-width: none;
+  flex: 1;
+  min-height: 90px;
+  object-fit: cover;
+  object-position: left top;
+  border-top: 1px solid var(--line);
+}
+
+.tile-cta {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 22px;
+  padding: 30px clamp(22px, 3vw, 40px);
+}
+.tile-cta .tile-name { font-size: clamp(1.35rem, 2vw, 1.75rem); font-weight: 800; letter-spacing: -0.02em; }
+.tile-cta .tile-desc { font-size: 0.95rem; max-width: 46ch; }
+.tile-cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+@media (max-width: 600px) {
+  .tile-collage { min-height: 0; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto auto; }
+  .tile-collage-lead { grid-row: auto; grid-column: span 2; aspect-ratio: 16 / 9; }
+  .tile-collage img:not(.tile-collage-lead) { aspect-ratio: 16 / 10; }
+  .tile-board-shot { flex: none; height: auto; aspect-ratio: 16 / 7; }
+  .tile-cta-actions { width: 100%; flex-direction: column; }
+  .tile-cta-actions .btn { justify-content: center; white-space: nowrap; }
+}
+/* On the accent wash the ghost button's hairline vanishes; tint it from the hue. */
+.tile-cta .btn-ghost { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }

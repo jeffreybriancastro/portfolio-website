@@ -30,18 +30,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://go.jeffreybrianbuilds.com" />
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=20260926c" />
-<link rel="stylesheet" href="css/access.css?v=20260926c" />
-<link rel="stylesheet" href="css/cursor.css?v=20260926c" />
-<link rel="stylesheet" href="css/smooth.css?v=20260926c" />
-<link rel="stylesheet" href="css/tabbar.css?v=20260926c" />
-<script src="js/access.js?v=20260926c"></script>
-<link rel="stylesheet" href="css/hero-canvas.css?v=20260926c" />
-<link rel="stylesheet" href="css/intro.css?v=20260926c" />
-<script src="js/intro.js?v=20260926c"></script>
-<link rel="stylesheet" href="css/autopilot.css?v=20260926c" />
-<link rel="stylesheet" href="css/barrel.css?v=20260926c" />
-<link rel="stylesheet" href="css/wf-marquee.css?v=20260926c" />
+<link rel="stylesheet" href="css/styles.css?v=20260926f" />
+<link rel="stylesheet" href="css/access.css?v=20260926f" />
+<link rel="stylesheet" href="css/cursor.css?v=20260926f" />
+<link rel="stylesheet" href="css/smooth.css?v=20260926f" />
+<link rel="stylesheet" href="css/tabbar.css?v=20260926f" />
+<script src="js/access.js?v=20260926f"></script>
+<link rel="stylesheet" href="css/hero-canvas.css?v=20260926f" />
+<link rel="stylesheet" href="css/intro.css?v=20260926f" />
+<script src="js/intro.js?v=20260926f"></script>
+<link rel="stylesheet" href="css/autopilot.css?v=20260926f" />
+<link rel="stylesheet" href="css/barrel.css?v=20260926f" />
+<link rel="stylesheet" href="css/wf-marquee.css?v=20260926f" />
 </head>
 <body>
 
@@ -197,9 +197,13 @@
             <svg class="icon tile-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
             <h2 class="tile-name"><a href="#projects">Projects</a></h2>
             <p class="tile-desc">Client systems, and the booking pipeline behind them.</p>
-            <div class="tile-shots">
-              <img class="tile-shot" src="img/work-teameasycrane.webp" width="640" height="360" alt="" decoding="async" />
-              <img class="tile-shot tile-shot-2" src="img/work-findthepulse.webp" width="640" height="360" alt="" loading="lazy" decoding="async" />
+            <!-- Three shipped sites as one small collage: the lead one large,
+                 the other two stacked beside it, all cropped from the top of
+                 the page so each reads as its own site. -->
+            <div class="tile-collage">
+              <img class="tile-collage-lead" src="img/work-teameasycrane.webp" width="640" height="360" alt="" decoding="async" />
+              <img src="img/work-findthepulse.webp" width="640" height="360" alt="" loading="lazy" decoding="async" />
+              <img src="img/work-easycrane.webp" width="640" height="360" alt="" loading="lazy" decoding="async" />
             </div>
           </li>
 
@@ -225,6 +229,7 @@
               <span class="tile-stat-label">opportunities tracked</span>
             </p>
             <p class="tile-stat-sub"><img class="icon brand-ghl" src="img/logo-ghl.webp" width="15" height="15" alt="" decoding="async" />6 workflows moving them</p>
+            <img class="tile-board-shot" src="img/crm-pipeline-thumb.webp" width="720" height="405" alt="" loading="lazy" decoding="async" />
           </li>
 
           <li class="tile tile-services">
@@ -245,7 +250,10 @@
               <h2 class="tile-name">Start a project</h2>
               <p class="tile-desc">Tell me what you are building and I will tell you how I would wire it.</p>
             </div>
-            <a class="btn btn-primary" href="#contact">Get in touch <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <div class="tile-cta-actions">
+              <a class="btn btn-primary" href="#contact">Get in touch <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="btn btn-ghost" href="#book">Book a call</a>
+            </div>
           </li>
 
         </ul>
@@ -1100,17 +1108,17 @@
   </div>
 </div>
 
-<script src="js/main.js?v=20260926c"></script>
-<script src="js/sysmap.js?v=20260926c" defer></script>
-<script src="js/autopilot.js?v=20260926c" defer></script>
-<script src="js/gallery.js?v=20260926c" defer></script>
-<script src="js/wf-marquee.js?v=20260926c" defer></script>
-<script type="module" src="js/barrel.js?v=20260926c"></script>
+<script src="js/main.js?v=20260926f"></script>
+<script src="js/sysmap.js?v=20260926f" defer></script>
+<script src="js/autopilot.js?v=20260926f" defer></script>
+<script src="js/gallery.js?v=20260926f" defer></script>
+<script src="js/wf-marquee.js?v=20260926f" defer></script>
+<script type="module" src="js/barrel.js?v=20260926f"></script>
 <!-- Resizes the GoHighLevel form iframe to its content. -->
 <script src="https://go.jeffreybrianbuilds.com/js/form_embed.js" defer></script>
-<script type="module" src="js/hero-canvas.js?v=20260926c"></script>
-<script src="js/smooth.js?v=20260926c" defer></script>
-<script src="js/cursor.js?v=20260926c" defer></script>
-<script src="js/tabbar.js?v=20260926c" defer></script>
+<script type="module" src="js/hero-canvas.js?v=20260926f"></script>
+<script src="js/smooth.js?v=20260926f" defer></script>
+<script src="js/cursor.js?v=20260926f" defer></script>
+<script src="js/tabbar.js?v=20260926f" defer></script>
 </body>
 </html>
