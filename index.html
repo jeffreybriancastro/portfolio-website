@@ -30,18 +30,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://go.jeffreybrianbuilds.com" />
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=20260926j" />
-<link rel="stylesheet" href="css/access.css?v=20260926j" />
-<link rel="stylesheet" href="css/cursor.css?v=20260926j" />
-<link rel="stylesheet" href="css/smooth.css?v=20260926j" />
-<link rel="stylesheet" href="css/tabbar.css?v=20260926j" />
-<script src="js/access.js?v=20260926j"></script>
-<link rel="stylesheet" href="css/hero-canvas.css?v=20260926j" />
-<link rel="stylesheet" href="css/intro.css?v=20260926j" />
-<script src="js/intro.js?v=20260926j"></script>
-<link rel="stylesheet" href="css/autopilot.css?v=20260926j" />
-<link rel="stylesheet" href="css/barrel.css?v=20260926j" />
-<link rel="stylesheet" href="css/wf-marquee.css?v=20260926j" />
+<!-- Switched off on purpose (2026-09-26), files kept: the intro (js/intro.js,
+     css/intro.css), the contour shader (js/hero-canvas.js, css/hero-canvas.css)
+     and the cursor ring (js/cursor.js, css/cursor.css). Too many things moved
+     at once; the live pipeline diagram is the motion that carries the pitch.
+     To bring one back, restore its <link> in the head and its <script> tag. -->
+<link rel="stylesheet" href="css/styles.css?v=20260926l" />
+<link rel="stylesheet" href="css/access.css?v=20260926l" />
+<link rel="stylesheet" href="css/smooth.css?v=20260926l" />
+<link rel="stylesheet" href="css/tabbar.css?v=20260926l" />
+<script src="js/access.js?v=20260926l"></script>
+<link rel="stylesheet" href="css/autopilot.css?v=20260926l" />
+<link rel="stylesheet" href="css/barrel.css?v=20260926l" />
+<link rel="stylesheet" href="css/wf-marquee.css?v=20260926l" />
 </head>
 <body>
 
@@ -631,7 +632,7 @@
                   <a class="client-name client-link" href="https://thesushiboxcdo.com/the-sushi-box-cdo" target="_blank" rel="noopener">The Sushi Box CDO<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
                   <span class="client-role">Website and booking system</span>
                 </p>
-                <p class="client-desc">A maki shop and event caterer in Cagayan de Oro. I built the site, put their real delivery-app reviews on it, and wired a GoHighLevel calendar into the menu page so pickup bookings land straight in the CRM.</p>
+                <p class="client-desc">A maki shop and event caterer in Cagayan de Oro.</p>
                 <ul class="client-tags">
                   <li>Website</li>
                   <li>GoHighLevel</li>
@@ -705,56 +706,6 @@
         <p class="band-note">Built in GoHighLevel. Published and running.</p>
       </div>
       <p class="build-lead">Every stage of a booking has a workflow behind it. An enquiry from Messenger or the site form becomes an opportunity with an owner on it; from there the pipeline moves itself through booked, attended, no-show, repeat or lost, and each move fires the follow-up that stage needs.</p>
-
-      <div class="sysmap-block">
-        <div class="sysmap" data-sysmap style="--cols: 4; --gap: 48px"
-             data-edges='[{"from":"enquiry","to":"booked"},{"from":"booked","to":"attended"},{"from":"booked","to":"noshow"},{"from":"attended","to":"repeat"},{"from":"noshow","to":"lost"},{"from":"noshow","to":"booked","feedback":true}]'
-             data-route='["enquiry","booked","attended","repeat"]'>
-          <svg class="sysmap-edges" aria-hidden="true"></svg>
-          <div class="sysnode sysnode-live" data-node="enquiry" style="--col: 1; --row: 2">
-            <svg class="icon" aria-hidden="true"><use href="#i-funnel"/></svg>
-            <div>
-              <p class="sysnode-name">Enquiry in</p>
-              <p class="sysnode-meta">Messenger reply or site form</p>
-            </div>
-          </div>
-          <div class="sysnode sysnode-live" data-node="booked" style="--col: 2; --row: 2">
-            <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
-            <div>
-              <p class="sysnode-name">Booked</p>
-              <p class="sysnode-meta">Confirmed, then reminded twice</p>
-            </div>
-          </div>
-          <div class="sysnode sysnode-live" data-node="attended" style="--col: 3; --row: 1">
-            <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
-            <div>
-              <p class="sysnode-name">Attended</p>
-              <p class="sysnode-meta">Thanked, stage moves itself</p>
-            </div>
-          </div>
-          <div class="sysnode sysnode-live" data-node="repeat" style="--col: 4; --row: 1">
-            <svg class="icon" aria-hidden="true"><use href="#i-loop"/></svg>
-            <div>
-              <p class="sysnode-name">Repeat client</p>
-              <p class="sysnode-meta">Promo a week later</p>
-            </div>
-          </div>
-          <div class="sysnode" data-node="noshow" style="--col: 3; --row: 3">
-            <svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>
-            <div>
-              <p class="sysnode-name">No show</p>
-              <p class="sysnode-meta">Chased for a rebooking</p>
-            </div>
-          </div>
-          <div class="sysnode" data-node="lost" style="--col: 4; --row: 3">
-            <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
-            <div>
-              <p class="sysnode-name">Closed lost</p>
-              <p class="sysnode-meta">Three emails over two months</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- The numbers are the workflows' own names in the build (001-006) and
            the order they run in, so they carry information rather than dressing. -->
@@ -1117,17 +1068,15 @@
   </div>
 </div>
 
-<script src="js/main.js?v=20260926j"></script>
-<script src="js/sysmap.js?v=20260926j" defer></script>
-<script src="js/autopilot.js?v=20260926j" defer></script>
-<script src="js/gallery.js?v=20260926j" defer></script>
-<script src="js/wf-marquee.js?v=20260926j" defer></script>
-<script type="module" src="js/barrel.js?v=20260926j"></script>
+<script src="js/main.js?v=20260926l"></script>
+<script src="js/sysmap.js?v=20260926l" defer></script>
+<script src="js/autopilot.js?v=20260926l" defer></script>
+<script src="js/gallery.js?v=20260926l" defer></script>
+<script src="js/wf-marquee.js?v=20260926l" defer></script>
+<script type="module" src="js/barrel.js?v=20260926l"></script>
 <!-- Resizes the GoHighLevel form iframe to its content. -->
 <script src="https://go.jeffreybrianbuilds.com/js/form_embed.js" defer></script>
-<script type="module" src="js/hero-canvas.js?v=20260926j"></script>
-<script src="js/smooth.js?v=20260926j" defer></script>
-<script src="js/cursor.js?v=20260926j" defer></script>
-<script src="js/tabbar.js?v=20260926j" defer></script>
+<script src="js/smooth.js?v=20260926l" defer></script>
+<script src="js/tabbar.js?v=20260926l" defer></script>
 </body>
 </html>

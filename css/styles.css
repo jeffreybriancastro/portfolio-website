@@ -1787,8 +1787,9 @@ img.icon { object-fit: contain; }
 }
 .build-band .sysmap-block { margin-top: 40px; }
 
+/* 28px, not 48: it follows the lead paragraph now that the map above it is gone. */
 .build-list {
-  margin-top: 48px;
+  margin-top: 28px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0 44px;

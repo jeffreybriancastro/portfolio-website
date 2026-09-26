@@ -22,15 +22,17 @@ The site's own design, with features carried over from the React rebuild on the
 | Feature | Files |
 |---|---|
 | Tools marquee, live-board tile, Testimonials ledger, FAQs | `index.html`, `css/styles.css` |
-| Intro (plays once a session, any key or click skips it) | `js/intro.js`, `css/intro.css` |
-| Contour shader behind the hero | `js/hero-canvas.js`, `css/hero-canvas.css` |
 | Live automation diagram | `js/autopilot.js`, `css/autopilot.css` |
 | 3D barrel of client sites, with its dialog | `js/barrel.js`, `css/barrel.css` |
 | Workflow screenshot marquee (001 to 006) | `js/wf-marquee.js`, `css/wf-marquee.css` |
 | Accessibility menu (text size, contrast, reduce motion, underline links) | `js/access.js`, `css/access.css` |
-| Cursor ring | `js/cursor.js`, `css/cursor.css` |
 | Smooth scrolling | `js/smooth.js`, `css/smooth.css` |
 | Phone tab bar | `js/tabbar.js`, `css/tabbar.css` |
+
+Three more were ported and then switched off because too much moved at once:
+the intro (`js/intro.js`), the contour shader behind the hero
+(`js/hero-canvas.js`) and the cursor ring (`js/cursor.js`). Their files and CSS
+are kept; a comment in the `<head>` of `index.html` says how to restore each.
 
 Three.js, GSAP and Lenis load from jsDelivr, pinned to the versions the React
 branch uses, and only when they are needed: nothing heavy loads on a phone or
