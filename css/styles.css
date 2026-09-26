@@ -2133,62 +2133,102 @@ img.icon { object-fit: contain; }
 }
 
 /* ---------- Home panel, second pass ----------
-   Projects shows three shipped sites instead of one oversized crop; the live
-   board sits its number under the description and bleeds the real board
-   beneath it, the way About bleeds the portrait; the CTA tile stacks its
-   words over two actions and centres in its cell. */
-.tile-collage {
-  margin-top: 20px;
-  flex: 1;
-  min-height: 200px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-.tile-collage img {
+   Projects stacks three shipped sites as windows at their real proportions;
+   About's portrait fills its tile; the live board sits its number under the
+   description and bleeds the real board beneath it; the CTA reads left to
+   right: the ask and two actions, then the promises when there is room. */
+
+/* Projects: a cascade, back window top-left, lead window front bottom-right.
+   The box holds its own 2:1 shape so the windows never outgrow it. */
+.tile-stack {
+  position: relative;
+  margin-top: auto;
+  padding-top: 22px;
+  aspect-ratio: 2 / 1;
   width: 100%;
-  height: 100%;
+}
+.tile-stack img {
+  position: absolute;
+  width: 72%;
+  height: auto;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  object-position: top center;
+  object-position: top left;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: var(--surface-alt);
+  box-shadow: 0 10px 24px -12px hsl(var(--shadow-color) / 0.35);
+  transition: transform 0.5s var(--ease-out-expo);
 }
-/* Sites are read from their top-left corner (logo, headline start), so a
-   tall cell trims the right edge rather than both. */
-.tile-collage-lead { grid-row: span 2; object-position: left top !important; }
+.tile-stack img:nth-child(1) { top: 22px; left: 0; }
+.tile-stack img:nth-child(2) { top: 50%; left: 50%; translate: -50% -38%; }
+.tile-stack img:nth-child(3) { bottom: 0; right: 0; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .tile-projects:hover .tile-stack img:nth-child(1) { transform: translate(-8px, -6px) rotate(-1.5deg); }
+  .tile-projects:hover .tile-stack img:nth-child(3) { transform: translate(6px, 4px) rotate(1deg); }
+}
 
+/* About: the portrait runs to the tile's bottom edge at every desktop size. */
+/* It fills whatever height the row settles on but never sets that height
+   itself (flex-basis 0, zero intrinsic height): a 3:4 photo left to size
+   itself stretched the whole row and opened a gap in Projects. */
+@media (min-width: 1041px) { .tile-portrait { max-height: none; height: 0; flex: 1 1 0; min-height: 200px; } }
+
+/* The live board. */
 .tile-board .tile-stat { margin-top: 18px; padding-top: 0; }
 .tile-board-shot {
+  display: block;
   margin: 18px -22px -22px;
   width: calc(100% + 44px);
   max-width: none;
-  flex: 1;
+  flex: 1 1 0;
   min-height: 90px;
   object-fit: cover;
   object-position: left top;
   border-top: 1px solid var(--line);
 }
 
+/* CTA. Resets the first pass's row/wrap rules (align-content:center on a
+   wrapping column is what pushed the block in from the left). */
 .tile-cta {
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 22px;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: normal;
+  justify-content: flex-start;
+  gap: clamp(24px, 3vw, 48px);
   padding: 30px clamp(22px, 3vw, 40px);
 }
+.tile-cta-main { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
 .tile-cta .tile-name { font-size: clamp(1.35rem, 2vw, 1.75rem); font-weight: 800; letter-spacing: -0.02em; }
-.tile-cta .tile-desc { font-size: 0.95rem; max-width: 46ch; }
+.tile-cta .tile-desc { font-size: 0.95rem; max-width: 40ch; }
 .tile-cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.tile-cta .btn-ghost { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
+.tile-cta-points {
+  flex: 0 1 42%;
+  display: grid;
+  padding-left: clamp(24px, 3vw, 48px);
+  border-left: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.tile-cta-points li {
+  display: flex;
+  gap: 10px;
+  padding: 12px 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--accent) 12%, var(--ink-soft));
+}
+.tile-cta-points li + li { border-top: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); }
+.tile-cta-points .icon { flex: none; width: 16px; height: 16px; margin-top: 2px; color: var(--accent-strong); }
+/* Too narrow a tile for both: the ask alone, full width. */
+@container (max-width: 500px) {
+  .tile-cta-points { display: none; }
+}
 
 @media (max-width: 600px) {
-  .tile-collage { min-height: 0; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto auto; }
-  .tile-collage-lead { grid-row: auto; grid-column: span 2; aspect-ratio: 16 / 9; }
-  .tile-collage img:not(.tile-collage-lead) { aspect-ratio: 16 / 10; }
   .tile-board-shot { flex: none; height: auto; aspect-ratio: 16 / 7; }
   .tile-cta-actions { width: 100%; flex-direction: column; }
   .tile-cta-actions .btn { justify-content: center; white-space: nowrap; }
 }
-/* On the accent wash the ghost button's hairline vanishes; tint it from the hue. */
-.tile-cta .btn-ghost { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
