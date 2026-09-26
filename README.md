@@ -41,11 +41,8 @@ the accessibility menu. Every animated feature has a still version.
 
 Only Jeffrey can supply these; nothing has been invented to fill them.
 
-- **Three clients are still unnamed** ("Client 1-3" in the Testimonials ledger),
-  directly under The Sushi Box CDO, which is named. Permission for even one name
-  would help the page more than anything else.
-- **Team Easy Crane, Find The Pulse, Easy Crane** have no write-up beyond what
-  their screenshots show (the TODO in `js/barrel.js`).
+- **Team Easy Crane, Find The Pulse, Easy Crane** are named now, but have no
+  link and no write-up beyond the role line and what their screenshots show (the TODO in `js/barrel.js`).
 - **Pricing.** The FAQ answers "I quote after we talk" (TODO in `index.html`).
 - **A privacy notice.** The contact form posts personal data into GoHighLevel.
 
