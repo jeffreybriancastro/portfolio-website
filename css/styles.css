@@ -346,10 +346,13 @@ body {
 }
 
 /* ---------- Main ---------- */
+/* The column takes the width a wide screen offers, up to 1680px. Grids, cards
+   and diagrams spread into it; every run of prose keeps its own ch measure, so
+   lines never get longer to read. */
 main {
   grid-column: 2;
-  padding: 64px 56px 40px;
-  max-width: 1180px;
+  padding: 64px clamp(56px, 4vw, 88px) 40px;
+  max-width: 1680px;
   min-width: 0;
 }
 

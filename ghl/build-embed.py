@@ -21,7 +21,7 @@ html = open("index.html", encoding="utf-8").read()
 head = html.split("<head>", 1)[1].split("</head>", 1)[0]
 
 # Every stylesheet the page links, in the page's order, inlined.
-css_files = re.findall(r'<link rel="stylesheet" href="(css/[^"]+)"', head)
+css_files = re.findall(r'<link rel="stylesheet" href="(css/[^"?]+)(?:\?[^"]*)?"', head)
 assert css_files and css_files[0] == "css/styles.css", css_files
 css = "\n\n".join(open(f, encoding="utf-8").read() for f in css_files)
 
@@ -37,7 +37,7 @@ js = [open(f"js/{n}.js", encoding="utf-8").read() for n in INLINE]
 def external(block):
     out = []
     for tag in re.findall(r'<script [^>]*src="js/[^"]+"[^>]*></script>', block):
-        name = re.search(r'src="js/([^"]+)\.js"', tag).group(1)
+        name = re.search(r'src="js/([^"?]+)\.js', tag).group(1)
         if name in INLINE:
             continue
         out.append(tag.replace('src="js/', f'src="{BASE}/js/'))
