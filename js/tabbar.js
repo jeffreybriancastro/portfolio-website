@@ -9,7 +9,7 @@
    tag if there is one (data-root="../" on work/*.html), otherwise from where
    this file was loaded (js/tabbar.js sits one folder below the root). On the
    homepage the tabs are plain #anchors; everywhere else they point back at
-   index.html#... . The homepage is recognised by carrying all five sections.
+   /#... (the root, never index.html). The homepage is recognised by carrying all five sections.
 
    On the homepage the active tab follows the scroll. On any other page Work is
    the current tab, since those pages are the case studies.
@@ -60,7 +60,9 @@
     nav.className = "jc-tabbar";
     nav.setAttribute("aria-label", "Sections");
     nav.innerHTML = TABS.map((t) => {
-      const href = isHome ? `#${t.id}` : new URL(`index.html#${t.id}`, root).href;
+      /* The root itself, not root + index.html: GoHighLevel serves the homepage
+         at "/" and has no /index.html; every static host serves both. */
+      const href = isHome ? `#${t.id}` : new URL(`./#${t.id}`, root).href;
       const cls = `jc-tabbar__tab${t.primary ? " jc-tabbar__tab--primary" : ""}`;
       const inner = t.primary
         ? `<span class="jc-tabbar__fab">${ICONS[t.key]}</span><span class="jc-tabbar__label">${t.label}</span>`
