@@ -2,8 +2,8 @@
 
 Jeffrey Brian Castro's portfolio: GoHighLevel CRM, automation workflows, funnels
 and websites. A static site, plain HTML, CSS and JavaScript with no build step.
-It deploys anywhere, and `ghl/build-embed.py` folds the homepage into a single
-element that can be pasted into a GoHighLevel page.
+It runs on GoHighLevel: `ghl/build-embed.py` folds each page into one element
+to paste into a GHL page (see "Where it is live").
 
 ## Running it
 
@@ -11,8 +11,28 @@ element that can be pasted into a GoHighLevel page.
 python3 -m http.server 5288     # then open http://localhost:5288
 ```
 
-After changing `index.html` or anything it links, rebuild the GoHighLevel
-version with `python3 ghl/build-embed.py`.
+## Where it is live
+
+**https://jeffreybrianbuilds.com**, as five GoHighLevel website pages, one per
+page here (`/`, `/automation-workflow`, `/ghl-crm-setup`, `/sales-funnel`,
+`/website-build`). Each GHL page holds one Custom Code element.
+
+Images and the feature scripts load from a Cloudflare Worker,
+`https://jeffreybrianbuilds.jeffreybriancastro.workers.dev`, which deploys this
+repo's `main` branch automatically (`wrangler.jsonc`, `scripts/build-site.sh`)
+and sends the cross-origin headers the GHL pages need (`_headers`). **Do not
+delete that Worker**: every page's images and scripts come from it.
+
+To publish a change:
+
+1. Commit and push to `main`. The Worker picks it up in under a minute.
+2. `python3 ghl/build-embed.py`, then re-paste the changed page's block from
+   `ghl/embed/` into its GHL page and publish. `ghl/embed/PAGES.md` lists each
+   page's path, SEO title and description.
+
+A change to shared CSS or JS alone (no HTML) only needs step 1, as long as the
+`?v=` tags in the pages are bumped so browsers fetch the new files; bumping
+them changes the HTML, so in practice re-paste all five.
 
 ## What is on the page
 
