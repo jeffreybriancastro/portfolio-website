@@ -454,7 +454,7 @@
             "</div>" +
           "</div>" +
           '<div class="funnels__modal-stage">' +
-            '<img class="funnels__modal-img" src="' + esc(funnel.full) + '" width="' + funnel.w + '" height="' + funnel.h +
+            '<img class="funnels__modal-img' + (funnel.fit ? " funnels__modal-img--fit" : "") + '" src="' + esc(funnel.full) + '" width="' + funnel.w + '" height="' + funnel.h +
             '" alt="' + esc(funnel.desc) + '" decoding="async">' +
           "</div>" +
         "</div>" +
@@ -635,6 +635,85 @@
     el.addEventListener("click", function (e) {
       var btn = e.target.closest(".wpanel__shot");
       if (btn) openFull(sushiBox[Number(btn.getAttribute("data-funnel"))], btn);
+    });
+    return { el: el };
+  }
+
+  /**
+   * Zaps he built in Zapier, from his own screenshots of the editor. Each line
+   * says only what the canvas shows: the trigger, the steps, the branches.
+   * The content-repurposing Zap is still a draft, and says so.
+   */
+  var zaps = [
+    {
+      id: "zap-lead-enrichment",
+      label: "Automated Lead Enrichment",
+      tag: "Zapier",
+      desc: "A lead arrives by webhook, Formatter pulls the company URL and Apollo enriches it. Paths then split high from low priority: high gets a Google Sheets row, a Slack alert to sales and an AI-drafted email sent from Gmail; low sends the sales team an email.",
+      thumb: asset("/img/zap-lead-enrichment-thumb.webp"),
+      full: asset("/img/zap-lead-enrichment.webp"),
+      w: 960,
+      h: 540,
+      fit: true, // a small editor screenshot: scale it to the window
+    },
+    {
+      id: "zap-content-repurposing",
+      label: "AI Content Repurposing",
+      tag: "Zapier · draft",
+      desc: "A new file in a Google Drive folder is filtered, transcribed and turned into blog posts by AI by Zapier, then looped into two paths that post to Facebook Pages, LinkedIn and Instagram. Still a draft.",
+      thumb: asset("/img/zap-content-repurposing-thumb.webp"),
+      full: asset("/img/zap-content-repurposing.webp"),
+      w: 960,
+      h: 540,
+      fit: true, // a small editor screenshot: scale it to the window
+    },
+    {
+      id: "zap-daily-response",
+      label: "Automatically Send Response",
+      tag: "Zapier",
+      desc: "Every day, finds tasks in an Asana workspace and sends an email from Gmail.",
+      thumb: asset("/img/zap-daily-response-thumb.webp"),
+      full: asset("/img/zap-daily-response.webp"),
+      w: 960,
+      h: 540,
+      fit: true, // a small editor screenshot: scale it to the window
+    },
+    {
+      id: "zap-quote-followup",
+      label: "Quote Follow-Up Automation",
+      tag: "Zapier",
+      desc: "Every week, finds tasks in an Asana workspace and sends the follow-up email from Gmail.",
+      thumb: asset("/img/zap-quote-followup-thumb.webp"),
+      full: asset("/img/zap-quote-followup.webp"),
+      w: 960,
+      h: 540,
+      fit: true, // a small editor screenshot: scale it to the window
+    },
+  ];
+
+  function zapsPanel() {
+    var items = zaps
+      .map(function (z, i) {
+        return (
+          '<li><button type="button" class="wpanel__shot" data-zap="' + i + '">' +
+          '<img src="' + esc(z.thumb) + '" alt="' + esc("The " + z.label + " Zap in the Zapier editor. " + z.desc) + '" loading="lazy" decoding="async">' +
+          '<span class="wpanel__shot-label">' + esc(z.label) + (z.tag.indexOf("draft") > -1 ? ' <span class="wpanel__shot-tag">Draft</span>' : "") + "</span>" +
+          '<span class="wpanel__shot-desc">' + esc(z.desc) + "</span></button></li>"
+        );
+      })
+      .join("");
+    var body =
+      '<div class="wpanel">' +
+        '<header class="wpanel__head">' +
+          '<h2 class="wpanel__title">Zapier automations</h2>' +
+          '<p class="wpanel__lede">Zaps I built in Zapier, as they sit in the editor. Open one to see the whole canvas.</p>' +
+        "</header>" +
+        '<ul class="wpanel__shots" role="list">' + items + "</ul>" +
+      "</div>";
+    var el = fromHTML(sectionWindow("Zapier", body));
+    el.addEventListener("click", function (e) {
+      var btn = e.target.closest(".wpanel__shot[data-zap]");
+      if (btn) openFull(zaps[Number(btn.getAttribute("data-zap"))], btn);
     });
     return { el: el };
   }
@@ -1251,6 +1330,7 @@
     workflows: { cat: "work", title: "Six workflows, running", Section: automationsPanel },
     pipeline: { cat: "work", title: "The booking pipeline", Section: pipelinePanel },
     sushibox: { cat: "sites", title: "The Sushi Box CDO", Section: sushiPanel },
+    zaps: { cat: "work", title: "Zapier automations", Section: zapsPanel },
     templates: { cat: "sites", title: "Templates", Section: templatesPanel },
     funnels: { cat: "sites", title: "Pages and sites", Section: barrelPanel },
   };

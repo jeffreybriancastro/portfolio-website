@@ -162,12 +162,18 @@ html[data-a11y-motion="true"] .tgrid__quote.is-entering { animation: none; }
   .cgrid__switch-tab .tgrid__pick-kicker { white-space: normal; text-overflow: clip; line-height: 1.25; }
 }
 
-/* Projects: the Templates card sits at the end of the drum's row, so the
+/* Projects: Zapier and Templates sit at the end of the drum's row, so the
    grid stays two rows and one screen. */
 @media (min-width: 1100px) {
-  .bento--projects .bento__card[data-id="funnels"] { grid-column: span 3; }
+  .bento--projects .bento__card[data-id="funnels"] { grid-column: span 2; }
 }
 /* Template links in the Templates window: the arrow rides on the label. */
 .wpanel__shot--link { text-decoration: none; color: inherit; }
 .wpanel__shot--link .wpanel__shot-label { display: inline-flex; align-items: center; gap: 6px; }
 .wpanel__shot--link:hover .wpanel__shot-label { color: var(--orange-ink); }
+/* Zapier window: a line under each Zap saying what it does. */
+.wpanel__shot-desc { display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; font-weight: 400; color: var(--muted); text-align: left; }
+.wpanel__shot-tag { margin-left: 6px; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line-strong); }
+/* The Zap screenshots are small (960 wide); in the full-size viewer they
+   scale to the window instead of sitting at their own size in a corner. */
+.funnels__modal-img--fit { display: block; width: 100%; height: auto; }
