@@ -15,6 +15,37 @@
   --orange-ink: #7FA8FF;
 }
 
+/* Light theme: the blush-rose surfaces of the GoHighLevel form (the palette
+   the site first shipped in), with the logo blue kept as the accent and the
+   deep navy kept for text. Borders, tints and shadows are the rose-brown ink
+   #7C5A4B / #5C4030 at low alpha instead of the template's navy. Scoped to
+   light so the dark theme keeps its navy. */
+:root:not([data-theme=dark]) {
+  --cream: #F7EDE8;
+  --paper: #FFFAF7;
+  --plate: #F2E4DD;
+  --glass: rgba(255, 250, 247, .72);
+  --muted: #7B6257;
+  --divider: rgba(124, 90, 75, .16);
+  --line: rgba(124, 90, 75, .18);
+  --line-strong: rgba(124, 90, 75, .32);
+  --tint: rgba(184, 148, 132, .10);
+  --tint-strong: rgba(184, 148, 132, .18);
+  --brands-chip-bg: #FFFAF7;
+  --brands-chip-border: rgba(124, 90, 75, .14);
+  --shadow-soft: 0 20px 60px -20px rgba(92, 64, 48, .28);
+  --shadow-card: 0 40px 120px -30px rgba(92, 64, 48, .35);
+  --shadow-btn: 0 8px 24px -8px rgba(92, 64, 48, .28);
+}
+
+/* Services' step cards carry their own navy-tinted plates and lines. */
+:root:not([data-theme=dark]) .sgrid__method {
+  --ink-line: rgba(124, 90, 75, .14);
+  --ink-plate: rgba(184, 148, 132, .08);
+  --ink-chip: rgba(184, 148, 132, .12);
+  --ink-ghost: rgba(124, 90, 75, .08);
+}
+
 /* The JB mark: the supplied lockup's hexagon on its own dark tile. */
 .brand-name {
   display: inline-flex;
