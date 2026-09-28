@@ -46,6 +46,20 @@
   --ink-ghost: rgba(124, 90, 75, .08);
 }
 
+/* The sidebar photo shown as taken. The template fades a cut-out portrait
+   into the page (an edge mask and a blurred glow behind it); on a full
+   photo that just washes out the edges. */
+.rail__avatar::before { display: none; }
+.rail__avatar img {
+  -webkit-mask-image: none;
+  mask-image: none;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+  filter: none;
+  box-shadow: var(--shadow-soft);
+}
+
 /* The JB mark: the supplied lockup's hexagon on its own dark tile. */
 .brand-name {
   display: inline-flex;
