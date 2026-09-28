@@ -40,13 +40,14 @@ def to_blue(r, g, b):
 
 
 def hex_sub(m):
-    h = m.group(0).upper()
-    if h in EXACT:
-        return EXACT[h]
-    if h in KEEP:
+    # #RRGGBB or #RRGGBBAA; the alpha pair, if any, is carried over unchanged.
+    h, alpha = m.group(1).upper(), m.group(2) or ""
+    if "#" + h in EXACT:
+        return EXACT["#" + h] + alpha
+    if "#" + h in KEEP:
         return m.group(0)
-    new = to_blue(*(int(h[i:i + 2], 16) for i in (1, 3, 5)))
-    return "#%02X%02X%02X" % new if new else m.group(0)
+    new = to_blue(*(int(h[i:i + 2], 16) for i in (0, 2, 4)))
+    return ("#%02X%02X%02X" % new) + alpha if new else m.group(0)
 
 
 def rgb_sub(m):
@@ -58,11 +59,11 @@ def rgb_sub(m):
 
 
 css = open("css/template.orig.css", encoding="utf-8").read()
-css = re.sub(r"#[0-9a-fA-F]{6}\b", hex_sub, css)
+css = re.sub(r"#([0-9a-fA-F]{6})([0-9a-fA-F]{2})?\b", hex_sub, css)
 css = re.sub(r"(rgba?)\((\d+),\s*(\d+),\s*(\d+)", rgb_sub, css)
 header = ("/* portfolio-template by BrewedOps (MIT), see LICENSE. Recoloured to the "
           "JB brand by scripts/brand-recolor.py from css/template.orig.css: do not "
           "edit by hand. */\n")
 open("css/template.css", "w", encoding="utf-8").write(header + css)
-left = [h for h in re.findall(r"#[0-9a-fA-F]{6}\b", css) if warm(*(int(h[i:i+2], 16) for i in (1, 3, 5)))[0] and h.upper() not in KEEP]
+left = [h for h in re.findall(r"#([0-9a-fA-F]{6})(?:[0-9a-fA-F]{2})?\b", css) if warm(*(int(h[i:i+2], 16) for i in (0, 2, 4)))[0] and "#" + h.upper() not in KEEP]
 print("css/template.css written; warm colours left:", sorted(set(left)))
