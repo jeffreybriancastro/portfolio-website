@@ -1,0 +1,38 @@
+/* Jeffrey Brian Castro's brand on top of the template (portfolio-template by
+   BrewedOps, MIT). The accent itself is recoloured in css/template.css by
+   scripts/brand-recolor.py; this file carries what a recolour can't:
+   - dark mode sits on the logo's deep navy, #011222, instead of near-black;
+   - the JB mark beside the name. */
+
+[data-theme=dark] {
+  --cream: #011222;
+  --paper: #041A2F;
+  --white: #07213A;
+  --navy-ink: #000A16;
+  --panel-dark: #041A2F;
+  --glass: rgba(7, 33, 58, .72);
+  /* The accent as text on navy: the logo blue itself is too dark to read there. */
+  --orange-ink: #7FA8FF;
+}
+
+/* The JB mark: the supplied lockup's hexagon on its own dark tile. */
+.brand-name {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+}
+.brand-mark {
+  flex: none;
+  width: 1.35em;
+  height: 1.35em;
+  border-radius: 28%;
+  display: block;
+}
+
+/* Dark text read fine on the template's light orange; on the logo blue it
+   falls to ~3:1. White clears 6:1 on #0055FE. */
+.cgrid__book,
+.a11y__size.is-on,
+:root .htile .htile__n { color: #FFFFFF; }
+.cgrid__book svg,
+.htile__n svg { color: #FFFFFF; fill: currentColor; }

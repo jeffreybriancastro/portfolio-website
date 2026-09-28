@@ -13,4 +13,5 @@ cd "$(dirname "$0")/.."
 rm -rf dist
 mkdir dist
 cp -R ./*.html work css js img icons og.png robots.txt sitemap.xml LICENSE _headers dist/
+rm -f dist/css/template.orig.css
 echo "dist/: $(find dist -type f | wc -l | tr -d ' ') files"

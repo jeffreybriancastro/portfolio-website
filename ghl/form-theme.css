@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GoHighLevel form theme, matched to jeffreybrianbuilds.com
+   GoHighLevel form theme, matched to jeffreybrianbuilds.com (JB brand: logo blue #0055FE, deep navy #011222)
 
    THIS FILE, AND ONLY THIS FILE, GOES INTO GHL.
    Form builder -> right-hand panel -> Styles -> Custom CSS. Paste the whole
@@ -37,12 +37,11 @@
    declaration using one was discarded. Every colour below is written out.
    ========================================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap");
 
 /* ---------- The page the widget sits on ---------- */
 html,
 body {
-  background-color: #100E11 !important;
+  background-color: #011222 !important;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -54,13 +53,13 @@ body {
   /* GHL's card is content-box, so the padding added below would push it past
      its own 800px wrapper and the submit would hang off the right edge. */
   box-sizing: border-box !important;
-  background-color: #100E11 !important;
-  color: #F2EAE6 !important;
-  border: 1px solid #272329 !important;
+  background-color: #011222 !important;
+  color: #EDF0F6 !important;
+  border: 1px solid #173049 !important;
   border-radius: 24px !important;
-  box-shadow: 0 18px 40px -24px rgba(6, 4, 3, 0.75) !important;
+  box-shadow: 0 18px 40px -24px rgba(0, 6, 14, 0.75) !important;
   padding: 36px 32px !important;
-  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
 }
 
 @media (max-width: 560px) {
@@ -76,8 +75,8 @@ body {
    One extra class takes both. */
 #_builder-form .form-builder--item label,
 #_builder-form .form-builder--item label * {
-  color: #F2EAE6 !important;
-  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  color: #EDF0F6 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
   font-size: 0.9rem !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
@@ -93,14 +92,14 @@ body {
 #_builder-form .form-builder--item label .text-danger,
 #_builder-form .form-builder--item label .required,
 #_builder-form .form-builder--item label span[style*="red"] {
-  color: #CBAA9C !important;
+  color: #7FA8FF !important;
 }
 
 /* The small description under a field. */
 #_builder-form .short-label,
 #_builder-form .form-builder--item .short-label {
-  color: #8E817B !important;
-  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  color: #8A97AD !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
 }
 
 /* ---------- Fields ----------
@@ -126,12 +125,12 @@ body {
   width: 100% !important;
   box-sizing: border-box !important;
   padding: 13px 14px !important;
-  background-color: #171519 !important;
-  color: #F2EAE6 !important;
-  border: 1px solid #272329 !important;
+  background-color: #041A2F !important;
+  color: #EDF0F6 !important;
+  border: 1px solid #173049 !important;
   border-radius: 10px !important;
-  box-shadow: 0 1px 2px rgba(6, 4, 3, 0.4) !important;
-  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  box-shadow: 0 1px 2px rgba(0, 6, 14, 0.4) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
   font-size: 0.95rem !important;
   line-height: 1.5 !important;
   transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
@@ -150,9 +149,9 @@ body {
 }
 
 #_builder-form .iti__country-list {
-  background-color: #171519 !important;
-  color: #F2EAE6 !important;
-  border: 1px solid #272329 !important;
+  background-color: #041A2F !important;
+  color: #EDF0F6 !important;
+  border: 1px solid #173049 !important;
 }
 
 /* ---------- Placeholders ----------
@@ -164,8 +163,8 @@ body {
 #_builder-form .form-builder--item textarea::-webkit-input-placeholder,
 #_builder-form .form-builder--item .multiselect__placeholder,
 #_builder-form .form-builder--item .multiselect .multiselect__placeholder {
-  color: #8E817B !important;
-  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  color: #8A97AD !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
   font-size: 0.95rem !important;
   opacity: 1 !important;
 }
@@ -180,7 +179,7 @@ body {
 #_builder-form .form-field-container .form-builder--item textarea:hover,
 #_builder-form .form-field-container .form-builder--item select:hover,
 #_builder-form .form-field-container .form-builder--item .form-control:hover {
-  border-color: #B89484 !important;
+  border-color: #0055FE !important;
 }
 
 /* The site's focus ring: a real outline, offset, never removed. GHL sets
@@ -193,8 +192,8 @@ body {
 #_builder-form .form-field-container .form-builder--item select:focus,
 #_builder-form .form-field-container .form-builder--item .form-control:focus,
 #_builder-form .form-field-container .form-builder--item .multiselect .multiselect__tags:focus-within {
-  border-color: #B89484 !important;
-  outline: 2.5px solid #B89484 !important;
+  border-color: #0055FE !important;
+  outline: 2.5px solid #0055FE !important;
   outline-offset: 3px !important;
   box-shadow: none !important;
 }
@@ -204,26 +203,26 @@ body {
 #_builder-form input[type="radio"] {
   width: auto !important;
   padding: 0 !important;
-  accent-color: #B89484 !important;
+  accent-color: #0055FE !important;
   box-shadow: none !important;
 }
 
 #_builder-form .multiselect__option--highlight,
 #_builder-form .multiselect__option:hover,
 #_builder-form select option:hover {
-  background-color: #B89484 !important;
-  color: #100E11 !important;
+  background-color: #0055FE !important;
+  color: #FFFFFF !important;
 }
 
 #_builder-form .multiselect__content-wrapper {
-  background-color: #171519 !important;
-  border: 1px solid #272329 !important;
+  background-color: #041A2F !important;
+  border: 1px solid #173049 !important;
 }
 
 #_builder-form .multiselect__tag {
-  background-color: #2A211D !important;
-  border: 1px solid #B89484 !important;
-  color: #F2EAE6 !important;
+  background-color: #07213A !important;
+  border: 1px solid #0055FE !important;
+  color: #EDF0F6 !important;
 }
 
 /* ---------- Submit ----------
@@ -245,18 +244,18 @@ body {
   justify-content: center !important;
   width: 100% !important;
   padding: 15px 26px !important;
-  background-color: #B89484 !important;
+  background-color: #0055FE !important;
   background-image: none !important;
-  color: #100E11 !important;
+  color: #FFFFFF !important;
   border: 0 !important;
   border-radius: 999px !important;
-  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
   font-size: 0.95rem !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
   white-space: normal !important;
   cursor: pointer !important;
-  box-shadow: 0 1px 2px rgba(6, 4, 3, 0.4) !important;
+  box-shadow: 0 1px 2px rgba(0, 6, 14, 0.4) !important;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -267,9 +266,9 @@ body {
   #_builder-form .form-builder--btn-submit button:hover,
   #_builder-form button.button-element:hover,
   #_builder-form .form-builder--item button[type="submit"]:hover {
-    background-color: #CBAA9C !important;
+    background-color: #3D7DFF !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 10px 24px -8px rgba(6, 4, 3, 0.6) !important;
+    box-shadow: 0 10px 24px -8px rgba(0, 6, 14, 0.6) !important;
   }
 }
 
@@ -287,7 +286,7 @@ body {
 }
 
 #_builder-form button:focus-visible {
-  outline: 2.5px solid #B89484 !important;
+  outline: 2.5px solid #0055FE !important;
   outline-offset: 3px !important;
 }
 
@@ -297,15 +296,15 @@ body {
 #_builder-form .error,
 #_builder-form .field-error {
   margin-top: 6px !important;
-  color: #CBAA9C !important;
-  font-family: "Figtree", "Segoe UI", sans-serif !important;
+  color: #7FA8FF !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
   font-size: 0.8rem !important;
 }
 
 #_builder-form .form-field-container .form-builder--item input.is-invalid,
 #_builder-form .form-field-container .form-builder--item input.error,
 #_builder-form .form-field-container .form-builder--item textarea.is-invalid {
-  border-color: #CBAA9C !important;
+  border-color: #7FA8FF !important;
 }
 
 /* ==========================================================================
@@ -315,30 +314,30 @@ body {
 @media (prefers-color-scheme: light) {
   html,
   body {
-    background-color: #F7EDE8 !important;
+    background-color: #F4F4ED !important;
   }
 
   #_builder-form,
   #_builder-form.form-builder--wrap {
-    background-color: #F7EDE8 !important;
-    color: #100E11 !important;
-    border-color: #E8D5CB !important;
-    box-shadow: 0 18px 40px -24px rgba(92, 64, 48, 0.35) !important;
+    background-color: #F4F4ED !important;
+    color: #011222 !important;
+    border-color: #DDE2EA !important;
+    box-shadow: 0 18px 40px -24px rgba(1, 18, 34, 0.35) !important;
   }
 
   #_builder-form .form-builder--item label,
   #_builder-form .form-builder--item label * {
-    color: #100E11 !important;
+    color: #011222 !important;
   }
 
   #_builder-form .form-builder--item label .text-danger,
   #_builder-form .form-builder--item label .required {
-    color: #7C5A4B !important;
+    color: #0A43B4 !important;
   }
 
   #_builder-form .short-label,
   #_builder-form .form-builder--item .short-label {
-    color: #7B6257 !important;
+    color: #5A6479 !important;
   }
 
   #_builder-form .form-field-container .form-builder--item input[type="text"][class="form-control"],
@@ -355,10 +354,10 @@ body {
   #_builder-form .form-field-container .form-builder--item .form-control,
   #_builder-form .form-field-container .form-builder--item .date-picker-custom-style,
   #_builder-form .form-field-container .form-builder--item .multiselect .multiselect__tags {
-    background-color: #FFFAF7 !important;
-    color: #100E11 !important;
-    border-color: #E8D5CB !important;
-    box-shadow: 0 1px 2px rgba(92, 64, 48, 0.08) !important;
+    background-color: #FFFFFF !important;
+    color: #011222 !important;
+    border-color: #DDE2EA !important;
+    box-shadow: 0 1px 2px rgba(1, 18, 34, 0.08) !important;
   }
 
   #_builder-form .form-builder--item input::placeholder,
@@ -366,38 +365,38 @@ body {
   #_builder-form .form-builder--item input::-webkit-input-placeholder,
   #_builder-form .form-builder--item textarea::-webkit-input-placeholder,
   #_builder-form .form-builder--item .multiselect__placeholder {
-    color: #7B6257 !important;
+    color: #5A6479 !important;
   }
 
   #_builder-form .multiselect__content-wrapper,
   #_builder-form .iti__country-list {
-    background-color: #FFFAF7 !important;
-    color: #100E11 !important;
-    border-color: #E8D5CB !important;
+    background-color: #FFFFFF !important;
+    color: #011222 !important;
+    border-color: #DDE2EA !important;
   }
 
   #_builder-form .multiselect__tag {
-    background-color: #F0DDD4 !important;
-    color: #100E11 !important;
+    background-color: #E6EEFF !important;
+    color: #011222 !important;
   }
 
   #_builder-form .form-builder--btn-submit button,
   #_builder-form .form-builder--btn-submit .btn,
   #_builder-form button.button-element,
   #_builder-form .form-builder--item button[type="submit"] {
-    box-shadow: 0 1px 2px rgba(92, 64, 48, 0.1) !important;
+    box-shadow: 0 1px 2px rgba(1, 18, 34, 0.1) !important;
   }
 
   #_builder-form .text-danger,
   #_builder-form .invalid-feedback,
   #_builder-form .error,
   #_builder-form .field-error {
-    color: #7C5A4B !important;
+    color: #0A43B4 !important;
   }
 
   #_builder-form .form-field-container .form-builder--item input.is-invalid,
   #_builder-form .form-field-container .form-builder--item input.error {
-    border-color: #7C5A4B !important;
+    border-color: #0A43B4 !important;
   }
 }
 
@@ -405,8 +404,8 @@ body {
   #_builder-form .form-builder--btn-submit button:hover,
   #_builder-form button.button-element:hover,
   #_builder-form .form-builder--item button[type="submit"]:hover {
-    background-color: #A67F6E !important;
-    box-shadow: 0 10px 24px -8px rgba(92, 64, 48, 0.3) !important;
+    background-color: #3D7DFF !important;
+    box-shadow: 0 10px 24px -8px rgba(1, 18, 34, 0.3) !important;
   }
 }
 
