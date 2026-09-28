@@ -132,3 +132,31 @@ html[data-a11y-motion="true"] .tgrid__quote.is-entering { animation: none; }
   .tgrid__client[data-quote] { cursor: pointer; }
   .tgrid__client.is-quoted { background: color-mix(in srgb, var(--orange) 6%, transparent); }
 }
+
+/* Contact / Book a call: the enquiry form and the booking calendar share the
+   right-hand side, one at a time, behind a switch (js/contact.js). The
+   switch is the template's picker, as on Services. */
+.cgrid__reach {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  min-width: 0;
+}
+.cgrid__reach > .cgrid__panel { flex: 1 1 auto; min-height: 0; }
+.cgrid__reach > .cgrid__panel[hidden] { display: none; }
+/* Two short options: side by side at every width (the template stacks its
+   picker on phones). */
+.cgrid__switch { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cgrid__switch-tab { justify-content: center; padding: 11px 14px; }
+.cgrid__switch-tab svg { flex: none; }
+.cgrid__switch-tab .tgrid__pick-kicker { font-size: 14px; }
+.cgrid__switch-tab.is-active svg { color: var(--orange-ink); }
+@media (max-width: 1099px) {
+  /* The template lifts the form above the FAQs on phones (order: -1 on the
+     panel); lift the whole switch-and-panels block instead, switch first. */
+  .cgrid__reach { order: -1; }
+  .cgrid__reach > .cgrid__panel { order: 0; }
+  .cgrid__switch-tab { gap: 7px; padding: 11px 8px; }
+  .cgrid__switch-tab .tgrid__pick-kicker { white-space: normal; text-overflow: clip; line-height: 1.25; }
+}

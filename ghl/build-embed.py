@@ -32,7 +32,6 @@ PAGES = [
     ("testimonials.html", "testimonials", "/testimonials"),
     ("about.html", "about", "/about"),
     ("contact.html", "contact", "/contact"),
-    ("book.html", "book", "/book"),
     ("work/automation-workflow.html", "automation-workflow", "/automation-workflow"),
     ("work/ghl-crm-setup.html", "ghl-crm-setup", "/ghl-crm-setup"),
     ("work/sales-funnel.html", "sales-funnel", "/sales-funnel"),
