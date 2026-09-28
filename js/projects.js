@@ -639,6 +639,50 @@
     return { el: el };
   }
 
+  /**
+   * Demo sites he designed and built as templates. Not client work: the
+   * businesses, people and numbers in them are fictional, and the panel says
+   * so before anything else. Each opens the live demo in a new tab
+   * (templates/, served next to the site).
+   */
+  var templates = [
+    {
+      slug: "westmont-family-dental",
+      name: "Westmont Family Dental",
+      kind: "Dental clinic",
+      thumb: asset("/img/tpl-westmont-thumb.webp"),
+      alt: "The Westmont Family Dental demo: a family dental clinic's home page with a booking button, an insurance check and a clinic photo.",
+    },
+    {
+      slug: "solana-residences",
+      name: "Solana Residences",
+      kind: "Condominium launch",
+      thumb: asset("/img/tpl-solana-thumb.webp"),
+      alt: "The Solana Residences demo: a luxury condominium launch page with a large serif title over a faded living-room photo.",
+    },
+  ];
+
+  function templatesPanel() {
+    var items = templates
+      .map(function (t) {
+        return (
+          '<li><a class="wpanel__shot wpanel__shot--link" href="' + esc(asset("/templates/" + t.slug + ".html")) + '" target="_blank" rel="noopener">' +
+          '<img src="' + esc(t.thumb) + '" alt="' + esc(t.alt) + '" loading="lazy" decoding="async">' +
+          '<span class="wpanel__shot-label">' + esc(t.name) + " · " + esc(t.kind) + iconArrow(13) + "</span></a></li>"
+        );
+      })
+      .join("");
+    var body =
+      '<div class="wpanel">' +
+        '<header class="wpanel__head">' +
+          '<h2 class="wpanel__title">Templates</h2>' +
+          '<p class="wpanel__lede">Demo sites I designed and built. The businesses, people and numbers in them are fictional. Open one to click through the live demo.</p>' +
+        "</header>" +
+        '<ul class="wpanel__shots" role="list">' + items + "</ul>" +
+      "</div>";
+    return { el: fromHTML(sectionWindow("Templates", body)) };
+  }
+
   /** Only the barrel, spinning on the backdrop. Its own preview still stacks
    *  above it (z 9000). */
   function barrelPanel() {
@@ -1200,6 +1244,7 @@
     workflows: { cat: "work", title: "Six workflows, running", Section: automationsPanel },
     pipeline: { cat: "work", title: "The booking pipeline", Section: pipelinePanel },
     sushibox: { cat: "sites", title: "The Sushi Box CDO", Section: sushiPanel },
+    templates: { cat: "sites", title: "Templates", Section: templatesPanel },
     funnels: { cat: "sites", title: "Pages and sites", Section: barrelPanel },
   };
 

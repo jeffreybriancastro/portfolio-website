@@ -161,3 +161,13 @@ html[data-a11y-motion="true"] .tgrid__quote.is-entering { animation: none; }
   .cgrid__switch-tab { gap: 7px; padding: 11px 8px; }
   .cgrid__switch-tab .tgrid__pick-kicker { white-space: normal; text-overflow: clip; line-height: 1.25; }
 }
+
+/* Projects: the Templates card sits at the end of the drum's row, so the
+   grid stays two rows and one screen. */
+@media (min-width: 1100px) {
+  .bento--projects .bento__card[data-id="funnels"] { grid-column: span 3; }
+}
+/* Template links in the Templates window: the arrow rides on the label. */
+.wpanel__shot--link { text-decoration: none; color: inherit; }
+.wpanel__shot--link .wpanel__shot-label { display: inline-flex; align-items: center; gap: 6px; }
+.wpanel__shot--link:hover .wpanel__shot-label { color: var(--orange-ink); }
