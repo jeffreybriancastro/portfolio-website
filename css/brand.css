@@ -91,14 +91,14 @@
   line-height: 1.3;
   color: var(--orange-ink);
 }
-.rail__role + .rail__handle { margin-top: 3px; }
+/* The @handle line is gone from the markup; this hides it on pages pasted
+   into GoHighLevel before it was removed, since they load this file live. */
+.rail__handle,
+.hprofile__handle { display: none; }
 .hprofile__role {
   margin-top: 4px;
   font-size: 13px;
   font-weight: 600;
   line-height: 1.25;
   color: var(--orange-ink);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
