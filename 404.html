@@ -1,101 +1,29 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta name="color-scheme" content="dark" />
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Page not found | Jeffrey Brian Castro</title>
-<meta name="description" content="That page doesn't exist. Head back to the work, or get in touch." />
-<meta name="robots" content="noindex" />
-<meta name="theme-color" content="#F7EDE8" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#100E11" media="(prefers-color-scheme: dark)" />
+<meta name="description" content="That page doesn&#x27;t exist. Head back to the work, or get in touch." />
+
+<meta name="theme-color" content="#F4F2EC" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Jeffrey Brian Castro" />
+<meta property="og:title" content="Page not found | Jeffrey Brian Castro" />
+<meta property="og:description" content="That page doesn&#x27;t exist. Head back to the work, or get in touch." />
+<meta property="og:image" content="https://jeffreybrianbuilds.com/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="/img/favicon-32.png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/img/logo-mark.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/css/styles.css" />
-<style>
-  /* One-off page: the shell would be dead weight here, so the content column
-     stands on its own and centres in the viewport. */
-  .notfound {
-    min-height: 100vh;
-    display: grid;
-    align-content: center;
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 40px 24px;
-  }
-  .notfound-code {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--accent-strong);
-  }
-  .notfound-heading {
-    margin-top: 18px;
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-  }
-  .notfound-copy {
-    margin-top: 18px;
-    color: var(--ink-soft);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    max-width: 48ch;
-  }
-  .notfound-actions {
-    margin-top: 32px;
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-  .notfound-links {
-    margin-top: 44px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-    display: flex;
-    gap: 22px;
-    flex-wrap: wrap;
-    font-size: 0.88rem;
-  }
-  .notfound-links a {
-    color: var(--ink-soft);
-    transition: color 0.2s var(--ease-out-expo);
-  }
-  .notfound-links a:hover { color: var(--accent-strong); }
-  @media (max-width: 480px) {
-    .notfound-actions { flex-direction: column; align-items: stretch; }
-    .notfound-actions .btn { justify-content: center; }
-  }
-</style>
+<!-- Layout and look: the portfolio-template by BrewedOps (MIT), see LICENSE. -->
+<link rel="stylesheet" href="/css/template.css?v=20260929a" />
+<link rel="stylesheet" href="/css/pages.css?v=20260929a" />
+<script src="/js/theme.js?v=20260929a"></script>
 </head>
 <body>
-
-<svg class="icon-sprite" aria-hidden="true" style="display:none">
-  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-</svg>
-
-<main class="notfound">
-  <p class="notfound-code">404</p>
-  <h1 class="notfound-heading">That page isn't wired up.</h1>
-  <p class="notfound-copy">The link you followed doesn't point at anything — either it moved or it never existed. The work is all still here.</p>
-
-  <div class="notfound-actions">
-    <a class="btn btn-primary" href="/">Back to the start <svg class="icon"><use href="#i-arrow"/></svg></a>
-    <a class="btn btn-ghost" href="/#projects">See the work</a>
-  </div>
-
-  <nav class="notfound-links" aria-label="Case studies">
-    <a href="/work/website-build.html">Websites</a>
-    <a href="/work/sales-funnel.html">Sales funnels</a>
-    <a href="/work/ghl-crm-setup.html">CRM setup</a>
-    <a href="/work/automation-workflow.html">Automation</a>
-    <a href="/#contact">Contact</a>
-  </nav>
-</main>
-
+<div id="root">
+<main class="legal-page" aria-label="Page not found"><div class="legal-page__card"><a class="legal-page__back" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"></path></svg>Back to home</a><p class="legal-page__updated">404</p><h1 class="legal-page__title">Page not found.</h1><div class="legal-page__body"><p>That URL doesn't exist. If you followed a link that should work, let me know and I will look into it.</p></div></div></main>
+</div>
+<script src="/js/pages.js?v=20260929a" defer></script>
 </body>
 </html>

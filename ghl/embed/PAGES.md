@@ -6,6 +6,12 @@ blank page, one Custom Code element, paste the file's whole contents.
 | Paste this file | GHL page path | SEO title | SEO description |
 |---|---|---|---|
 | `ghl/embed/home.html` | `/` | Jeffrey Brian Castro \| Websites, Funnels, CRM & Automation | Jeffrey Brian Castro builds GoHighLevel CRM systems and the automations that run them, plus the funnels and websites that feed them: one operator, the whole system. |
+| `ghl/embed/projects.html` | `/projects` | Projects \| Jeffrey Brian Castro | Real screens from real builds - no mockups. Open a card to see it full size. |
+| `ghl/embed/services.html` | `/services` | Services \| Jeffrey Brian Castro | They end up connected, because a funnel that does not feed the CRM is just a page. |
+| `ghl/embed/testimonials.html` | `/testimonials` | Testimonials \| Jeffrey Brian Castro | A short list on purpose. This is the message that came in after launch, and the clients behind the systems on the Projects page. |
+| `ghl/embed/about.html` | `/about` | About \| Jeffrey Brian Castro | I build the CRM and automation systems that keep a business’s leads moving, and the funnels and sites that feed them. |
+| `ghl/embed/contact.html` | `/contact` | FAQs / Contact \| Jeffrey Brian Castro | What you’re running now, what’s still manual, and where it’s leaking. I’ll come back with how I’d wire it and what it takes. |
+| `ghl/embed/book.html` | `/book` | Book a call \| Jeffrey Brian Castro | Same answer as the form, faster. The calendar below is my own GoHighLevel - the same kind of booking widget I put inside client sites. |
 | `ghl/embed/automation-workflow.html` | `/automation-workflow` | Automation workflow case study \| Jeffrey Brian Castro | How a custom n8n automation workflow is built, with triggers, validation, routing and retries, wired into GoHighLevel, Sheets, and Slack. |
 | `ghl/embed/ghl-crm-setup.html` | `/ghl-crm-setup` | GoHighLevel CRM setup case study \| Jeffrey Brian Castro | How a GoHighLevel account is set up from scratch, with pipelines, tags, owners, follow-up automation and reporting, so no lead source goes untracked. |
 | `ghl/embed/sales-funnel.html` | `/sales-funnel` | Sales funnel case study \| Jeffrey Brian Castro | How a multi-step sales funnel is built and wired into GoHighLevel so opt-ins are tagged, nurtured, and driven to a booked call without manual follow-up. |

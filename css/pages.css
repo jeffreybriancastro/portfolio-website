@@ -1,0 +1,14 @@
+/* The template's layout rendered as static pages: what React decided with a
+   media query (useIsPhone, max-width 1099px) is decided here in CSS instead.
+   Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE. */
+
+/* Home has a different composition on phones; both ship, one shows. */
+@media (min-width: 1100px) {
+  .only-phone,
+  .tabbar,
+  .theme-btn--float,
+  .pfilter { display: none !important; }
+}
+@media (max-width: 1099px) {
+  .only-desk { display: none !important; }
+}

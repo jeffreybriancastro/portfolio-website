@@ -1,0 +1,195 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE. */
+
+/* Services on one screen.
+
+   React let /services scroll: the method, the four services and the live
+   automation stacked to about 1.7 screens. Here, on desktop, the three bands
+   share one glass sheet and a segmented switch (the testimonials picker,
+   .tgrid__picker) chooses which band fills it. js/services.js adds
+   .is-tabbed to .sgrid and manages the switch; without it every band shows
+   and the panel scrolls, as before. Phones (< 1100px) keep the stacked
+   page and never see the switch. */
+
+.sgrid__tabs { display: none; }
+
+@media (min-width: 1100px) {
+  /* No script, no switch: let the fixed panel scroll rather than clip. */
+  .shell__panel[data-fixed="true"]:has(.sgrid:not(.is-tabbed)) { overflow-y: auto; }
+
+  .sgrid.is-tabbed {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    min-height: 0;
+    padding-top: clamp(18px, 3vh, 34px);
+    padding-bottom: clamp(14px, 2.6vh, 30px);
+    gap: clamp(12px, 2vh, 22px);
+  }
+  .sgrid.is-tabbed .pgrid__head { gap: 6px; }
+
+  .sgrid.is-tabbed .sgrid__glass {
+    container: sgrid / inline-size;
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: clamp(10px, 1.8vh, 18px);
+  }
+
+  /* ---- The switch ---- */
+  .sgrid.is-tabbed .sgrid__tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .sgrid__tab { justify-content: center; padding: 11px 14px; }
+  .sgrid__tab .tgrid__pick-kicker { font-size: clamp(12.5px, .85vw, 14px); }
+  .sgrid__tab-num {
+    flex: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .sgrid__tab.is-active .sgrid__tab-num { color: var(--orange-ink); }
+
+  /* ---- Panels ---- */
+  .sgrid.is-tabbed .sgrid__panel[hidden] { display: none !important; }
+  .sgrid.is-tabbed .sgrid__panel {
+    min-height: 0;
+    min-width: 0;
+    height: 100%;
+    animation: sgrid-panel-in .36s var(--ease-out) both;
+  }
+  .sgrid.is-tabbed .sgrid__panel:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  @keyframes sgrid-panel-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* The switch already names each band; keep the in-band repeat of that
+     name for screen readers only. */
+  .sgrid.is-tabbed .sgrid__method-eyebrow,
+  .sgrid.is-tabbed .sgrid__offers-title,
+  .sgrid.is-tabbed .sgrid__flow-eyebrow {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* ---- 01 How a project runs: headline across the top, the four
+     stages as one row of tall cards beneath it ---- */
+  .sgrid.is-tabbed .sgrid__method {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: clamp(16px, 3vh, 32px);
+    padding: clamp(18px, 3.4vh, 40px) clamp(18px, 2.2vw, 40px);
+  }
+  .sgrid.is-tabbed .sgrid__method-copy {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+    column-gap: clamp(20px, 3vw, 56px);
+  }
+  .sgrid.is-tabbed .sgrid__method-title { font-size: clamp(22px, 2vw, 36px); }
+  .sgrid.is-tabbed .sgrid__method-sub { max-width: 46ch; justify-self: end; font-size: clamp(12.5px, .9vw, 15px); }
+  .sgrid.is-tabbed .sgrid__stages { grid-auto-rows: minmax(clamp(220px, 36vh, 420px), auto); }
+  .sgrid.is-tabbed .sgrid__stage { padding: clamp(14px, 2.2vh, 22px) clamp(12px, 1vw, 18px); }
+  .sgrid.is-tabbed .sgrid__stage-ghost { font-size: clamp(60px, 8vh, 84px); }
+  .sgrid.is-tabbed .sgrid__stage-label { margin-top: clamp(10px, 1.8vh, 18px); font-size: clamp(18px, 1.35vw, 24px); }
+  .sgrid.is-tabbed .sgrid__stage-body { margin-top: 6px; font-size: clamp(12.5px, .85vw, 14.5px); }
+
+  /* Narrow sheet: the headline's two parts stack. */
+  @container sgrid (max-width: 900px) {
+    .sgrid.is-tabbed .sgrid__method-copy { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
+    .sgrid.is-tabbed .sgrid__method-sub { justify-self: start; max-width: 60ch; }
+    .sgrid.is-tabbed .sgrid__stages { gap: 24px; }
+    .sgrid.is-tabbed .sgrid__stage + .sgrid__stage::before { left: -24px; width: 24px; }
+    .sgrid.is-tabbed .sgrid__stage + .sgrid__stage::after { left: -24px; }
+    .sgrid.is-tabbed .sgrid__stage-ghost { font-size: 56px; }
+  }
+
+  /* ---- 02 What I build: four cards across the sheet ---- */
+  .sgrid.is-tabbed .sgrid__offers {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: center;
+    gap: clamp(10px, 1.8vh, 18px);
+  }
+  .sgrid.is-tabbed .sgrid__services {
+    align-self: center;
+    grid-template-rows: none;
+    grid-auto-rows: minmax(clamp(300px, 50vh, 540px), auto);
+  }
+  .sgrid.is-tabbed .sgrid__service { padding: clamp(14px, 2.4vh, 26px) clamp(14px, 1.3vw, 22px); }
+  .sgrid.is-tabbed .sgrid__service .bento__head { gap: clamp(6px, 1.1vh, 10px); }
+  .sgrid.is-tabbed .sgrid__service .bento__logos { margin-bottom: clamp(6px, 1.4vh, 14px); }
+  .sgrid.is-tabbed .sgrid__service .bento__logo { width: clamp(38px, 5vh, 48px); height: clamp(38px, 5vh, 48px); border-radius: 13px; }
+  .sgrid.is-tabbed .sgrid__service .bento__logo img { width: clamp(22px, 2.9vh, 28px); height: clamp(22px, 2.9vh, 28px); }
+  .sgrid.is-tabbed .sgrid__service .bento__title { font-size: clamp(16px, 1.15vw, 20px); }
+  .sgrid.is-tabbed .sgrid__service .bento__desc { font-size: clamp(12px, .85vw, 14.5px); }
+  .sgrid.is-tabbed .sgrid__chip { margin-top: clamp(10px, 1.6vh, 16px); }
+  .sgrid.is-tabbed .sgrid__bullets {
+    margin-top: auto;
+    padding-top: clamp(12px, 2vh, 20px);
+    gap: clamp(6px, 1.2vh, 12px);
+    border-top: 1px solid var(--line);
+  }
+  .sgrid.is-tabbed .sgrid__bullet { font-size: clamp(12px, .85vw, 14.5px); }
+
+  /* Narrow sheet: two by two, so the bullets are not one word a line. */
+  @container sgrid (max-width: 900px) {
+    .sgrid.is-tabbed .sgrid__offers { grid-template-rows: auto minmax(0, 1fr); align-content: stretch; }
+    .sgrid.is-tabbed .sgrid__services {
+      align-self: stretch;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: auto;
+    }
+    .sgrid.is-tabbed .sgrid__service { padding: 12px 14px; }
+    .sgrid.is-tabbed .sgrid__service .bento__desc { min-height: 0; }
+    .sgrid.is-tabbed .sgrid__service .bento__logos { margin-bottom: 2px; }
+    .sgrid.is-tabbed .sgrid__service .bento__logo { width: 34px; height: 34px; }
+    .sgrid.is-tabbed .sgrid__service .bento__logo img { width: 20px; height: 20px; }
+    .sgrid.is-tabbed .sgrid__chip { margin-top: 6px; }
+    .sgrid.is-tabbed .sgrid__bullets { padding-top: 8px; gap: 4px; }
+    .sgrid.is-tabbed .sgrid__bullet { font-size: 12px; }
+  }
+
+  /* ---- 03 Live automation: caption beside the tools, diagram below ---- */
+  .sgrid.is-tabbed .sgrid__flow {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: clamp(10px, 1.6vh, 16px);
+  }
+  .sgrid.is-tabbed .sgrid__flow-head {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    text-align: left;
+    gap: clamp(16px, 2vw, 32px);
+  }
+  .sgrid.is-tabbed .sgrid__flow-copy { align-items: flex-start; gap: 4px; }
+  .sgrid.is-tabbed .sgrid__flow-sub { max-width: 72ch; }
+  .sgrid.is-tabbed .sgrid__flow-tools { flex: none; justify-content: flex-end; max-width: 42%; }
+  .sgrid.is-tabbed .sgrid__flow-main { height: 100%; min-height: 0; }
+  .sgrid.is-tabbed .sgrid__flow .autopilot__window { height: 100%; }
+  .sgrid.is-tabbed .sgrid__flow .autopilot__canvas { padding: clamp(10px, 1.6vh, 20px) clamp(12px, 1.4vw, 24px); }
+
+  @container sgrid (max-width: 900px) {
+    .sgrid.is-tabbed .sgrid__flow-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .sgrid.is-tabbed .sgrid__flow-tools { max-width: none; justify-content: flex-start; }
+  }
+}
+
+/* Signals: drawn by js/services.js along the measured wires. */
+.autopilot__signals circle { fill: var(--ap-loop); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sgrid.is-tabbed .sgrid__panel { animation: none; }
+}

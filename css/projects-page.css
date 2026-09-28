@@ -1,0 +1,34 @@
+/* Adapted from portfolio-template by BrewedOps (MIT) — see LICENSE. */
+/* Only what template.css lacks for the plain-JS Projects page (js/projects.js). */
+
+/* The phone filter hides cards with [hidden]; the card's own display rule
+   would otherwise win over the attribute. */
+.bento--projects .bento__card[hidden] { display: none !important; }
+
+/* The workflow viewer opens from inside the Projects dialog (z 8000), but the
+   template gives it z 100, so in the React build it opened underneath and out
+   of sight. Stacked above it here, still under the page preview (9000). */
+body > .wfs__modal { z-index: 8500; }
+
+/* The drum's still form: no WebGL, reduced motion, or Three.js failed to
+   load. The pages as a grid on the dialog's backdrop, each opening the same
+   preview the drum would. */
+.ppanel--barrel .funnels__barrel[data-still="true"] {
+  height: auto;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 4px;
+}
+.ppanel--barrel .funnels__barrel[data-still="true"]::before,
+.ppanel--barrel .funnels__barrel[data-still="true"]::after { display: none; }
+.funnels__still {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+.funnels__still .wpanel__shot img { aspect-ratio: 16 / 10; }
+.funnels__still .wpanel__shot-label { color: rgba(255, 255, 255, 0.82); }
+@media (max-width: 720px) {
+  .funnels__still { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+}
