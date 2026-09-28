@@ -20,25 +20,115 @@
   .tgrid__client-tags { display: none; }
 }
 
-/* Testimonials: client quotes in the ledger rows. */
-.tgrid__client-stars {
-  font-size: clamp(12px, min(.9vw, 1.6vh), 15px);
-  letter-spacing: .12em;
+
+/* Testimonials: every client's words in the left panel. Phones stack all four;
+   desktop shows one at a time (js/testimonials.js), with arrows and dots. */
+.tgrid__reel { gap: clamp(14px, 2vh, 22px); }
+.tgrid__quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(12px, 1.8vh, 20px);
+  margin: 0;
+}
+.tgrid__quote-stars {
+  font-size: 17px;
+  letter-spacing: .14em;
   line-height: 1;
   color: var(--orange);
 }
-.tgrid__client-quote { margin: 0; }
-.tgrid__client-quote p {
+.tgrid__quote-text { margin: 0; }
+.tgrid__quote-text p {
   margin: 0;
-  font-size: clamp(12.5px, min(.95vw, 1.8vh), 16px);
-  line-height: 1.5;
+  font-size: clamp(16px, min(1.2vw, 2.25vh), 21px);
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: -.005em;
   color: var(--navy);
   text-wrap: pretty;
 }
+.tgrid__quote-by { display: flex; flex-direction: column; gap: 3px; }
+.tgrid__quote-name {
+  font-size: clamp(15px, 1.1vw, 18px);
+  font-weight: 700;
+  color: var(--navy);
+}
+.tgrid__quote-role {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.tgrid__quote-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.tgrid__reel-nav { display: none; }
+
+@media (max-width: 1099px) {
+  .tgrid__quote + .tgrid__quote { padding-top: 22px; border-top: 1px solid var(--line); }
+}
+
 @media (min-width: 1100px) {
-  /* The message panel is mostly air around the screenshot; the quotes need the width. */
-  .tgrid__glass { grid-template-columns: minmax(300px, 1fr) minmax(0, 1.9fr); }
-  .tgrid__client-body { padding-right: 0; }
-  .tgrid__client-ghost { display: none; } /* would sit under the full-width quotes */
-  .tgrid__client { padding-block: clamp(8px, 1.1vh, 18px); }
+  .tgrid__reel { justify-content: flex-start; }
+  .tgrid__quote { flex: 1 1 auto; min-height: 0; }
+  .tgrid__quote[hidden] { display: none; }
+  .tgrid__quote.is-entering { animation: tq-in .34s var(--ease-out) both; }
+  .tgrid__reel-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 0 0 auto;
+  }
+}
+@keyframes tq-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tgrid__quote.is-entering { animation: none; }
+}
+html[data-a11y-motion="true"] .tgrid__quote.is-entering { animation: none; }
+
+.tgrid__arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--navy);
+  cursor: pointer;
+  transition: color .2s var(--ease-out), box-shadow .2s var(--ease-out);
+}
+.tgrid__arrow--next svg { transform: scaleX(-1); }
+.tgrid__arrow:hover { color: var(--orange-ink); box-shadow: inset 0 0 0 1px var(--orange); }
+.tgrid__arrow:focus-visible,
+.tgrid__dot:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+.tgrid__dots { display: flex; align-items: center; }
+.tgrid__dot {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+}
+.tgrid__dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transition: width .25s var(--ease-out), background-color .25s var(--ease-out);
+}
+.tgrid__dot:hover::before { background: var(--muted); }
+.tgrid__dot[aria-selected="true"]::before { width: 22px; background: var(--orange); }
+@media (min-width: 1100px) {
+  .tgrid__client[data-quote] { cursor: pointer; }
+  .tgrid__client.is-quoted { background: color-mix(in srgb, var(--orange) 6%, transparent); }
 }
