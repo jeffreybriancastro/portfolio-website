@@ -647,6 +647,13 @@
    */
   var templates = [
     {
+      slug: "driftwood-orthodontics",
+      name: "Driftwood Orthodontics",
+      kind: "Orthodontist",
+      thumb: asset("/img/tpl-driftwood-thumb.webp"),
+      alt: "The Driftwood Orthodontics demo: an orthodontist's home page with the headline \"A smile that makes waves, starting on the Eastern Shore.\"",
+    },
+    {
       slug: "westmont-family-dental",
       name: "Westmont Family Dental",
       kind: "Dental clinic",
